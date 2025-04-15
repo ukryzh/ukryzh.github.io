@@ -65,4 +65,3 @@ function goBack() {
   document.getElementById('case-container').innerHTML = '';
   document.querySelector('.resume').style.display = 'flex';
 }
-
