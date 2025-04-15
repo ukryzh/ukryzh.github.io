@@ -1,11 +1,80 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Моё резюме</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Резюме - Ульяна Крыж</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <h1>Привет! Я Аналитик</h1>
-  <p>Это моя первая страница на GitHub Pages.</p>
+  <!-- Переключение языка -->
+  <div class="lang-switch">
+    <a href="en.html">EN</a>
+  </div>
+
+  <!-- Панель "Назад к резюме" (отображается при просмотре кейса) -->
+  <div class="back-bar" id="backBar" style="display: none">
+    <button onclick="goBackToResume()">← Назад к резюме</button>
+  </div>
+
+  <!-- Основной блок резюме -->
+  <div class="resume">
+    <!-- Левая панель -->
+    <div class="left-panel">
+      <div class="photo">
+        <img src="assets/photo.jpg" alt="Фото" />
+      </div>
+      <div class="contact-info">
+        <h2>Ульяна Крыж</h2>
+        <p>Email: ulyana@example.com</p>
+        <p>Тел: +7 999 123-45-67</p>
+        <!-- Другие контакты -->
+      </div>
+
+      <div class="projects">
+        <h3>Бизнес-кейсы</h3>
+        <button class="project-btn" onclick="loadCase('case1.html')">
+          Проект 1 – Аналитика в банке <span>→</span>
+        </button>
+        <button class="project-btn" onclick="loadCase('case2.html')">
+          Проект 2 – Автоматизация процессов <span>→</span>
+        </button>
+        <!-- Добавь больше кейсов по желанию -->
+      </div>
+
+      <!-- QR для печати -->
+      <div class="qr-print">
+        <img src="assets/qr-code.png" alt="QR код" />
+      </div>
+    </div>
+
+    <!-- Правая панель -->
+    <div class="right-panel" id="mainContent">
+      <h1>Бизнес-аналитик</h1>
+
+      <section>
+        <h2>Навыки</h2>
+        <p>SQL, BPMN, Confluence, Jira, Figma, Python (базово), Git</p>
+        <p>Коммуникация, фасилитация, кросс-функциональная работа</p>
+      </section>
+
+      <section>
+        <h2>Опыт работы</h2>
+        <p>2022–2025 — Банк "Развитие", Бизнес-аналитик</p>
+        <!-- и т.д. -->
+      </section>
+
+      <section>
+        <h2>Образование</h2>
+        <p>НИУ ВШЭ, Прикладная математика и информатика</p>
+      </section>
+
+      <section>
+        <h2>Дополнительные курсы</h2>
+        <p>Stepik, Practicum, Coursera — по аналитике и Python</p>
+      </section>
+    </div>
+  </div>
 </body>
 </html>
