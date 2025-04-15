@@ -37,3 +37,32 @@ function showProjectDetails(projectId) {
   document.querySelector(`.project-details[data-project-id="${projectId}"]`).classList.remove('hidden');
   document.querySelector('.back-bar').style.display = 'block'; // Показываем кнопку "Назад к резюме"
 }
+
+function loadCase(file) {
+  fetch(file)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Файл не найден');
+      }
+      return response.text();
+    })
+    .then(html => {
+      const container = document.getElementById('case-container');
+      container.innerHTML = `
+        <button onclick="goBack()" style="position: sticky; top: 0; background: #fff; padding: 10px; border: none; cursor: pointer;">
+          ← Назад к резюме
+        </button>
+        ${html}
+      `;
+      document.querySelector('.resume').style.display = 'none';
+    })
+    .catch(error => {
+      alert('Ошибка при загрузке кейса: ' + error.message);
+    });
+}
+
+function goBack() {
+  document.getElementById('case-container').innerHTML = '';
+  document.querySelector('.resume').style.display = 'flex';
+}
+
