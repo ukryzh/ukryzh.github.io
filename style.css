@@ -1,0 +1,151 @@
+/* Сброс стилей для всех элементов */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Стиль страницы */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.resume {
+  display: flex;
+  width: 210mm; /* ширина A4 */
+  min-width: 100%;
+  background-color: white;
+  padding: 20mm;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Левая панель */
+.left-panel {
+  width: 33%;
+  padding-right: 20px;
+  border-right: 1px solid #eee;
+}
+
+/* Правая панель */
+.right-panel {
+  width: 67%;
+  padding-left: 20px;
+}
+
+/* Фото */
+.photo img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  max-width: 120px;
+  margin-bottom: 20px;
+}
+
+/* Контактная информация */
+.contact-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+.contact-info p {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+/* Блок с проектами */
+.projects h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
+.project-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.project-btn:hover {
+  background-color: #0056b3;
+}
+.project-btn span {
+  font-size: 1.2rem;
+}
+
+/* QR-код для печати */
+.qr-print img {
+  width: 100px;
+  height: 100px;
+  margin-top: 20px;
+}
+
+/* Стили для заголовков и текста в правой панели */
+.right-panel h1, .right-panel h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+.right-panel p {
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+/* Стиль для переключателя языка */
+.lang-switch {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 1rem;
+}
+
+/* Стиль для панели \"Назад к резюме\" */
+.back-bar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+.back-bar button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.back-bar button:hover {
+  background-color: #0056b3;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .resume {
+    flex-direction: column;
+    width: 100%;
+    padding: 10mm;
+  }
+
+  .left-panel, .right-panel {
+    width: 100%;
+    padding: 0;
+  }
+
+  .photo img {
+    max-width: 100px;
+  }
+}
