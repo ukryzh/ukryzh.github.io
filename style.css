@@ -19,7 +19,6 @@ body {
 .resume {
   display: flex;
   width: 210mm; /* ширина A4 */
-  min-width: 100%;
   background-color: white;
   padding: 20mm;
   border: 1px solid #ccc;
