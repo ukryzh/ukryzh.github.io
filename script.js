@@ -105,3 +105,19 @@ window.addEventListener('popstate', (event) => {
     goBack();
   }
 });
+
+// Обработка нажатий на кнопки кейсов
+document.querySelectorAll('.project-btn').forEach(button => {
+  button.addEventListener('click', (event) => {
+    event.preventDefault(); // предотвращает переход на другую страницу
+
+    const file = button.getAttribute('onclick').match(/'([^']+)'/)[1];
+
+    if (activeCase === file) {
+      goBack(); // Если уже открыт — возвращаемся к резюме
+    } else {
+      loadCase(file, button); // Загружаем новый кейс
+    }
+  });
+});
+
