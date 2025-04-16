@@ -21,7 +21,7 @@ let activeCase = null;
 let activeButton = null;
 
 // Загрузка кейса
-function loadCase(file, buttonElement) {
+function loadCase(file, button) {
   fetch(file)
     .then(response => {
       if (!response.ok) {
@@ -30,36 +30,24 @@ function loadCase(file, buttonElement) {
       return response.text();
     })
     .then(html => {
-      // Скрыть основное резюме
-      document.querySelector('.right-panel').style.display = 'none';
-
-      // Показать блок с кейсом
+      // Вставляем содержимое файла в правую панель
       const container = document.getElementById('case-container');
-      container.style.display = 'block';
       container.innerHTML = html;
 
-      // Обновляем URL и состояние истории
-      history.pushState({ caseFile: file }, '', `?case=${file}`);
+      // Скрываем резюме и показываем выбранный кейс
+      document.querySelector('.resume').style.display = 'none';
+      document.querySelector('.right-panel').style.display = 'none'; // Прячем правую панель резюме
+      document.querySelector('.back-bar').style.display = 'block'; // Показываем кнопку "Назад к резюме"
 
-      // Сохраняем кнопку и меняем текст
-      if (activeButton && activeButton.dataset.originalText) {
-        activeButton.innerHTML = activeButton.dataset.originalText;
-      }
-
+      // Активируем текущую кнопку
+      activeButton = button;
       activeCase = file;
-
-      if (buttonElement) {
-        activeButton = buttonElement;
-        activeButton.dataset.originalText = activeButton.innerHTML;
-        activeButton.innerHTML = '← Назад к резюме';
-      } else {
-        activeButton = null;
-      }
     })
     .catch(error => {
       alert('Ошибка при загрузке кейса: ' + error.message);
     });
 }
+
 
 // Обработка нажатий на кнопки кейсов
 document.querySelectorAll('.project-btn').forEach(button => {
