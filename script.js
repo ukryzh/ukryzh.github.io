@@ -83,8 +83,10 @@ function goBackToResume() {
     contentContainer.classList.add("fade-in");
   }, 300);
 
-  history.pushState({}, "", location.pathname);
+  // Чистим адресную строку и заменяем состояние
+  history.replaceState({}, "", location.pathname);
 }
+
 
 document.querySelectorAll('.project-btn').forEach(button => {
   const file = button.dataset.file;
