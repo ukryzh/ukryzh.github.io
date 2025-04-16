@@ -16,87 +16,80 @@ function toggleLanguage() {
   }
 }
 
-// Глобальные переменные для отслеживания активного кейса и кнопки
 let activeCase = null;
 let activeButton = null;
 
-// Обновление URL при переходе на конкретный кейс
-function updateUrl(file) {
-  const url = new URL(window.location);
-  url.searchParams.set('case', file); // добавляем параметр с кейсом
-  window.history.pushState({ caseFile: file }, '', url); // обновляем URL
-}
-
-// Загрузка кейса
 function loadCase(file, button) {
   fetch(file)
     .then(response => {
-      if (!response.ok) {
-        throw new Error('Файл не найден');
-      }
+      if (!response.ok) throw new Error('Файл не найден');
       return response.text();
     })
     .then(html => {
-      // Вставляем содержимое файла в правую панель
       const container = document.getElementById('case-container');
       container.innerHTML = html;
 
-      // Скрываем резюме и показываем выбранный кейс
+      // Скрыть резюме и показать кейс
       document.querySelector('.resume').style.display = 'none';
-      document.querySelector('.right-panel').style.display = 'none'; // Прячем правую панель резюме
-      document.querySelector('.back-bar').style.display = 'block'; // Показываем кнопку "Назад к резюме"
+      document.querySelector('.back-bar').style.display = 'block';
 
-      // Активируем текущую кнопку
-      activeButton = button;
       activeCase = file;
+      activeButton = button;
 
-      // Обновляем URL
-      updateUrl(file);
+      // Обновим адресную строку
+      history.pushState({ caseFile: file }, '', `#${file}`);
     })
     .catch(error => {
       alert('Ошибка при загрузке кейса: ' + error.message);
     });
 }
 
-// Возврат к резюме
-function goBack() {
-  document.querySelector('.right-panel').style.display = 'block'; // Показываем резюме
-  document.getElementById('case-container').innerHTML = ''; // Очищаем контейнер с кейсом
-  document.querySelector('.resume').style.display = 'flex'; // Показываем основное резюме
-
-  // Прячем кнопку "Назад к резюме"
+function goBackToResume() {
+  document.getElementById('case-container').innerHTML = '';
+  document.querySelector('.resume').style.display = 'flex';
   document.querySelector('.back-bar').style.display = 'none';
-  activeButton = null; // Сбрасываем активную кнопку
-  activeCase = null; // Сбрасываем активный кейс
+  activeCase = null;
+  activeButton = null;
 
-  // Обновляем URL, чтобы он не содержал параметр с кейсом
-  window.history.pushState({}, '', window.location.pathname);
+  // Обновим адресную строку
+  history.pushState({}, '', location.pathname);
 }
 
-// Обработка нажатий на кнопки кейсов
+// Назначаем обработчики на кнопки
 document.querySelectorAll('.project-btn').forEach(button => {
-  button.addEventListener('click', (event) => {
-    event.preventDefault(); // предотвращаем переход на другую страницу
-
-    const file = button.getAttribute('onclick').match(/'([^']+)'/)[1];
+  button.addEventListener('click', (e) => {
+    e.preventDefault();
+    const file = button.dataset.file;
 
     if (activeCase === file) {
-      goBack(); // Если уже открыт — возвращаемся к резюме
+      goBackToResume();
     } else {
-      loadCase(file, button); // Загружаем новый кейс
+      loadCase(file, button);
     }
   });
 });
 
-// Обработка кнопки "назад" в браузере
+// Назад в браузере
 window.addEventListener('popstate', (event) => {
   if (event.state && event.state.caseFile) {
     const file = event.state.caseFile;
-    const matchingButton = Array.from(document.querySelectorAll('.project-btn')).find(btn =>
-      file.includes(btn.getAttribute('onclick')?.match(/'([^']+)'/)?.[1])
-    );
+    const matchingButton = [...document.querySelectorAll('.project-btn')]
+      .find(btn => btn.dataset.file === file);
     loadCase(file, matchingButton);
   } else {
-    goBack();
+    goBackToResume();
   }
 });
+
+// Если перешли напрямую по ссылке типа #case1.html
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = location.hash.slice(1);
+  if (hash) {
+    const matchingButton = [...document.querySelectorAll('.project-btn')]
+      .find(btn => btn.dataset.file === hash);
+    if (matchingButton) {
+      loadCase(hash, matchingButton);
+    }
+  }
+});
+
