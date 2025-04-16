@@ -7,12 +7,12 @@ let currentLang = 'ru'; // Стартовый язык
 function toggleLanguage() {
   if (currentLang === 'ru') {
     currentLang = 'en';
-    document.querySelectorAll('.ru-text').forEach((el) => el.classList.add('hidden'));
-    document.querySelectorAll('.en-text').forEach((el) => el.classList.remove('hidden'));
+    document.querySelectorAll('.ru-text').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('.en-text').forEach(el => el.classList.remove('hidden'));
   } else {
     currentLang = 'ru';
-    document.querySelectorAll('.en-text').forEach((el) => el.classList.add('hidden'));
-    document.querySelectorAll('.ru-text').forEach((el) => el.classList.remove('hidden'));
+    document.querySelectorAll('.en-text').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('.ru-text').forEach(el => el.classList.remove('hidden'));
   }
 }
 
@@ -42,25 +42,25 @@ function loadCase(caseFile, clickedBtn = null) {
     clickedBtn.innerHTML = '❮ Назад к резюме';
   }
 
+  contentContainer.classList.remove("fade-in");
   contentContainer.classList.add("fade-out");
+
   setTimeout(() => {
     fetch(caseFile)
       .then(res => res.text())
       .then(data => {
-        contentContainer.innerHTML = `<div class="fade-in">${data}</div>`;
+        contentContainer.innerHTML = data;
+        contentContainer.classList.remove("fade-out");
+        contentContainer.classList.add("fade-in");
       })
       .catch(() => {
         contentContainer.innerHTML = "<p>Ошибка загрузки кейса.</p>";
-      })
-      .finally(() => {
         contentContainer.classList.remove("fade-out");
         contentContainer.classList.add("fade-in");
       });
 
     history.pushState({ caseFile }, "", `#${caseFile}`);
   }, 300);
-
-  document.getElementById("backBar").style.display = "block";
 }
 
 function goBackToResume() {
@@ -83,7 +83,6 @@ function goBackToResume() {
     contentContainer.classList.add("fade-in");
   }, 300);
 
-  document.getElementById("backBar").style.display = "none";
   history.pushState({}, "", location.pathname);
 }
 
@@ -100,7 +99,6 @@ document.querySelectorAll('.project-btn').forEach(button => {
   });
 });
 
-// Навигация по браузеру
 window.addEventListener('popstate', (event) => {
   if (event.state && event.state.caseFile) {
     const file = event.state.caseFile;
@@ -112,7 +110,6 @@ window.addEventListener('popstate', (event) => {
   }
 });
 
-// При загрузке с хэшем
 window.addEventListener('DOMContentLoaded', () => {
   const hash = location.hash.slice(1);
   if (hash) {
