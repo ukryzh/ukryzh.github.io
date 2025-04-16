@@ -19,50 +19,68 @@ function toggleLanguage() {
 let activeCase = null;
 let activeButton = null;
 
-function loadCase(file, button) {
-  fetch(file)
-    .then(response => {
-      if (!response.ok) throw new Error('Файл не найден');
-      return response.text();
-    })
-    .then(html => {
-      const container = document.getElementById('mainContent');
-      container.innerHTML = html;
+function loadCase(caseFile, clickedBtn = null) {
+  const contentContainer = document.getElementById("mainContent");
 
-      // Обновим активную кнопку
-      if (activeButton) {
-        activeButton.innerHTML = activeButton.dataset.originalText;
-      }
-      activeButton = button;
-      activeCase = file;
+  // Активный класс на кнопке
+  document.querySelectorAll('.project-btn').forEach(btn => {
+    btn.classList.remove('active-case');
+    btn.innerHTML = btn.innerHTML.replace('Назад к резюме', btn.dataset.originalText || btn.textContent);
+  });
 
-      // Сохраним оригинальный текст, если ещё не сохранён
-      if (!button.dataset.originalText) {
-        button.dataset.originalText = button.innerHTML;
-      }
-      button.innerHTML = 'Назад к резюме';
-
-      // Обновим адресную строку
-      history.pushState({ caseFile: file }, '', `#${file}`);
-    })
-    .catch(error => {
-      alert('Ошибка при загрузке кейса: ' + error.message);
-    });
-}
-
-function goBackToResume() {
-  const container = document.getElementById('mainContent');
-  container.innerHTML = originalMainContent; // восстановим сохранённый html
-
-  if (activeButton && activeButton.dataset.originalText) {
-    activeButton.innerHTML = activeButton.dataset.originalText;
+  if (clickedBtn) {
+    clickedBtn.classList.add('active-case');
+    if (!clickedBtn.dataset.originalText) {
+      clickedBtn.dataset.originalText = clickedBtn.textContent;
+    }
+    clickedBtn.innerHTML = 'Назад к резюме';
   }
 
-  activeCase = null;
-  activeButton = null;
+  // Плавный переход
+  contentContainer.classList.add("fade-out");
 
-  history.pushState({}, '', location.pathname);
+  setTimeout(() => {
+    fetch(caseFile)
+      .then(res => res.text())
+      .then(data => {
+        contentContainer.innerHTML = data;
+        contentContainer.classList.remove("fade-out");
+        contentContainer.classList.add("fade-in");
+      })
+      .catch(err => {
+        contentContainer.innerHTML = "<p>Ошибка загрузки кейса.</p>";
+        contentContainer.classList.remove("fade-out");
+        contentContainer.classList.add("fade-in");
+      });
+
+    history.pushState({ caseFile }, "", `#${caseFile}`);
+  }, 300); // задержка совпадает с CSS transition
+
+  document.getElementById("backBar").style.display = "block";
+
+function goBackToResume() {
+  const contentContainer = document.getElementById("mainContent");
+
+  document.querySelectorAll('.project-btn').forEach(btn => {
+    btn.classList.remove('active-case');
+    if (btn.dataset.originalText) {
+      btn.innerHTML = btn.dataset.originalText;
+    }
+  });
+
+  contentContainer.classList.remove("fade-in");
+  contentContainer.classList.add("fade-out");
+
+  setTimeout(() => {
+    contentContainer.innerHTML = resumeContent;
+    contentContainer.classList.remove("fade-out");
+    contentContainer.classList.add("fade-in");
+  }, 300);
+
+  document.getElementById("backBar").style.display = "none";
+  history.pushState({}, "", location.pathname); // убираем hash
 }
+
 
 document.querySelectorAll('.project-btn').forEach(button => {
   button.addEventListener('click', (e) => {
