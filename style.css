@@ -88,7 +88,7 @@ body {
 }
 
 .project-btn span {
-  margin-left: auto; /* Отправить стрелку вправо */
+  margin-left: 10px; /* Отправить стрелку вправо */
   margin-bottom: auto;
   transition: transform 0.3s ease; /* Плавная анимация стрелки */
 }
