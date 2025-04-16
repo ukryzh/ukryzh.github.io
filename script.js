@@ -20,6 +20,13 @@ function toggleLanguage() {
 let activeCase = null;
 let activeButton = null;
 
+// Обновление URL при переходе на конкретный кейс
+function updateUrl(file) {
+  const url = new URL(window.location);
+  url.searchParams.set('case', file); // добавляем параметр с кейсом
+  window.history.pushState({ caseFile: file }, '', url); // обновляем URL
+}
+
 // Загрузка кейса
 function loadCase(file, button) {
   fetch(file)
@@ -42,25 +49,16 @@ function loadCase(file, button) {
       // Активируем текущую кнопку
       activeButton = button;
       activeCase = file;
+
+      // Обновляем URL
+      updateUrl(file);
     })
     .catch(error => {
       alert('Ошибка при загрузке кейса: ' + error.message);
     });
 }
 
-
-// Обработка нажатий на кнопки кейсов
-document.querySelectorAll('.project-btn').forEach(button => {
-  button.addEventListener('click', () => {
-    const file = button.getAttribute('onclick').match(/'([^']+)'/)[1];
-
-    if (activeCase === file) {
-      goBack(); // Если кейс уже открыт — возврат
-    } else {
-      loadCase(file, button);
-    }
-  });
-});
+// Возврат к резюме
 function goBack() {
   document.querySelector('.right-panel').style.display = 'block'; // Показываем резюме
   document.getElementById('case-container').innerHTML = ''; // Очищаем контейнер с кейсом
@@ -70,27 +68,15 @@ function goBack() {
   document.querySelector('.back-bar').style.display = 'none';
   activeButton = null; // Сбрасываем активную кнопку
   activeCase = null; // Сбрасываем активный кейс
+
+  // Обновляем URL, чтобы он не содержал параметр с кейсом
+  window.history.pushState({}, '', window.location.pathname);
 }
-
-
-// Обработка кнопки "назад" в браузере
-window.addEventListener('popstate', (event) => {
-  if (event.state && event.state.caseFile) {
-    // Найдём соответствующую кнопку
-    const matchingButton = Array.from(document.querySelectorAll('.project-btn')).find(btn =>
-      event.state.caseFile.includes(btn.getAttribute('onclick')?.match(/'([^']+)'/)?.[1])
-    );
-
-    loadCase(event.state.caseFile, matchingButton);
-  } else {
-    goBack();
-  }
-});
 
 // Обработка нажатий на кнопки кейсов
 document.querySelectorAll('.project-btn').forEach(button => {
   button.addEventListener('click', (event) => {
-    event.preventDefault(); // предотвращает переход на другую страницу
+    event.preventDefault(); // предотвращаем переход на другую страницу
 
     const file = button.getAttribute('onclick').match(/'([^']+)'/)[1];
 
@@ -102,3 +88,15 @@ document.querySelectorAll('.project-btn').forEach(button => {
   });
 });
 
+// Обработка кнопки "назад" в браузере
+window.addEventListener('popstate', (event) => {
+  if (event.state && event.state.caseFile) {
+    const file = event.state.caseFile;
+    const matchingButton = Array.from(document.querySelectorAll('.project-btn')).find(btn =>
+      file.includes(btn.getAttribute('onclick')?.match(/'([^']+)'/)?.[1])
+    );
+    loadCase(file, matchingButton);
+  } else {
+    goBack();
+  }
+});
