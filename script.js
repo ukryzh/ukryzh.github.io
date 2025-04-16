@@ -16,30 +16,16 @@ function toggleLanguage() {
   }
 }
 
-// Панель "Назад к резюме"
-let backToResumeButton = document.querySelector('.back-bar button');
-backToResumeButton.addEventListener('click', () => {
-  window.history.back(); // возвращаемся на предыдущую страницу
-});
+// Переменные для активного кейса и кнопки
+let activeCase = null;
+let activeButton = null;
 
-// Динамическое отображение проекта
-let projectButtons = document.querySelectorAll('.project-btn');
-projectButtons.forEach(button => {
-  button.addEventListener('click', function () {
-    let projectId = this.dataset.projectId; // предполагается, что у кнопок есть data-атрибут с id проекта
-    showProjectDetails(projectId);
-  });
-});
-
-function showProjectDetails(projectId) {
-  // Скрываем резюме и показываем проект
-  document.querySelector('.resume').classList.add('hidden');
-  document.querySelector(`.project-details[data-project-id="${projectId}"]`).classList.remove('hidden');
-  document.querySelector('.back-bar').style.display = 'block'; // Показываем кнопку "Назад к резюме"
-}
-
-function loadCase(file) {
-  history.pushState({ caseFile: file }, '', `?case=${file}`); // меняем адрес в URL
+// Загрузка кейса
+function loadCase(file, buttonElement) {
+  if (activeCase === file) {
+    goBack();
+    return;
+  }
 
   fetch(file)
     .then(response => {
@@ -50,35 +36,56 @@ function loadCase(file) {
     })
     .then(html => {
       const container = document.getElementById('case-container');
-      container.innerHTML = `
-        <button onclick="goBack()" style="position: sticky; top: 0; background: #fff; padding: 10px; border: none; cursor: pointer;">
-          ← Назад к резюме
-        </button>
-        ${html}
-      `;
+      container.innerHTML = html;
+
       document.querySelector('.resume').style.display = 'none';
-      document.querySelector('.back-bar').style.display = 'block';
+      document.querySelector('.back-bar').style.display = 'none'; // Отключаем панель
+
+      history.pushState({ caseFile: file }, '', `?case=${file}`);
+
+      // Обновление текста кнопок
+      if (activeButton) {
+        activeButton.innerHTML = activeButton.dataset.originalText;
+      }
+
+      activeCase = file;
+      activeButton = buttonElement;
+      activeButton.dataset.originalText = activeButton.innerHTML;
+      activeButton.innerHTML = '← Назад к резюме';
     })
     .catch(error => {
       alert('Ошибка при загрузке кейса: ' + error.message);
     });
 }
 
-
+// Возврат к резюме
 function goBack() {
   document.getElementById('case-container').innerHTML = '';
   document.querySelector('.resume').style.display = 'flex';
   document.querySelector('.back-bar').style.display = 'none';
-  history.pushState({}, '', window.location.pathname); // убираем ?case=... из адреса
+
+  history.pushState({}, '', window.location.pathname);
+
+  if (activeButton) {
+    activeButton.innerHTML = activeButton.dataset.originalText;
+  }
+
+  activeCase = null;
+  activeButton = null;
 }
 
-
-window.addEventListener('DOMContentLoaded', () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const caseFile = urlParams.get('case');
-
-  if (caseFile) {
-    loadCase(caseFile);
+// Поддержка кнопки браузера "Назад"
+window.addEventListener('popstate', (event) => {
+  if (event.state && event.state.caseFile) {
+    // При навигации назад — открыть кейс
+    const matchingButton = Array.from(document.querySelectorAll('.project-btn')).find(btn =>
+      btn.innerHTML.includes(event.state.caseFile.split('.')[0])
+    );
+    if (matchingButton) {
+      loadCase(event.state.caseFile, matchingButton);
+    }
+  } else {
+    // Иначе — вернуться к резюме
+    goBack();
   }
 });
-
