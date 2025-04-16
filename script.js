@@ -26,15 +26,21 @@ function loadCase(file, button) {
       return response.text();
     })
     .then(html => {
-      const container = document.getElementById('case-container');
+      const container = document.getElementById('mainContent');
       container.innerHTML = html;
 
-      // Скрыть резюме и показать кейс
-      document.querySelector('.resume').style.display = 'none';
-      document.querySelector('.back-bar').style.display = 'block';
-
-      activeCase = file;
+      // Обновим активную кнопку
+      if (activeButton) {
+        activeButton.innerHTML = activeButton.dataset.originalText;
+      }
       activeButton = button;
+      activeCase = file;
+
+      // Сохраним оригинальный текст, если ещё не сохранён
+      if (!button.dataset.originalText) {
+        button.dataset.originalText = button.innerHTML;
+      }
+      button.innerHTML = 'Назад к резюме';
 
       // Обновим адресную строку
       history.pushState({ caseFile: file }, '', `#${file}`);
@@ -45,17 +51,19 @@ function loadCase(file, button) {
 }
 
 function goBackToResume() {
-  document.getElementById('case-container').innerHTML = '';
-  document.querySelector('.resume').style.display = 'flex';
-  document.querySelector('.back-bar').style.display = 'none';
+  const container = document.getElementById('mainContent');
+  container.innerHTML = originalMainContent; // восстановим сохранённый html
+
+  if (activeButton && activeButton.dataset.originalText) {
+    activeButton.innerHTML = activeButton.dataset.originalText;
+  }
+
   activeCase = null;
   activeButton = null;
 
-  // Обновим адресную строку
   history.pushState({}, '', location.pathname);
 }
 
-// Назначаем обработчики на кнопки
 document.querySelectorAll('.project-btn').forEach(button => {
   button.addEventListener('click', (e) => {
     e.preventDefault();
@@ -69,19 +77,24 @@ document.querySelectorAll('.project-btn').forEach(button => {
   });
 });
 
-// Назад в браузере
+// Сохраняем начальное содержимое правой панели
+let originalMainContent = document.getElementById('mainContent').innerHTML;
+
+// Навигация "назад" в браузере
 window.addEventListener('popstate', (event) => {
   if (event.state && event.state.caseFile) {
     const file = event.state.caseFile;
     const matchingButton = [...document.querySelectorAll('.project-btn')]
       .find(btn => btn.dataset.file === file);
-    loadCase(file, matchingButton);
+    if (matchingButton) {
+      loadCase(file, matchingButton);
+    }
   } else {
     goBackToResume();
   }
 });
 
-// Если перешли напрямую по ссылке типа #case1.html
+// Если зашли напрямую по ссылке с #case1.html
 window.addEventListener('DOMContentLoaded', () => {
   const hash = location.hash.slice(1);
   if (hash) {
@@ -92,4 +105,3 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
-
