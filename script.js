@@ -39,6 +39,8 @@ function showProjectDetails(projectId) {
 }
 
 function loadCase(file) {
+  history.pushState({ caseFile: file }, '', `?case=${file}`); // меняем адрес в URL
+
   fetch(file)
     .then(response => {
       if (!response.ok) {
@@ -54,11 +56,7 @@ function loadCase(file) {
         </button>
         ${html}
       `;
-      // Прячем основное содержание правой панели (кроме контейнера)
-      [...document.querySelectorAll('#mainContent > *')].forEach(el => {
-        if (el.id !== 'case-container') el.style.display = 'none';
-      });
-      container.style.display = 'block';
+      document.querySelector('.resume').style.display = 'none';
       document.querySelector('.back-bar').style.display = 'block';
     })
     .catch(error => {
@@ -66,12 +64,21 @@ function loadCase(file) {
     });
 }
 
+
 function goBack() {
-  const container = document.getElementById('case-container');
-  container.innerHTML = '';
-  container.style.display = 'none';
-  [...document.querySelectorAll('#mainContent > *')].forEach(el => {
-    el.style.display = ''; // Возвращаем стандартное отображение
-  });
+  document.getElementById('case-container').innerHTML = '';
+  document.querySelector('.resume').style.display = 'flex';
   document.querySelector('.back-bar').style.display = 'none';
+  history.pushState({}, '', window.location.pathname); // убираем ?case=... из адреса
 }
+
+
+window.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const caseFile = urlParams.get('case');
+
+  if (caseFile) {
+    loadCase(caseFile);
+  }
+});
+
