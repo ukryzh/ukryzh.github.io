@@ -46,6 +46,8 @@ function loadCase(caseFile, clickedBtn = null) {
   contentContainer.classList.add("fade-out");
 
   setTimeout(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     fetch(caseFile)
       .then(res => res.text())
       .then(data => {
