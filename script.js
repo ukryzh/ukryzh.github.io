@@ -62,7 +62,7 @@ function loadCase(caseFile, clickedBtn = null) {
       });
 
     history.pushState({ caseFile }, "", `#${caseFile}`);
-  }, 300);
+  }, 150);
 }
 
 function goBackToResume() {
@@ -85,7 +85,7 @@ function goBackToResume() {
     contentContainer.innerHTML = resumeContent;
     contentContainer.classList.remove("fade-out");
     contentContainer.classList.add("fade-in");
-  }, 300);
+  }, 150);
 
   // Чистим адресную строку и заменяем состояние
   history.replaceState({}, "", location.pathname);
