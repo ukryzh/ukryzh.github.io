@@ -25,7 +25,7 @@ function loadCase(caseFile, clickedBtn = null) {
   // Активный класс на кнопке
   document.querySelectorAll('.project-btn').forEach(btn => {
     btn.classList.remove('active-case');
-    btn.innerHTML = btn.innerHTML.replace('Назад к резюме', btn.dataset.originalText || btn.textContent);
+    btn.innerHTML = btn.innerHTML.replace('❮ Назад к резюме', btn.dataset.originalText || btn.textContent);
   });
 
   if (clickedBtn) {
@@ -33,7 +33,7 @@ function loadCase(caseFile, clickedBtn = null) {
     if (!clickedBtn.dataset.originalText) {
       clickedBtn.dataset.originalText = clickedBtn.textContent;
     }
-    clickedBtn.innerHTML = 'Назад к резюме';
+    clickedBtn.innerHTML = '❮ Назад к резюме';
   }
 
   // Плавный переход
