@@ -78,7 +78,9 @@ function goBackToResume() {
 
   contentContainer.classList.remove("fade-in");
   contentContainer.classList.add("fade-out");
-
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  
   setTimeout(() => {
     contentContainer.innerHTML = resumeContent;
     contentContainer.classList.remove("fade-out");
