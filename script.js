@@ -54,7 +54,12 @@ function loadCase(file) {
         </button>
         ${html}
       `;
-      document.querySelector('.resume').style.display = 'none';
+      // Прячем основное содержание правой панели (кроме контейнера)
+      [...document.querySelectorAll('#mainContent > *')].forEach(el => {
+        if (el.id !== 'case-container') el.style.display = 'none';
+      });
+      container.style.display = 'block';
+      document.querySelector('.back-bar').style.display = 'block';
     })
     .catch(error => {
       alert('Ошибка при загрузке кейса: ' + error.message);
@@ -62,6 +67,11 @@ function loadCase(file) {
 }
 
 function goBack() {
-  document.getElementById('case-container').innerHTML = '';
-  document.querySelector('.resume').style.display = 'flex';
+  const container = document.getElementById('case-container');
+  container.innerHTML = '';
+  container.style.display = 'none';
+  [...document.querySelectorAll('#mainContent > *')].forEach(el => {
+    el.style.display = ''; // Возвращаем стандартное отображение
+  });
+  document.querySelector('.back-bar').style.display = 'none';
 }
