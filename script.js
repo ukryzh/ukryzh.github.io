@@ -73,24 +73,17 @@ document.querySelectorAll('.project-btn').forEach(button => {
     }
   });
 });
-
-// Возврат к резюме
 function goBack() {
-  const container = document.getElementById('case-container');
-  container.innerHTML = '';
-  container.style.display = 'none';
+  document.querySelector('.right-panel').style.display = 'block'; // Показываем резюме
+  document.getElementById('case-container').innerHTML = ''; // Очищаем контейнер с кейсом
+  document.querySelector('.resume').style.display = 'flex'; // Показываем основное резюме
 
-  document.querySelector('.right-panel').style.display = 'block';
-
-  if (activeButton && activeButton.dataset.originalText) {
-    activeButton.innerHTML = activeButton.dataset.originalText;
-  }
-
-  activeCase = null;
-  activeButton = null;
-
-  history.pushState({}, '', location.pathname);
+  // Прячем кнопку "Назад к резюме"
+  document.querySelector('.back-bar').style.display = 'none';
+  activeButton = null; // Сбрасываем активную кнопку
+  activeCase = null; // Сбрасываем активный кейс
 }
+
 
 // Обработка кнопки "назад" в браузере
 window.addEventListener('popstate', (event) => {
