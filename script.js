@@ -16,17 +16,12 @@ function toggleLanguage() {
   }
 }
 
-// Переменные для активного кейса и кнопки
+// Глобальные переменные для отслеживания активного кейса и кнопки
 let activeCase = null;
 let activeButton = null;
 
 // Загрузка кейса
 function loadCase(file, buttonElement) {
-  if (activeCase === file) {
-    goBack();
-    return;
-  }
-
   fetch(file)
     .then(response => {
       if (!response.ok) {
@@ -35,57 +30,78 @@ function loadCase(file, buttonElement) {
       return response.text();
     })
     .then(html => {
+      // Скрыть основное резюме
+      document.querySelector('.right-panel').style.display = 'none';
+
+      // Показать блок с кейсом
       const container = document.getElementById('case-container');
+      container.style.display = 'block';
       container.innerHTML = html;
 
-      document.querySelector('.resume').style.display = 'none';
-      document.querySelector('.back-bar').style.display = 'none'; // Отключаем панель
-
+      // Обновляем URL и состояние истории
       history.pushState({ caseFile: file }, '', `?case=${file}`);
 
-      // Обновление текста кнопок
-      if (activeButton) {
+      // Сохраняем кнопку и меняем текст
+      if (activeButton && activeButton.dataset.originalText) {
         activeButton.innerHTML = activeButton.dataset.originalText;
       }
 
       activeCase = file;
-      activeButton = buttonElement;
-      activeButton.dataset.originalText = activeButton.innerHTML;
-      activeButton.innerHTML = '← Назад к резюме';
+
+      if (buttonElement) {
+        activeButton = buttonElement;
+        activeButton.dataset.originalText = activeButton.innerHTML;
+        activeButton.innerHTML = '← Назад к резюме';
+      } else {
+        activeButton = null;
+      }
     })
     .catch(error => {
       alert('Ошибка при загрузке кейса: ' + error.message);
     });
 }
 
+// Обработка нажатий на кнопки кейсов
+document.querySelectorAll('.project-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const file = button.getAttribute('onclick').match(/'([^']+)'/)[1];
+
+    if (activeCase === file) {
+      goBack(); // Если кейс уже открыт — возврат
+    } else {
+      loadCase(file, button);
+    }
+  });
+});
+
 // Возврат к резюме
 function goBack() {
-  document.getElementById('case-container').innerHTML = '';
-  document.querySelector('.resume').style.display = 'flex';
-  document.querySelector('.back-bar').style.display = 'none';
+  const container = document.getElementById('case-container');
+  container.innerHTML = '';
+  container.style.display = 'none';
 
-  history.pushState({}, '', window.location.pathname);
+  document.querySelector('.right-panel').style.display = 'block';
 
-  if (activeButton) {
+  if (activeButton && activeButton.dataset.originalText) {
     activeButton.innerHTML = activeButton.dataset.originalText;
   }
 
   activeCase = null;
   activeButton = null;
+
+  history.pushState({}, '', location.pathname);
 }
 
-// Поддержка кнопки браузера "Назад"
+// Обработка кнопки "назад" в браузере
 window.addEventListener('popstate', (event) => {
   if (event.state && event.state.caseFile) {
-    // При навигации назад — открыть кейс
+    // Найдём соответствующую кнопку
     const matchingButton = Array.from(document.querySelectorAll('.project-btn')).find(btn =>
-      btn.innerHTML.includes(event.state.caseFile.split('.')[0])
+      event.state.caseFile.includes(btn.getAttribute('onclick')?.match(/'([^']+)'/)?.[1])
     );
-    if (matchingButton) {
-      loadCase(event.state.caseFile, matchingButton);
-    }
+
+    loadCase(event.state.caseFile, matchingButton);
   } else {
-    // Иначе — вернуться к резюме
     goBack();
   }
 });
