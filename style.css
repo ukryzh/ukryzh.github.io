@@ -214,4 +214,12 @@ ul.skill-list-small {
   margin-left: -1em;
 }
 
+a {
+  color: darkblue; 
+  text-decoration: none; 
+}
+
+a:hover {
+  text-decoration: underline;
+}
 
