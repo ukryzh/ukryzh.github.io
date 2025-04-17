@@ -313,3 +313,16 @@ a:hover {
   transform: scale(1.05);
 }
 
+.collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.collapsible-content.expanded {
+  max-height: 1000px; /* Большое значение для раскрытия */
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
