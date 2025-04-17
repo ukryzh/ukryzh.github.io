@@ -197,3 +197,8 @@ document.addEventListener('keydown', function (event) {
   }
 });
 
+function scrollGallery(direction) {
+  const gallery = document.getElementById("slideGallery");
+  const slideWidth = gallery.querySelector("img")?.offsetWidth || 200;
+  gallery.scrollBy({ left: direction * (slideWidth + 10), behavior: "smooth" });
+}
