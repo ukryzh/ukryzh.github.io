@@ -61,18 +61,17 @@ body {
 /* Контактная информация */
 .contact-info h2 {
   font-size: 1.5rem;
-  margin-up: 20px;
   margin-bottom: 20px;
 }
 .contact-info p {
   font-size: 0.8rem;
   color: grey;
-  margin-bottom: 25px;
 }
 
 /* Блок с проектами */
 .projects h3 {
   font-size: 1.3rem;
+  margin-top: 25px;
   margin-bottom: 15px;
 }
 .project-btn {
