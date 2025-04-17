@@ -48,14 +48,14 @@ body {
   display: flex;
   justify-content: center; 
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .photo img {
   width: 100%;
   height: auto;
   border-radius: 50%;
   max-width: 150px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 /* Контактная информация */
@@ -67,7 +67,7 @@ body {
 .contact-info p {
   font-size: 0.8rem;
   color: grey;
-  margin-bottom: 5px;
+  margin-bottom: 25px;
 }
 
 /* Блок с проектами */
