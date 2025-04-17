@@ -250,3 +250,66 @@ a:hover {
   max-height: 90%;
   margin: 5% auto;
 }
+
+.slider-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.scroll-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+  color: #333;
+  z-index: 2;
+  transition: color 0.2s;
+}
+
+.scroll-btn:hover {
+  color: #000;
+}
+
+.scroll-btn.left {
+  margin-right: 5px;
+}
+
+.scroll-btn.right {
+  margin-left: 5px;
+}
+
+.slide-gallery {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #aaa transparent;
+}
+
+.slide-gallery::-webkit-scrollbar {
+  height: 8px;
+}
+
+.slide-gallery::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 4px;
+}
+
+.zoomable-slide {
+  width: 200px;
+  height: auto;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  border-radius: 8px;
+  cursor: zoom-in;
+  transition: transform 0.2s ease;
+}
+
+.zoomable-slide:hover {
+  transform: scale(1.05);
+}
+
