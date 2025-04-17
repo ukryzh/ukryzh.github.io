@@ -30,6 +30,10 @@ body {
   padding-right: 20px;
   border-right: 1px solid #eee;
 }
+.left-panel h3, {
+  font-size: 1.3rem;
+  margin-top: 10px;
+}
 
 /* Правая панель */
 .right-panel {
@@ -109,7 +113,7 @@ body {
   font-size: 1.8rem;
   margin-bottom: 15px;
 }
-.right-panel h3, .right-panel h3 {
+.right-panel h3, {
   font-size: 1.3rem;
   margin-bottom: 10px;
 }
