@@ -29,10 +29,19 @@
   (с помощью Python)</p>
   
 <h4>Презентация результатов</h4>
-<div class="slide-gallery">
-  <img src="case1/assets/slide1.png" alt="Слайд 1: диаграмма AS-IS" class="zoomable-slide" />
-  <img src="case1/assets/slide2.png" alt="Слайд 2: диаграмма TO-BE" class="zoomable-slide" />
+<div class="slider-wrapper">
+  <button class="scroll-btn left" onclick="scrollGallery(-1)">❮</button>
+
+  <div class="slide-gallery" id="slideGallery">
+    <img src="case1/assets/slide1.png" class="zoomable-slide" alt="Слайд 1" onclick="openModal(this.src)">
+    <img src="case1/assets/slide2.png" class="zoomable-slide" alt="Слайд 2" onclick="openModal(this.src)">
+    <img src="case1/assets/slide3.png" class="zoomable-slide" alt="Слайд 3" onclick="openModal(this.src)">
+    <!-- и т.д. -->
+  </div>
+
+  <button class="scroll-btn right" onclick="scrollGallery(1)">❯</button>
 </div>
+
 
 
 <div class="modal" id="modal" onclick="closeModal()">
