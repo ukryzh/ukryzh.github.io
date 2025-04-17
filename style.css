@@ -166,48 +166,20 @@ body {
 }
 
 <style>
-/* Стиль для списка с незаполненным кругом (○) */
-ul.skill-list {
-  list-style: none;
-  padding-left: 1.5em;
-  margin-bottom: 1em;
-}
-.skill-list li::before {
-  content: "○"; /* Незаполненный круг */
-  color: #666;
-  font-size: 1.2em;
-  display: inline-block;
-  width: 1em;
-  margin-left: -1em;
-}
 
-/* Стиль для списка с очень маленьким незаполненным кругом (◦) */
 ul.skill-list-small {
   list-style: none;
   padding-left: 1.5em;
   margin-bottom: 1em;
 }
 .skill-list-small li::before {
-  content: "◦"; /* Очень маленький незаполненный круг */
+  content: "◦";
   color: #444;
-  font-size: 0.9em;
+  font-size: 0.8em;
   display: inline-block;
   width: 1em;
   margin-left: -1em;
 }
 
-/* Стиль для списка в разделе "Инструменты", если хочешь сделать более строгим */
-ul.tool-list {
-  list-style: none;
-  padding-left: 1.5em;
-}
-.tool-list li::before {
-  content: "◦";
-  color: #2c3e50; /* Темно-синий цвет */
-  font-size: 1em;
-  display: inline-block;
-  width: 1em;
-  margin-left: -1em;
-}
 </style>
 
