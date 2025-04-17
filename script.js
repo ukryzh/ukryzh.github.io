@@ -176,19 +176,21 @@ document.addEventListener('click', function (e) {
 
 // === Спойлер с кнопкой "Показать/Скрыть отчет" ===
 document.addEventListener('click', function (e) {
-  if (e.target.classList.contains('spoiler-toggle')) {
-    const content = e.target.nextElementSibling;
+  // Вместо 'spoiler-toggle' используем id 'toggleReport'
+  if (e.target.id === 'toggleReport') {
+    const content = document.getElementById('reportContent');
     if (!content) return;
 
-    content.classList.toggle('hidden');
+    content.classList.toggle('expanded');
 
-    if (content.classList.contains('hidden')) {
-      e.target.textContent = 'Показать отчет';
-    } else {
+    if (content.classList.contains('expanded')) {
       e.target.textContent = 'Скрыть отчет';
+    } else {
+      e.target.textContent = 'Показать отчет';
     }
   }
 });
+
 // Закрытие модального окна по клавише Esc
 document.addEventListener('keydown', function (event) {
   const modal = document.getElementById('modal');
