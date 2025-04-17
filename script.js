@@ -135,3 +135,58 @@ function openModal(src) {
 function closeModal() {
   document.getElementById('modal').style.display = 'none';
 }
+
+// === Навигация по слайдам в модальном окне ===
+let slideSources = [];
+let currentSlideIndex = 0;
+
+function openModalWithSlides(src, allSrcs) {
+  slideSources = allSrcs;
+  currentSlideIndex = allSrcs.indexOf(src);
+
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modalImg');
+
+  modalImg.src = src;
+  modal.style.display = 'block';
+}
+
+function changeSlide(direction) {
+  if (slideSources.length === 0) return;
+
+  currentSlideIndex += direction;
+  if (currentSlideIndex < 0) currentSlideIndex = slideSources.length - 1;
+  if (currentSlideIndex >= slideSources.length) currentSlideIndex = 0;
+
+  document.getElementById('modalImg').src = slideSources[currentSlideIndex];
+}
+
+// Навешиваем кнопки вперед/назад (если они есть в HTML)
+document.getElementById('modalNext')?.addEventListener('click', () => changeSlide(1));
+document.getElementById('modalPrev')?.addEventListener('click', () => changeSlide(-1));
+
+// Перезапишем openModal для поддержки множественных слайдов
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('zoomable-slide')) {
+    const src = e.target.getAttribute('src');
+    const slides = [...document.querySelectorAll('.zoomable-slide')].map(img => img.getAttribute('src'));
+    openModalWithSlides(src, slides);
+  }
+});
+
+// === Спойлер с кнопкой "Показать/Скрыть отчет" ===
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('spoiler-toggle')) {
+    const content = e.target.nextElementSibling;
+    if (!content) return;
+
+    content.classList.toggle('hidden');
+
+    if (content.classList.contains('hidden')) {
+      e.target.textContent = 'Показать отчет';
+    } else {
+      e.target.textContent = 'Скрыть отчет';
+    }
+  }
+});
+
