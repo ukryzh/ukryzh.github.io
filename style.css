@@ -21,8 +21,7 @@ body {
   width: 210mm; /* ширина A4 */
   background-color: white;
   padding: 20mm;
-  border: 1px solid #fff;
-  border-radius: 8px;
+  border: none;
 }
 
 /* Левая панель */
@@ -75,7 +74,7 @@ body {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  font-size: 14px; 
+  font-size: 12px; 
   text-align: left; /* Выравнивание текста по левому краю */
   transition: all 0.3s ease; /* Плавный переход для эффектов */
 }
