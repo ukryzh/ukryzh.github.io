@@ -105,12 +105,19 @@ body {
 }
 
 /* Стили для заголовков и текста в правой панели */
-.right-panel h1, .right-panel h2, .right-panel h3 {
+.right-panel h1, {
   font-size: 1.8rem;
   margin-bottom: 10px;
 }
+.right-panel h3, .right-panel h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+.right-panel h4, {
+  font-size: 0.8rem;
+}
 .right-panel p {
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   margin-bottom: 10px;
 }
 
