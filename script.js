@@ -202,3 +202,19 @@ function scrollGallery(direction) {
   const slideWidth = gallery.querySelector("img")?.offsetWidth || 200;
   gallery.scrollBy({ left: direction * (slideWidth + 10), behavior: "smooth" });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleButton = document.getElementById("toggleReport");
+  const reportContent = document.getElementById("reportContent");
+
+  if (toggleButton && reportContent) {
+    toggleButton.addEventListener("click", () => {
+      const isExpanded = reportContent.classList.contains("expanded");
+
+      reportContent.classList.toggle("expanded");
+
+      toggleButton.textContent = isExpanded ? "Показать отчет" : "Скрыть отчет";
+    });
+  }
+});
+
