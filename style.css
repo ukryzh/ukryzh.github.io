@@ -66,6 +66,7 @@ body {
 .contact-info p {
   font-size: 0.8rem;
   color: grey;
+  margin-bottom: 5px;
 }
 
 /* Блок с проектами */
