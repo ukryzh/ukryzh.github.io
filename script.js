@@ -189,4 +189,11 @@ document.addEventListener('click', function (e) {
     }
   }
 });
+// Закрытие модального окна по клавише Esc
+document.addEventListener('keydown', function (event) {
+  const modal = document.getElementById('modal');
+  if (event.key === 'Escape' && modal.style.display === 'block') {
+    closeModal();
+  }
+});
 
