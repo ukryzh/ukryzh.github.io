@@ -220,3 +220,25 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+document.getElementById('modalImg').addEventListener('click', function (e) {
+  const bounds = this.getBoundingClientRect();
+  const clickX = e.clientX;
+
+  if (clickX < bounds.left + bounds.width / 3) {
+    changeSlide(-1);
+  } else if (clickX > bounds.right - bounds.width / 3) {
+    changeSlide(1);
+  }
+});
+document.addEventListener('keydown', function (event) {
+  const modal = document.getElementById('modal');
+  if (modal.style.display === 'block') {
+    if (event.key === 'Escape') {
+      closeModal();
+    } else if (event.key === 'ArrowLeft') {
+      changeSlide(-1);
+    } else if (event.key === 'ArrowRight') {
+      changeSlide(1);
+    }
+  }
+});
