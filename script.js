@@ -215,19 +215,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (reportContent) {
       btn.addEventListener("click", () => {
-        const isHidden = reportContent.classList.contains("hidden");
+        const isExpanded = reportContent.classList.contains("expanded");
 
-        reportContent.classList.toggle("hidden");
+        reportContent.classList.toggle("expanded");
         btn.classList.toggle("expanded");
 
-        // Обновляем стрелочку
         if (arrow) {
-          arrow.textContent = isHidden ? "▲" : "▼";
+          arrow.textContent = isExpanded ? "▼" : "▲";
         }
       });
     }
   });
 });
+
 
 
 document.getElementById('modalImg').addEventListener('click', function (e) {
