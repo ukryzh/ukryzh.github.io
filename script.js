@@ -219,14 +219,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         reportContent.classList.toggle("expanded");
         btn.classList.toggle("expanded");
-
-        if (arrow) {
-          arrow.textContent = isExpanded ? "▼" : "▲";
-        }
       });
     }
   });
 });
+
 
 
 
