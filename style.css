@@ -312,14 +312,15 @@ a:hover {
 .zoomable-slide:hover {
   transform: scale(1.05);
 }
-
-.report-content.hidden {
-  display: none;
-}
-
 .report-content {
+  display: none;
   transition: all 0.3s ease;
 }
+
+.report-content.expanded {
+  display: block;
+}
+
 
 .toggle-report {
   width: 100%;
