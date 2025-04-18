@@ -206,19 +206,29 @@ function scrollGallery(direction) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const toggleButton = document.getElementById("toggleReport");
-  const reportContent = document.getElementById("reportContent");
+  const toggleButtons = document.querySelectorAll(".toggle-report");
 
-  if (toggleButton && reportContent) {
-    toggleButton.addEventListener("click", () => {
-      const isExpanded = reportContent.classList.contains("expanded");
+  toggleButtons.forEach((btn) => {
+    const targetId = btn.dataset.target;
+    const reportContent = document.getElementById(targetId);
+    const arrow = btn.querySelector(".arrow");
 
-      reportContent.classList.toggle("expanded");
+    if (reportContent) {
+      btn.addEventListener("click", () => {
+        const isHidden = reportContent.classList.contains("hidden");
 
-      toggleButton.textContent = isExpanded ? "Показать отчет" : "Скрыть отчет";
-    });
-  }
+        reportContent.classList.toggle("hidden");
+        btn.classList.toggle("expanded");
+
+        // Обновляем стрелочку
+        if (arrow) {
+          arrow.textContent = isHidden ? "▲" : "▼";
+        }
+      });
+    }
+  });
 });
+
 
 document.getElementById('modalImg').addEventListener('click', function (e) {
   const bounds = this.getBoundingClientRect();
