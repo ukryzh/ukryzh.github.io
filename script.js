@@ -1,22 +1,3 @@
-// Переключение языка
-let languageSwitch = document.querySelector('.lang-switch');
-languageSwitch.addEventListener('click', toggleLanguage);
-
-let currentLang = 'ru'; // Стартовый язык
-
-function toggleLanguage() {
-  if (currentLang === 'ru') {
-    currentLang = 'en';
-    document.querySelectorAll('.ru-text').forEach(el => el.classList.add('hidden'));
-    document.querySelectorAll('.en-text').forEach(el => el.classList.remove('hidden'));
-  } else {
-    currentLang = 'ru';
-    document.querySelectorAll('.en-text').forEach(el => el.classList.add('hidden'));
-    document.querySelectorAll('.ru-text').forEach(el => el.classList.remove('hidden'));
-  }
-}
-
-// Сохраняем начальное содержимое
 const contentContainer = document.getElementById("mainContent");
 let resumeContent = contentContainer.innerHTML;
 
@@ -54,6 +35,20 @@ function loadCase(caseFile, clickedBtn = null) {
         contentContainer.innerHTML = data;
         contentContainer.classList.remove("fade-out");
         contentContainer.classList.add("fade-in");
+      // Навешиваем обработчики на спойлеры
+  const toggleButtons = document.querySelectorAll(".toggle-report");
+
+  toggleButtons.forEach((btn) => {
+    const targetId = btn.dataset.target;
+    const reportContent = document.getElementById(targetId);
+
+    if (reportContent) {
+      btn.addEventListener("click", () => {
+        reportContent.classList.toggle("expanded");
+        btn.classList.toggle("expanded");
+      });
+    }
+  });
       })
       .catch(() => {
         contentContainer.innerHTML = "<p>Ошибка загрузки кейса.</p>";
@@ -174,22 +169,6 @@ document.addEventListener('click', function (e) {
   }
 });
 
-// === Спойлер с кнопкой "Показать/Скрыть отчет" ===
-document.addEventListener('click', function (e) {
-  // Вместо 'spoiler-toggle' используем id 'toggleReport'
-  if (e.target.id === 'toggleReport') {
-    const content = document.getElementById('reportContent');
-    if (!content) return;
-
-    content.classList.toggle('expanded');
-
-    if (content.classList.contains('expanded')) {
-      e.target.textContent = 'Скрыть отчет';
-    } else {
-      e.target.textContent = 'Показать отчет';
-    }
-  }
-});
 
 // Закрытие модального окна по клавише Esc
 document.addEventListener('keydown', function (event) {
