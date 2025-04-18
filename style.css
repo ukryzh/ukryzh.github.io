@@ -345,9 +345,9 @@ a:hover {
 .arrow {
   display: inline-block;
   transition: transform 0.3s ease;
-  transform: rotate(0deg); /* вниз */
+  transform: rotate(90deg); /* вниз */
 }
 .toggle-report.expanded .arrow {
-  transform: rotate(-90deg); /* вверх */
+  transform: rotate(270deg); /* вверх */
 }
 
