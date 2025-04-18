@@ -326,3 +326,14 @@ a:hover {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+#reportContent {
+  display: none;
+  transition: max-height 0.3s ease;
+  overflow: hidden;
+}
+
+#reportContent.expanded {
+  display: block;
+}
+
