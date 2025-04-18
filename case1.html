@@ -48,23 +48,20 @@
   <img id="modalImg">
 </div>
 
-  <div class="report-toggle">
-  <button id="toggleReport">Полный отчет с анализом процесса</button>
-  <div id="reportContent">
-    <p><b>Цель:</b> ...</p>
-    <p><b>Методы:</b> ...</p>
-    <p><b>Выводы:</b> ...</p>
-  </div>
+  <button class="toggle-report" data-target="report1">
+  Отчет по бизнес-анализу <span class="arrow">▼</span>
+</button>
+<div id="report1" class="report-content hidden">
+  <p>something</p>
 </div>
 
-<div class="report-toggle">
-  <button id="toggleReport">Генерация данных для анализа</button>
-  <div id="reportContent">
-    <p><b>Цель:</b> ...</p>
-    <p><b>Методы:</b> ...</p>
-    <p><b>Выводы:</b> ...</p>
-  </div>
+<button class="toggle-report" data-target="report2">
+  Генерация данных <span class="arrow">▼</span>
+</button>
+<div id="report2" class="report-content hidden">
+  <p>smth in between</p>
 </div>
+
 
   
 </div>
