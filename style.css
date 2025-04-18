@@ -313,41 +313,35 @@ a:hover {
   transform: scale(1.05);
 }
 
-.collapsible-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease, padding 0.4s ease;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.collapsible-content.expanded {
-  max-height: 1000px; /* Большое значение для раскрытия */
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-#reportContent {
+.report-content.hidden {
   display: none;
-  transition: max-height 0.3s ease;
-  overflow: hidden;
 }
 
-#reportContent.expanded {
-  display: block;
+.report-content {
+  transition: all 0.3s ease;
 }
-#toggleReport {
+
+.toggle-report {
   width: 100%;
-  padding: 12px 16px;
-  background-color: #f0f0f0;
-  border: none;
+  text-align: left;
+  padding: 10px;
+  font-size: 16px;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background: #f5f5f5;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  transition: background 0.3s;
 }
 
-#toggleReport:hover {
-  background-color: #dcdcdc;
-  color: #000;
+.toggle-report:hover {
+  background: #e0e0e0;
 }
 
+.toggle-report .arrow {
+  float: right;
+  transition: transform 0.3s;
+}
+
+.toggle-report.expanded .arrow {
+  transform: rotate(180deg); /* делает стрелку вверх */
+}
