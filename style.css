@@ -410,9 +410,7 @@ th {
 .scroll-to-top {
   position: fixed;
   bottom: 30px;
-  right: 50px;
-  width: 100px;
-  height: 48px;
+  right: 60px;
   color: #333;
   display: none; /* Скрыта по умолчанию */
   align-items: center;
@@ -429,7 +427,7 @@ th {
   position: fixed;
   top: 0;
   right: 0;
-  width: 100px;
+  width: 120px;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0); 
   transition: background-color 0.3s;
