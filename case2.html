@@ -25,10 +25,10 @@
   <img id="modalImg">
 </div>
 
-<button class="toggle-report" data-target="report2">
+<button class="toggle-report" data-target="report1">
    Business Requirement Document (BRD) <span class="arrow">❯</span>
 </button>
-<div id="report2" class="report-content">
+<div id="report1" class="report-content">
   <p><b>Краткое содержание</b></p>
   <p>Описание новой функции для приложения интернет-банка: возможность скрыть счета в личном кабинете пользователя. Функция позволяет пользователю настраивать интерфейс, скрывая неактуальные счета, улучшая навигацию и восприятие личного кабинета
 Термины, используемые в этом документе, приведены в документе SRS по данной функции.</p>
@@ -97,7 +97,7 @@
   UC-2: Возможность просмотра скрытых счетов<br>
   UC-3: Возможность вернуть скрытый счет на основной экран (счет снова отображается в общем списке “Мои счета”)<br>
   UC-4: Ошибка при попытке скрыть основной / заблокированный счет (При попытке скрыть основной или заблокированный счет появляется уведомление с текстом «Невозможно скрыть счет» и кнопкой «ОК».)</p>
-  <<img src="case2/assets/use-case.png" class="zoomable-img" alt="Use-case-схема" width = 100% onclick="openModal(this.src)">>
+  <img src="case2/assets/use-case.png" class="zoomable-img" alt="Use-case-схема" width = 100% onclick="openModal(this.src)">
 
   <p><b>Предварительный прототип новой функциональности:</b></p>
    <style>
@@ -159,4 +159,255 @@
   </ul>
   
 </div>
+  <button class="toggle-report" data-target="report2">
+   Software Requirements Specification (SRS) <span class="arrow">❯</span>
+</button>
+<div id="report2" class="report-content">
+  <p><b>Спецификация новой функциональности скрытия счета в мобильном приложении Банка</b></p>
+<p><b>1. Введение</b></p>
+  <p><b>1.1 Назначение документа</b></p>
+  <p>Цель документа — описать требования к разработке функциональности скрытия счетов в мобильном и веб-приложении интернет-банка. 
+    Данная возможность позволяет пользователю настраивать отображение своих счетов в интерфейсе, скрывая неактуальные или временно ненужные.
+</p>
+  <p><b>1.2 Термины и определения</b></p>
+  <table>
+  <thead>
+    <tr>
+      <th>Термин</th>
+      <th>Определение</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Пользователь</td>
+      <td>Физическое лицо, клиент банка, авторизованный в приложении</td>
+    </tr>
+    <tr>
+      <td>Счет</td>
+      <td>Банковский счет пользователя</td>
+    </tr>
+    <tr>
+      <td>Основной счет</td>
+      <td>Счет, используемый по умолчанию для зачислений</td>
+    </tr>
+    <tr>
+      <td>Заблокированный счет</td>
+      <td>Счет, на который наложено ограничение (например, по судебному решению)</td>
+    </tr>
+    <tr>
+      <td>Личный кабинет</td>
+      <td>Интерфейс пользователя в интернет-банке</td>
+    </tr>
+  </tbody>
+    </table>
+    <p><b>2. Общее описание</b></p>
+    <p><b>2.1 Перспектива продукта</b></p>
+    <p>Функциональность является частью мобильного и веб-приложения банка. Данные по счетам загружаются с backend-сервиса, изменения статуса 
+      "скрыт/отображается" сохраняются в БД.</p>
+    <p><b>2.2 Ограничения</b></p>
+    <ul>
+      <li>Нельзя скрыть основной счет</li>
+      <li>Нельзя скрыть заблокированный счетВремя отклика на операцию скрытия/возврата — не более 1 сек.</li>
+      <li>Время отклика на операцию скрытия/возврата — не более 1 сек.</li>
+    </ul>
+    <p><b>2.3 Зависимости</b></p>
+    <ul>
+      <li>Сервис авторизации и получения данных по счетам</li>
+      <li>База данных аккаунтов</li>
+      <li>API обновления информации по счету</li>
+      <li>Мобильные приложения (iOS / Android)</li>
+    </ul>
+  
+
+<p><b>3. Функциональные требования</b></p>
+  <p>3.1 Скрытие счета (UC-1)</p>
+  <p>Описание: пользователь может скрыть отображение выбранного счета в общем списке счетов, если этот счет не является основным или заблокированным.</p>
+  <img src="case2/assets/UC-1.png" class="zoomable-img" alt="UC1-схема" width = 100% onclick="openModal(this.src)">
+  <p>Функциональность:</p>
+<ul>
+  <li>при нажатии на кнопку «Скрыть» счет исчезает из основного списка "Мои счета"</li>
+  <li>статус сохраняется на сервере</li>
+</ul>
+    <p>Исключения:</p>
+<ul>
+  <li>если пользователь пытается скрыть основной/заблокированный счет, отображается ошибка</li>
+</ul>
+  <p>API-запрос:<b> PATCH /accounts/{id}/visibility</b></p>
+  <p>Request: <b>{ "is_hidden": true } </b></p>
+  <p>Response:</p>
+
+ <table>
+  <tbody>
+    <tr>
+      <td>200 OK:</td>
+      <td>{<br>
+  "id": "acc_12345",<br>
+  "is_hidden": true,<br>
+  "message": "Account successfully hidden"<br>
+}
+</td>
+    </tr>
+    <tr>
+      <td>400 Bad Request:</td>
+      <td>{<br>
+  "error": "Invalid account ID format"<br>
+}
+</td>
+    </tr>
+    <tr>
+      <td>401 Unauthorized:</td>
+      <td>{<br>
+  "error": "Authentication required"<br>
+}
+</td>
+    </tr>
+    <tr>
+      <td>403 Forbidden:</td>
+      <td>{<br>
+  "error": "Cannot hide primary or blocked account"<br>
+}
+</td>
+    </tr>
+    <tr>
+      <td>404 Not Found:</td>
+      <td>{<br>
+  "error": "Account not found"<br>
+}
+</td>
+    </tr>
+    <tr>
+      <td>500 Internal Server Error:</td>
+      <td>{<br>
+  "error": "Unexpected server error. Please try again later."<br>
+}
+</td>
+  </tbody>
+    </table>
+
+  <p>3.2 Просмотр скрытых счетов (UC-2)</p>
+  <p>Описание: пользователь может открыть список всех скрытых счетов в разделе "Настройки счета" или отдельном экране "Скрытые счета".</p>
+  <img src="case2/assets/UC-2.png" class="zoomable-img" alt="UC2-схема" width = 100% onclick="openModal(this.src)">
+  <p>API-запрос:<b>  GET /accounts?is_hidden=true</b></p>
+  <p>Response:</p>
+ <table>
+  <tbody>
+    <tr>
+      <td>200 OK:</td>
+      <td>  {<br>
+    "id": "acc_12345",<br>
+    "accountNumber": "40817810000001234567",<br>
+    "currency": "BYN",<br>
+    "balance": 1000.50,<br>
+    "isHidden": true<br>
+  },<br>
+  {<br>
+    "id": "acc_67890",<br>
+    "accountNumber": "40817810000007654321",<br>
+    "currency": "USD",<br>
+    "balance": 500.00,<br>
+    "isHidden": true<br>
+  }
+
+</td>
+    </tr>
+    <tr>
+      <td>400 Bad Request:</td>
+      <td>{<br>
+  "error": "Invalid account ID format"<br>
+}
+
+</td>
+    </tr>
+    <tr>
+      <td>401 Unauthorized:</td>
+      <td>{<br>
+  "error": "Authentication required"<br>
+}
+
+</td>
+    </tr>
+    <tr>
+      <td>403 Forbidden:</td>
+      <td>{<br>
+  "error": "Access to account information is forbidden"<br>
+}
+
+</td>
+    </tr>
+    <tr>
+      <td>404 Not Found:</td>
+      <td>{<br>
+  "error": "Account not found"<br>
+}
+
+</td>
+    </tr>
+    <tr>
+      <td>500 Internal Server Error:</td>
+      <td>{<br>
+  "error": "Unexpected server error. Please try again later."<br>
+}
+</td>
+  </tbody>
+    </table>
+
+<p>3.3 Возврат скрытого счета (UC-3)</p>  
+  <p>Описание: пользователь может вернуть отображение ранее скрытого счета в общем списке.</p>
+  <img src="case2/assets/UC-3.png" class="zoomable-img" alt="UC3-схема" width = 100% onclick="openModal(this.src)">
+  <p>API-запрос:<b>  PATCH /accounts/{id}/visibility</b></p>
+  <p>Request: <b>{ "is_hidden": false }</b></p>
+  <p>Response:</p>
+
+ <table>
+  <tbody>
+    <tr>
+      <td>200 OK:</td>
+      <td>{<br>
+  "id": "acc_12345",<br>
+  "is_hidden": false,<br>
+  "message": "Account is now visible"<br>
+}
+</td>
+    </tr>
+    <tr>
+      <td>400 Bad Request:</td>
+      <td>{<br>
+  "error": "Invalid account ID format"<br>
+}
+</td>
+    </tr>
+    <tr>
+      <td>401 Unauthorized:</td>
+      <td>{<br>
+  "error": "Authentication required"<br>
+}
+</td>
+    </tr>
+    <tr>
+      <td>403 Forbidden:</td>
+      <td>{<br>
+  "error": "Access to account information is forbidden"<br>
+}
+</td>
+    </tr>
+    <tr>
+      <td>404 Not Found:</td>
+      <td>{<br>
+  "error": "Account not found"<br>
+}
+</td>
+    </tr>
+    <tr>
+      <td>500 Internal Server Error:</td>
+      <td>{<br>
+  "error": "Unexpected server error. Please try again later."<br>
+}
+</td>
+  </tbody>
+    </table>
+
+
+
+
+  
 </div>
