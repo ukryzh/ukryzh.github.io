@@ -407,3 +407,42 @@ th {
   font-weight: bold;
 }
 
+.scroll-to-top {
+  position: fixed;
+  right: 0;
+  bottom: 20px;
+  width: 40px;
+  height: 40px;
+  background-color: #eee;
+  color: #333;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  text-decoration: none;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  z-index: 9999;
+  transition: background-color 0.3s;
+}
+
+.scroll-to-top:hover {
+  background-color: #ddd;
+}
+
+/* Эффект подсветки на всю высоту окна */
+.scroll-to-top::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0); /* по умолчанию — прозрачный */
+  transition: background-color 0.3s;
+  z-index: -1; /* чтобы кнопка была поверх подсветки */
+}
+
+.scroll-to-top:hover::before {
+  background-color: rgba(200, 200, 200, 0.2); /* нежная подсветка */
+}
+
