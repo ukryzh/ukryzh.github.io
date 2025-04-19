@@ -112,22 +112,16 @@ body {
 /* QR-код для печати */
 
 .qr-print {
-  display: none;
- 
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: 20px;
 }
 .qr-print img {
   width: 100px;
   height: 100px;
   margin-top: 20px;
-}
-@media print {
-  .qr-code-print-only {
-    display: block;
-    justify-content: center; 
-    align-items: center;
-    margin-top: auto;
-    margin-bottom: 20px;
-  }
 }
 
 /* Стили для заголовков и текста в правой панели */
