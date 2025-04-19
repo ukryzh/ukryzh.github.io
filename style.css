@@ -411,7 +411,7 @@ th {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  color: #333;
+  color: #777;
   display: none; /* Скрыта по умолчанию */
   align-items: center;
   justify-content: center;
