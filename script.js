@@ -228,3 +228,14 @@ document.addEventListener('keydown', function (event) {
     }
   }
 });
+document.addEventListener('DOMContentLoaded', function () {
+  const scrollButton = document.querySelector('.scroll-to-top');
+
+  if (scrollButton) {
+    scrollButton.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+});
+
