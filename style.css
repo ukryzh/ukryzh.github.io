@@ -375,7 +375,7 @@ a:hover {
 
 th.rotate {
   vertical-align: bottom;
-  height: 120px; /* регулируй по вкусу */
+  height: 150px; /* регулируй по вкусу */
   padding: 0;
   position: relative;
 }
@@ -385,7 +385,7 @@ th.rotate > div {
   transform-origin: bottom left;
   position: absolute;
   bottom: 5px;  /* подвинь чуть выше или ниже по вкусу */
-  left: 5px;
+  left: 20px;
   white-space: nowrap;
 }
 
