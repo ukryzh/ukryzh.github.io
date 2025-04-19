@@ -445,6 +445,7 @@ th {
   background-color: rgba(200, 200, 200, 0.2); 
   text-decoration: none !important;
 }
-.scroll-to-top span {
+.arrow-up {
   transform: rotate(270deg);
+  display: inline-block;
 }
