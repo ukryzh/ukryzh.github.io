@@ -409,27 +409,19 @@ th {
 
 .scroll-to-top {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 48px;
+  bottom: 30px;
+  right: 50px;
+  width: 100px;
   height: 48px;
-  background-color: #eee;
   color: #333;
   display: none; /* Скрыта по умолчанию */
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   z-index: 9999;
-  transition: background-color 0.3s, box-shadow 0.3s;
   cursor: pointer;
 }
 
-
-.scroll-to-top:hover {
-  background-color: #ddd;
-}
 
 /* Эффект подсветки на всю высоту окна */
 .scroll-to-top::before {
@@ -437,14 +429,14 @@ th {
   position: fixed;
   top: 0;
   right: 0;
-  width: 40px;
+  width: 100px;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0); /* по умолчанию — прозрачный */
+  background-color: rgba(0, 0, 0, 0); 
   transition: background-color 0.3s;
-  z-index: -1; /* чтобы кнопка была поверх подсветки */
+  z-index: -1; 
 }
 
 .scroll-to-top:hover::before {
-  background-color: rgba(200, 200, 200, 0.2); /* нежная подсветка */
+  background-color: rgba(200, 200, 200, 0.2); 
 }
 
