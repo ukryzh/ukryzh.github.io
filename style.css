@@ -444,4 +444,6 @@ th {
 .scroll-to-top:hover::before {
   background-color: rgba(200, 200, 200, 0.2); 
 }
-
+.scroll-to-top span {
+  transform: rotate (270deg);
+}
