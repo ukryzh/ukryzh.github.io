@@ -415,11 +415,18 @@ th {
   display: none; /* Скрыта по умолчанию */
   align-items: center;
   justify-content: center;
+  padding: 10px 15px;
   text-decoration: none;
   z-index: 9999;
   cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  gap: 8px;
 }
-
+.scroll-text {
+  font-size: 16px;
+  line-height: 1;
+}
 
 /* Эффект подсветки на всю высоту окна */
 .scroll-to-top::before {
