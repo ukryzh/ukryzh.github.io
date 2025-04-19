@@ -383,3 +383,30 @@ th.rotate {
     width: 30px;
   }
 
+body {
+  margin: 0;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 6px 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
