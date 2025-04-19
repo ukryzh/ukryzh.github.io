@@ -231,6 +231,19 @@ document.addEventListener('keydown', function (event) {
 document.addEventListener('DOMContentLoaded', function () {
   const scrollButton = document.querySelector('.scroll-to-top');
 
+  function toggleScrollButton() {
+    if (window.scrollY > 300) {
+      scrollButton.style.display = 'flex';
+    } else {
+      scrollButton.style.display = 'none';
+    }
+  }
+
+  // Показать/скрыть при загрузке и скролле
+  toggleScrollButton();
+  window.addEventListener('scroll', toggleScrollButton);
+
+  // Прокрутка наверх по клику
   if (scrollButton) {
     scrollButton.addEventListener('click', function (e) {
       e.preventDefault();
@@ -238,4 +251,5 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
 
