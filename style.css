@@ -113,7 +113,24 @@ body {
 
 .qr-print {
   display: none;
-
+ 
+}
+.qr-print img {
+  width: 100px;
+  height: 100px;
+  margin-top: 20px;
+}
+@media print {
+  .qr-code-print-only {
+    display: block;
+    justify-content: center; 
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: 20px;
+  }
+  nav, button, a[href], .no-print, .mobile-nav {
+    display: none !important;
+}
 
 /* Стили для заголовков и текста в правой панели */
 .right-panel h1, {
