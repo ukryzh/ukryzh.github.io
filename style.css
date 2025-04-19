@@ -427,6 +427,11 @@ th {
   font-size: 13px;
   line-height: 1;
 }
+.arrow-up {
+  transform: rotate(270deg);
+  display: inline-block;
+}
+
 
 /* Эффект подсветки на всю высоту окна */
 .scroll-to-top::before {
@@ -444,8 +449,4 @@ th {
 .scroll-to-top:hover::before {
   background-color: rgba(200, 200, 200, 0.2); 
   text-decoration: none !important;
-}
-.arrow-up {
-  transform: rotate(270deg);
-  display: inline-block;
 }
