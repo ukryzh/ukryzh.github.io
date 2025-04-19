@@ -218,7 +218,7 @@ document.getElementById('modalImg').addEventListener('click', function (e) {
 });
 document.addEventListener('keydown', function (event) {
   const modal = document.getElementById('modal');
-  if (modal.style.display === 'block') {
+  if (modal.style.display === 'flex') {
     if (event.key === 'Escape') {
       closeModal();
     } else if (event.key === 'ArrowLeft') {
