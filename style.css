@@ -374,24 +374,21 @@ a:hover {
 }
 
 th.rotate {
-    height: 150px;
-    white-space: nowrap;
-  }
-
-  th.rotate > div {
-    transform: rotate(-90deg);
-    width: 30px;
-  }
-
-body {
-  margin: 0;
-  padding: 1rem;
-  font-family: Arial, sans-serif;
+  vertical-align: bottom;
+  height: 120px; /* регулируй по вкусу */
+  padding: 0;
+  position: relative;
 }
 
-.table-wrapper {
-  overflow-x: auto;
+th.rotate > div {
+  transform: rotate(-90deg);
+  transform-origin: bottom left;
+  position: absolute;
+  bottom: 5px;  /* подвинь чуть выше или ниже по вкусу */
+  left: 5px;
+  white-space: nowrap;
 }
+
 
 table {
   width: 100%;
