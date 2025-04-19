@@ -312,6 +312,20 @@ a:hover {
 .zoomable-slide:hover {
   transform: scale(1.05);
 }
+
+.zoomable-img {
+  width: 100%;
+  height: auto;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  border-radius: 8px;
+  cursor: zoom-in;
+  transition: transform 0.2s ease;
+}
+
+.zoomable-img:hover {
+  transform: scale(1.05);
+}
 .report-content {
   display: none;
   margin-top: 10px;
