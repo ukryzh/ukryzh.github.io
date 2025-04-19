@@ -128,6 +128,8 @@ body {
     margin-top: auto;
     margin-bottom: 20px;
   }
+  nav, button, a[href], .no-print, .mobile-nav {
+    display: none !important;
 }
 
 /* Стили для заголовков и текста в правой панели */
