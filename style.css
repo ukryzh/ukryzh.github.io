@@ -251,6 +251,7 @@ a:hover {
   max-width: 90%;
   max-height: 90%;
   margin: auto;
+  object-fit: contain;
   
 }
 
