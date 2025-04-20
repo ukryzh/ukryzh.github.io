@@ -131,7 +131,7 @@
             </td>
       </tr>
       <tr>
-        <td rowspan><b>SQL-запросы</b></td>
+        <td rowspan=4><b>SQL-запросы</b></td>
         <td>2.3 Проверка аккаунтов получателя и отправителя:<br>SELECT COUNT(*) AS total FROM accounts WHERE user_id IN (:sender_account_id, :recipient_account_id);</td>
       </tr>
       <tr>
@@ -157,8 +157,149 @@ COMMIT;
     </tbody>
   </table>
 
+<p>После определения последовательности процесса денежных переводов можно спроектировать API-запросы:</p>
+  <table>
+    <tbody>
+      <tr>
+        <td colspan=2>User-запросы</td>
+      </tr>
+      <tr>
+        <td colspan=2>POST /auth/login</td>
+      </tr>
+      <tr>
+        <td>Описание</td>
+        <td>Логин пользователя</td>
+      </tr>
+      <tr>
+        <td>Обязательные поля</td>
+        <td>username, password</td>
+      </tr>
+       <tr>
+        <td>Пример запроса</td>
+        <td>{<br> "username": "john", <br> "password": "1234"<br> }</td>
+      </tr>
+       <tr>
+        <td>Пример ответа</td>
+        <td>{<br> "token": "jwt-token"<br> }</td>
+      </tr>
+       <tr>
+        <td>Коды ответа</td>
+        <td>200, 400, 401</td>
+      </tr>
+         <tr>
+        <td colspan=2>GET /user/{id}</td>
+      </tr>
+      <tr>
+        <td>Описание</td>
+        <td>Получить профиль</td>
+      </tr>
+      <tr>
+        <td>Пример ответа</td>
+        <td>{<br> "id": "u1", <br>"username": "john" <br>}</td>
+      </tr>
+       <tr>
+        <td>Коды ответа</td>
+        <td>200, 401</td>
+      </tr>
+      <tr>
+        <td colspan=2>Accounts-запросы</td>
+      </tr>
+      <tr>
+        <td colspan=2>GET /accounts</td>
+      </tr>
+      <tr>
+        <td>Описание</td>
+        <td>Список аккаунтов</td>
+      </tr>
+      
+       <tr>
+        <td>Пример ответа</td>
+        <td>[{<br>"id":"a1",<br>"account_id":"123"<br>}]</td>
+      </tr>
+       <tr>
+        <td>Коды ответа</td>
+        <td>200, 401</td>
+      </tr>
+      <tr>
+        <td colspan=2>GET /accounts/{id}/balance</td>
+      </tr>
+      <tr>
+        <td>Описание</td>
+        <td>Баланс аккаунта</td>
+      </tr>
+      <tr>
+        <td>Обязательные поля</td>
+        <td>id</td>
+      </tr>
+      
+       <tr>
+        <td>Пример ответа</td>
+        <td>{<br>"balance":"200.0" <br>}</td>
+      </tr>
+       <tr>
+        <td>Коды ответа</td>
+        <td>200, 401, 404</td>
+      </tr>
+      <tr>
+        <td colspan=2>Transactions-запросы</td>
+      </tr>
+      <tr>
+        <td colspan=2>POST /transactions</td>
+      </tr>
+      <tr>
+        <td>Описание</td>
+        <td>Создание транзакции</td>
+      </tr>
+      <tr>
+        <td>Обязательные поля</td>
+        <td>sender_account_id, recipient_account_id, amount</td>
+      </tr>
+       <tr>
+        <td>Пример запроса</td>
+        <td>{<br> "sender_account_id": "a1",<br> "recipient_account_id": "a2", <br>"amount": 50.0 <br>}</td>
+      </tr>
+       <tr>
+        <td>Пример ответа</td>
+        <td>{<br> "transactionId": "t1" <br>}</td>
+      </tr>
+       <tr>
+        <td>Коды ответа</td>
+        <td>200, 400, 404, 409</td>
+      </tr>
+      <tr>
+        <td colspan=2>GET /transactions/list</td>
+      </tr>
+      <tr>
+        <td>Описание</td>
+        <td>Все транзакции</td>
+      </tr>
+       <tr>
+        <td>Пример ответа</td>
+        <td>[{<br>"id":"t1",<br>"amount":50.0<br>}]</td>
+      </tr>
+       <tr>
+        <td>Коды ответа</td>
+        <td>200, 401</td>
+      </tr>
+      <tr>
+        <td colspan=2>GET /transactions/{id}</td>
+      </tr>
+      <tr>
+        <td>Описание</td>
+        <td>Детали транзакции</td>
+      </tr>
+       <tr>
+        <td>Пример ответа</td>
+        <td>{ "id":"t1","amount":50.0,"description":"Payment" }</td>
+      </tr>
+       <tr>
+        <td>Коды ответа</td>
+        <td>200, 40, 404</td>
+      </tr>
+    </tbody>
+  </table>
   
-  
+  <p>На основе описанных выше эндпоинтов сформирована полная документация в Swagger: <a href="case3/assets/openapi.yaml">скачать .yaml</a></p>
   <div class="modal" id="modal" onclick="closeModal()">
   <img id="modalImg">
 </div>
