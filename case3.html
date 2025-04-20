@@ -24,37 +24,37 @@
   <p>Инструментарий LucidChart позволяет сразу экпортировать ER-диаграмму в формате SQL-запросов для формирования таблиц. Для создания необходимых таблиц требуются следующие SQL-запросы:</p>
   <table>
     <thead>
-      <td>
+      <tr>
         <th>Таблица</th>
       <th>SQL-запрос</th>
-      </td>
+      </tr>
     </thead>
     <tbody>
-      <td>
-        <tr>USERS</tr>
-        <tr>CREATE TABLE Users (<br>
+      <tr>
+        <td>USERS</td>
+        <td>CREATE TABLE users (<br>
   ID INT AUTO_INCREMENT,<br>
   Name VARCHAR(100),<br>
   Email VARCHAR(255) UNIQUE,<br>
   password_hashed VARCHAR(255),<br>
   PRIMARY KEY (ID)<br>
 );
-</tr>
-      </td>
-      <td>
-        <tr>ACCOUNTS</tr>
-        <tr>CREATE TABLE Accounts (<br>
+</td>
+      </tr>
+      <tr>
+        <td>ACCOUNTS</td>
+        <td>CREATE TABLE accounts (<br>
   account_id INT AUTO_INCREMENT,<br>
   user_id INT,<br>
   balance DECIMAL(15, 2) DEFAULT 0.00,<br>
   PRIMARY KEY (account_id),<br>
   FOREIGN KEY (user_id) REFERENCES Users(ID)<br>
 );
-</tr>
-      </td>
-      <td>
-        <tr>TRANSACTIONS</tr>
-        <tr>CREATE TABLE Transactions (<br>
+</td>
+      </tr>
+      <tr>
+        <td>TRANSACTIONS</td>
+        <td>CREATE TABLE transactions (<br>
   transaction_id INT AUTO_INCREMENT,<br>
   sender_account_id INT,<br>
   recipient_account_id INT,<br>
@@ -65,14 +65,99 @@
   FOREIGN KEY (sender_account_id) REFERENCES Accounts(account_id),<br>
   FOREIGN KEY (recipient_account_id) REFERENCES Accounts(account_id)<br>
 );
-</tr>
-      </td>
+</td>
+      </tr>
     </tbody>
   </table>
 
   <p>После описание классов и БД, участвующих в процессе денежных переводов, необходимо описать взаимодействие этих компонентов. Ниже на диаграмме последовательностей
   показаны основные шаги в процессе денежных переводов.</p>
   <img src="case3/assets/sequence.png" class="zoomable-img" alt="Sequence-diagram" width = 100% onclick="openModal(this.src)">
+
+  <p>Детальное описание процесса денежных переводов:</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>
+          <b>Основной сценарий поведения</b>
+        </td>
+        <td>
+          1.1 Пользователь вводит сумму и получателя<br>
+          1.2 Фронтенд отправляет API-запрос: POST /api/v1/transaction<br>
+          2.1 API Gateway проверяет наличия токена (альтернативные варианты для данного этапа вне скоупа этого кейса)<br>
+          2.2 API Gateway отправляет запрос на проверку отправителя и получателя<br>
+          2.3 SQL-запрос<br>
+          2.4 БД обрабатывает запрос<br>
+          2.4.1 БД возвращает ответ: Аккаунты существуют<br>
+          3.1 Проверяется достаточность баланса для совершения транзакции: check_balance();<br>
+          3.1.1 Средств достаточно для совершения транзакции<br>
+          4.1 API Gateway отправляет запрос на создание транзакции<br>
+          4.2 SQL-запроc<br>
+          4.3 БД обрабатывает запрос<br>
+          4.3.1 БД возвращает ответ: Транзакция создана<br>
+          5.1 После совершения транзакции требуется обновить балансы, SQL-запрос<br>
+          5.2 БД обрабатывает запрос<br>
+          5.2.1 БД возвращает ответ: Балансы обновлены<br>
+          5.2.2 - 5.2.4 - Возврат ответа “200 ОК” - Транзакция совершена
+        </td>
+      </tr>
+      <tr>
+        <td><b>Альтернативный сценарий: Аккаунты для совершения транзакции не найдены</b></td>
+        <td>2.4.2 БД возвращает ответ: Аккаунты не найдены<br>
+            2.4.3 Делается запись в лог: Аккаунты не найдены<br>
+            2.4.4 - 2.4.6 - Возврат ответа “404 Not Found” - Аккаунты не найдены
+        </td>
+      </tr>
+      <tr>
+        <td><b>Альтернативный сценарий: Ошибка обновления баланса</b></td>
+        <td>5.2.5 БД возвращает ответ: Ошибка обновления баланса<br>
+            5.2.6 Делается запись в лог: Ошибка при обновлении баланса<br>
+            5.2.7 - 5.2.8 Удаление транзакции из БД (SQL-запрос)<br>
+            5.2.9 - 5.2.10 БД возвращает ответ: Транзакция удалена<br>
+            5.2.11 - 5.2.13 Возврат ответа “500 Internal Error” - Ошибка: Транзакция прервана
+        </td>
+      </tr>
+      <tr>
+        <td>Альтернативный сценарий: Ошибка при записи транзакции</td>
+        <td>4.3.2 БД возвращает ответ: Ошибка при записи транзакции<br>
+            4.3.3 Делается запись в лог: Ошибка при записи транзакции<br>
+            4.3.4 - 4.3.6 Возврат ответа “500 Internal Error” - Ошибка: Транзакция не создана
+        </td>
+      </tr>
+      <tr>
+        <td><b>Альтернативный сценарий: Недостаточно средств для совершения транзакции</b></td>
+        <td>3.1.2 Делается запись в лог: Недостаточно средств<br>
+            3.1.3 - 3.1.5 Возврат ответа “409 Conflict” - Ошибка: недостаточно средств
+            </td>
+      </tr>
+      <tr>
+        <td rowspan><b>SQL-запросы</b></td>
+        <td>2.3 Проверка аккаунтов получателя и отправителя:<br>SELECT COUNT(*) AS total FROM accounts WHERE user_id IN (:sender_account_id, :recipient_account_id);</td>
+      </tr>
+      <tr>
+        <td>4.2 Создание транзакции:<br>INSERT INTO transactions (sender_account_id, recipient_account_id, amount, status) VALUES (:sender_account_id, :recipient_account_id, :amount, :status)</td>
+      </tr>
+      <tr>
+        <td>5.1 Обновление балансов:<br> BEGIN;<br><br>
+
+UPDATE accounts<br>
+SET balance = balance - :amount <br>
+WHERE account_id = :sender_account_id;<br><br>
+
+UPDATE accounts <br>
+SET balance = balance + :amount <br>
+WHERE account_id = :recipient_account_id;<br><br>
+
+COMMIT;
+ </td>
+      </tr>
+      <tr>
+        <td>5.2.7 Удаление транзакции: <br> DELETE FROM transactions WHERE transaction_id = :transaction_id;</td>
+      </tr>
+    </tbody>
+  </table>
+
+  
   
   <div class="modal" id="modal" onclick="closeModal()">
   <img id="modalImg">
