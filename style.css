@@ -258,7 +258,7 @@ a:hover {
 .big-zoom-img {
   width: 300%; 
   height: auto;
-  cursor: grab;
+  scale: 1.5; 
 }
 
 .slider-wrapper {
