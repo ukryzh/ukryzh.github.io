@@ -1,0 +1,261 @@
+openapi: 3.0.1
+info:
+  title: "API for User, Accounts, and Transactions"
+  description: "API for user authentication, profile management, account details, and transactions"
+  version: "1.0.0"
+servers:
+  - url: "https://api.example.com/v1"
+  
+tags:
+  - name: User
+    description: "User authentication and profile management"
+  - name: Accounts
+    description: "Managing user accounts and balances"
+  - name: Transactions
+    description: "Transactions between accounts"
+
+paths:
+  /auth/login:
+    post:
+      tags: [User]
+      summary: "Login to the application"
+      description: "Authenticate the user and return a JWT token."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: "Successfully logged in"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          description: "Bad request, invalid credentials"
+        '401':
+          description: "Unauthorized, incorrect credentials"
+
+
+  /user/{id}:
+    get:
+      tags: [User]
+      summary: "Get user profile"
+      description: "Retrieve the user's profile information."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID of the user"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Successfully retrieved user profile"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '401':
+          description: "Unauthorized, user needs to be logged in"
+
+  /accounts:
+    get:
+      tags: [Accounts]
+      summary: "Get a list of accounts"
+      description: "Retrieve all accounts associated with the user."
+      responses:
+        '200':
+          description: "Successfully retrieved the list of accounts"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '401':
+          description: "Unauthorized, user needs to be logged in"
+
+ 
+
+  /accounts/{id}/balance:
+    get:
+      tags: [Accounts]
+      summary: "Get account balance"
+      description: "Retrieve the balance of a specific account."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID of the account"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Successfully retrieved account balance"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Balance'
+        '401':
+          description: "Unauthorized, user needs to be logged in"
+        '404':
+          description: "Account not found"
+
+  /transactions:
+    post:
+      tags: [Transactions]
+      summary: "Create a new transaction"
+      description: "Create a transaction between accounts."
+      operationId: createTransaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionRequest'
+      responses:
+        '200':
+          description: "Transaction successfully created"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        '400':
+          description: "Invalid request, missing or incorrect parameters"
+        '404':
+          description: "Account not found"
+        '409':
+          description: "Conflict, insufficient funds"
+      x-idempotency-key: true
+
+  /transactions/list:
+    get:
+      tags: [Transactions]
+      summary: "Get a list of transactions"
+      description: "Retrieve all transactions for the user."
+      responses:
+        '200':
+          description: "Successfully retrieved the list of transactions"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+        '401':
+          description: "Unauthorized, user needs to be logged in"
+
+  /transactions/{id}:
+    get:
+      tags: [Transactions]
+      summary: "Get transaction details"
+      description: "Retrieve details for a specific transaction by its ID."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID of the transaction"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Successfully retrieved transaction details"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          description: "Unauthorized, user needs to be logged in"
+        '404':
+          description: "Transaction not found"
+
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - password
+
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+        accountNumber:
+          type: string
+        balance:
+          type: number
+          format: float
+
+    Balance:
+      type: object
+      properties:
+        balance:
+          type: number
+          format: float
+
+    TransactionRequest:
+      type: object
+      properties:
+        sender_account_id:
+          type: string
+        recipient_account_id:
+          type: string
+        amount:
+          type: number
+          format: float
+        description:
+          type: string
+      required:
+        - sender_account_id
+        - recipient_account_id
+        - amount
+
+    TransactionResponse:
+      type: object
+      properties:
+        transactionId:
+          type: string
+
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: string
+        sender_account_id:
+          type: string
+        recipient_account_id:
+          type: string
+        amount:
+          type: number
+          format: float
+        description:
+          type: string
+        date:
+          type: string
+          format: date-time
