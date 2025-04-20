@@ -1,4 +1,79 @@
 <div class="case-content">
-  <h2>Проект 3 – Аналитика в банке</h2>
-  <p>Описание проекта, чем занималась, какие результаты, какой стек.</p>
+  <h2>Разработка интеграции сервиса денежных переводов</h2>
+  <p></p>
+  <p>В рамках кейса показывается процесс построения интеграции для сервиса денежных переводов</p>
+  <p><b>Инструментарий:</b></p>
+  <p>UML<br>SQL<br>ER-диаграммы<br>API<br>Swagger</p>
+  <p></p>
+<p><b>Цель:</b> Создание документации для построения интеграции сервиса денежных переводов</p>
+<p><b>Результат:</b> Задокументированный кейс (ER-диаграммы, документация API в Swagger)</p>
+
+  
+<p>В рамках данного проекта рассматривается функциональность сервиса денежных переводов (транзакций). Ниже на Use-case-диаграмме показано взаимодействие этого сервиса 
+  с другими сервисами для клиента</p>
+  <img src="case3/assets/UC-transaction.png" class="zoomable-img" alt="Use Case" width = 100% onclick="openModal(this.src)">
+  <p></p>
+  <p>В рамках этого сервиса взаимодействуют три основных класса:<br>
+  1. Пользователи (Users)<br>
+  2. Аккаунты<br>
+  3. Транзакции</p>
+  <p>Ниже на диаграмме классов показаны их атрибуты, методы и взаимосвязи:</p>
+  <img src="case3/assets/class-transaction.png" class="zoomable-img" alt="Class diagram" width = 100% onclick="openModal(this.src)">
+<p>На основании этой диаграммы построенна ER-диаграмма и созданы таблицы в базе данных для дальнейшего взаимодействия с интерфейсом сервиса.</p>
+  <img src="case3/assets/ERD.png" class="zoomable-img" alt="ERD" width = 100% onclick="openModal(this.src)">
+  <p>Инструментарий LucidChart позволяет сразу экпортировать ER-диаграмму в формате SQL-запросов для формирования таблиц. Для создания необходимых таблиц требуются следующие SQL-запросы:</p>
+  <table>
+    <thead>
+      <td>
+        <th>Таблица</th>
+      <th>SQL-запрос</th>
+      </td>
+    </thead>
+    <tbody>
+      <td>
+        <tr>USERS</tr>
+        <tr>CREATE TABLE Users (<br>
+  ID INT AUTO_INCREMENT,<br>
+  Name VARCHAR(100),<br>
+  Email VARCHAR(255) UNIQUE,<br>
+  password_hashed VARCHAR(255),<br>
+  PRIMARY KEY (ID)<br>
+);
+</tr>
+      </td>
+      <td>
+        <tr>ACCOUNTS</tr>
+        <tr>CREATE TABLE Accounts (<br>
+  account_id INT AUTO_INCREMENT,<br>
+  user_id INT,<br>
+  balance DECIMAL(15, 2) DEFAULT 0.00,<br>
+  PRIMARY KEY (account_id),<br>
+  FOREIGN KEY (user_id) REFERENCES Users(ID)<br>
+);
+</tr>
+      </td>
+      <td>
+        <tr>TRANSACTIONS</tr>
+        <tr>CREATE TABLE Transactions (<br>
+  transaction_id INT AUTO_INCREMENT,<br>
+  sender_account_id INT,<br>
+  recipient_account_id INT,<br>
+  amount DECIMAL(15, 2),<br>
+  date DATETIME DEFAULT CURRENT_TIMESTAMP,<br>
+  status ENUM('PENDING', 'COMPLETED', 'FAILED'),<br>
+  PRIMARY KEY (transaction_id),<br>
+  FOREIGN KEY (sender_account_id) REFERENCES Accounts(account_id),<br>
+  FOREIGN KEY (recipient_account_id) REFERENCES Accounts(account_id)<br>
+);
+</tr>
+      </td>
+    </tbody>
+  </table>
+
+  <p>После описание классов и БД, участвующих в процессе денежных переводов, необходимо описать взаимодействие этих компонентов. Ниже на диаграмме последовательностей
+  показаны основные шаги в процессе денежных переводов.</p>
+  <img src="case3/assets/sequence.png" class="zoomable-img" alt="Sequence-diagram" width = 100% onclick="openModal(this.src)">
+  
+  <div class="modal" id="modal" onclick="closeModal()">
+  <img id="modalImg">
 </div>
