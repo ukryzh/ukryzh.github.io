@@ -256,9 +256,8 @@ a:hover {
   
 }
 .big-zoom-img {
-  width: 300%; 
-  height: auto;
-  scale: 1.5; 
+  width: 300% !important ; 
+  height: auto !important;
 }
 
 .slider-wrapper {
