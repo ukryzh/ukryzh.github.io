@@ -37,6 +37,8 @@ paths:
           description: "Bad request, invalid credentials"
         '401':
           description: "Unauthorized, incorrect credentials"
+        '500':
+          description: "Internal server error. Please try again later."
 
 
   /user/{id}:
@@ -60,6 +62,8 @@ paths:
                 $ref: '#/components/schemas/UserProfile'
         '401':
           description: "Unauthorized, user needs to be logged in"
+        '500':
+          description: "Internal server error. Please try again later."
 
   /accounts:
     get:
@@ -77,6 +81,8 @@ paths:
                   $ref: '#/components/schemas/Account'
         '401':
           description: "Unauthorized, user needs to be logged in"
+        '500':
+          description: "Internal server error. Please try again later."
 
  
 
@@ -103,6 +109,8 @@ paths:
           description: "Unauthorized, user needs to be logged in"
         '404':
           description: "Account not found"
+        '500':
+          description: "Internal server error. Please try again later."
 
   /transactions:
     post:
@@ -129,6 +137,8 @@ paths:
           description: "Account not found"
         '409':
           description: "Conflict, insufficient funds"
+        '500':
+          description: "Internal server error. Please try again later."
       x-idempotency-key: true
 
   /transactions/list:
@@ -147,6 +157,8 @@ paths:
                   $ref: '#/components/schemas/Transaction'
         '401':
           description: "Unauthorized, user needs to be logged in"
+        '500':
+          description: "Internal server error. Please try again later."
 
   /transactions/{id}:
     get:
@@ -171,6 +183,8 @@ paths:
           description: "Unauthorized, user needs to be logged in"
         '404':
           description: "Transaction not found"
+        '500':
+          description: "Internal server error. Please try again later."
 
 components:
   schemas:
