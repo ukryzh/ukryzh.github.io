@@ -54,7 +54,7 @@ function loadCase(caseFile, clickedBtn = null) {
         const slideImgs = document.querySelectorAll('.zoomable-slide');
         if (slideImgs.length > 0) {
           const slideSrcs = [...slideImgs].map(img => img.getAttribute('src'));
-          let currentSlideIndex = 0;  // Начальный индекс
+          let currentSlideIndex = 0;
 
           // Функция для открытия модалки с текущим слайдом
           const openModalWithSlides = (src, srcArray) => {
@@ -69,11 +69,8 @@ function loadCase(caseFile, clickedBtn = null) {
             modalImg.src = src;
             modal.style.display = 'flex';
 
-            // Очистка предыдущих обработчиков клавиш
-            document.onkeydown = null;
-
-            // Назначаем обработчик событий для перелистывания слайдов
-            const handleKeydown = (e) => {
+            // Добавление слушателей для перелистывания слайдов с помощью клавиш
+            document.onkeydown = (e) => {
               if (e.key === 'ArrowRight') {
                 currentSlideIndex = (currentSlideIndex + 1) % slideSrcs.length;
                 modalImg.src = slideSrcs[currentSlideIndex];
@@ -82,9 +79,6 @@ function loadCase(caseFile, clickedBtn = null) {
                 modalImg.src = slideSrcs[currentSlideIndex];
               }
             };
-
-            // Назначаем обработчик клавиш только после открытия модалки
-            document.onkeydown = handleKeydown;
           };
 
           // Добавляем обработчики клика для каждого изображения слайдера
