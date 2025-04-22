@@ -10,6 +10,7 @@ function loadCase(caseFile, clickedBtn = null) {
   activeCase = caseFile;
   activeButton = clickedBtn;
 
+  // Снимаем активность с кнопок
   document.querySelectorAll('.project-btn').forEach(btn => {
     btn.classList.remove('active-case');
     btn.innerHTML = btn.dataset.originalText || btn.textContent;
@@ -53,6 +54,34 @@ function loadCase(caseFile, clickedBtn = null) {
         const slideImgs = document.querySelectorAll('.zoomable-slide');
         if (slideImgs.length > 0) {
           const slideSrcs = [...slideImgs].map(img => img.getAttribute('src'));
+          let currentSlideIndex = 0;
+
+          // Функция для открытия модалки с текущим слайдом
+          const openModalWithSlides = (src, srcArray) => {
+            currentSlideIndex = srcArray.indexOf(src);
+            openModal(src, srcArray);
+          };
+
+          // Открытие модалки с возможностью перелистывания слайдов
+          const openModal = (src, slideSrcs) => {
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modalImg');
+            modalImg.src = src;
+            modal.style.display = 'flex';
+
+            // Добавление слушателей для перелистывания слайдов с помощью клавиш
+            document.onkeydown = (e) => {
+              if (e.key === 'ArrowRight') {
+                currentSlideIndex = (currentSlideIndex + 1) % slideSrcs.length;
+                modalImg.src = slideSrcs[currentSlideIndex];
+              } else if (e.key === 'ArrowLeft') {
+                currentSlideIndex = (currentSlideIndex - 1 + slideSrcs.length) % slideSrcs.length;
+                modalImg.src = slideSrcs[currentSlideIndex];
+              }
+            };
+          };
+
+          // Добавляем обработчики клика для каждого изображения
           slideImgs.forEach(img => {
             img.onclick = function () {
               openModalWithSlides(this.src, slideSrcs);
