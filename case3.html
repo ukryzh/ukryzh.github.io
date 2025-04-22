@@ -3,7 +3,16 @@
   <p></p>
   <p>В рамках кейса показывается процесс построения интеграции для сервиса денежных переводов</p>
   <p><b>Инструментарий:</b></p>
-  <p>UML<br>SQL<br>ER-диаграммы<br>API<br>Swagger</p>
+  <table>
+    <tr>
+      <td>UML</td>
+      <td>SQL</td>
+    </tr>
+     <tr>
+      <td>ER-диаграммы</td>
+      <td>API (Swagger)</td>
+    </tr>
+  </table>
   <p></p>
 <p><b>Цель:</b> Создание документации для построения интеграции сервиса денежных переводов</p>
 <p><b>Результат:</b> Задокументированный кейс (ER-диаграммы, документация API в Swagger)</p>
@@ -19,7 +28,8 @@
   3. Транзакции</p>
   <p>Ниже на диаграмме классов показаны их атрибуты, методы и взаимосвязи:</p>
   <img src="case3/assets/class_transaction.png" class="zoomable-img" alt="Class diagram" width = 100% onclick="openModal(this.src)">
-<p>На основании этой диаграммы построенна ER-диаграмма и созданы таблицы в базе данных для дальнейшего взаимодействия с интерфейсом сервиса.</p>
+<p></p>
+  <p>На основании этой диаграммы построенна ER-диаграмма и созданы таблицы в базе данных для дальнейшего взаимодействия с интерфейсом сервиса.</p>
   <img src="case3/assets/ERD.png" class="zoomable-img" alt="ERD" width = 100% onclick="openModal(this.src)">
   <p>Инструментарий LucidChart позволяет сразу экпортировать ER-диаграмму в формате SQL-запросов для формирования таблиц. Для создания необходимых таблиц требуются следующие SQL-запросы:</p>
   <table>
@@ -69,11 +79,11 @@
       </tr>
     </tbody>
   </table>
-
+<p></p>
   <p>После описание классов и БД, участвующих в процессе денежных переводов, необходимо описать взаимодействие этих компонентов. Ниже на диаграмме последовательностей
   показаны основные шаги в процессе денежных переводов.</p>
   <img src="case3/assets/sequence.png" class="zoomable-img " alt="Sequence-diagram" width = 100% onclick="openModal(this.src, true)">
-
+<p></p>
   <p>Детальное описание процесса денежных переводов:</p>
   <table>
     <tbody>
@@ -118,7 +128,7 @@
         </td>
       </tr>
       <tr>
-        <td>Альтернативный сценарий: Ошибка при записи транзакции</td>
+        <td><b>Альтернативный сценарий: Ошибка при записи транзакции</b></td>
         <td>4.3.2 БД возвращает ответ: Ошибка при записи транзакции<br>
             4.3.3 Делается запись в лог: Ошибка при записи транзакции<br>
             4.3.4 - 4.3.6 Возврат ответа “500 Internal Error” - Ошибка: Транзакция не создана
@@ -156,15 +166,15 @@ COMMIT;
       </tr>
     </tbody>
   </table>
-
+<p></p>
 <p>После определения последовательности процесса денежных переводов можно спроектировать API-запросы:</p>
   <table>
     <tbody>
       <tr>
-        <td colspan=2>User-запросы</td>
+        <td colspan=2 style="background-color: lightblue;">User-запросы</td>
       </tr>
       <tr>
-        <td colspan=2>POST /auth/login</td>
+        <td colspan=2><b>POST /auth/login</b></td>
       </tr>
       <tr>
         <td>Описание</td>
@@ -187,7 +197,7 @@ COMMIT;
         <td>200, 400, 401, 500</td>
       </tr>
          <tr>
-        <td colspan=2>GET /user/{id}</td>
+        <td colspan=2><b>GET /user/{id}</b></td>
       </tr>
       <tr>
         <td>Описание</td>
@@ -202,10 +212,10 @@ COMMIT;
         <td>200, 401, 500</td>
       </tr>
       <tr>
-        <td colspan=2>Accounts-запросы</td>
+        <td colspan=2 style="background-color: lightblue;">Accounts-запросы</td>
       </tr>
       <tr>
-        <td colspan=2>GET /accounts</td>
+        <td colspan=2><b>GET /accounts</b></td>
       </tr>
       <tr>
         <td>Описание</td>
@@ -221,7 +231,7 @@ COMMIT;
         <td>200, 401, 500</td>
       </tr>
       <tr>
-        <td colspan=2>GET /accounts/{id}/balance</td>
+        <td colspan=2><b>GET /accounts/{id}/balance</b></td>
       </tr>
       <tr>
         <td>Описание</td>
@@ -241,10 +251,10 @@ COMMIT;
         <td>200, 401, 404, 500</td>
       </tr>
       <tr>
-        <td colspan=2>Transactions-запросы</td>
+        <td colspan=2 style="background-color: lightblue;">Transactions-запросы</td>
       </tr>
       <tr>
-        <td colspan=2>POST /transactions</td>
+        <td colspan=2><b>POST /transactions</b></td>
       </tr>
       <tr>
         <td>Описание</td>
@@ -267,7 +277,7 @@ COMMIT;
         <td>200, 400, 404, 409, 500</td>
       </tr>
       <tr>
-        <td colspan=2>GET /transactions/list</td>
+        <td colspan=2><b>GET /transactions/list</b></td>
       </tr>
       <tr>
         <td>Описание</td>
@@ -282,7 +292,7 @@ COMMIT;
         <td>200, 401, 500</td>
       </tr>
       <tr>
-        <td colspan=2>GET /transactions/{id}</td>
+        <td colspan=2><b>GET /transactions/{id}</b></td>
       </tr>
       <tr>
         <td>Описание</td>
@@ -298,7 +308,7 @@ COMMIT;
       </tr>
     </tbody>
   </table>
-  
+  <p></p>
   <p>На основе описанных выше эндпоинтов сформирована полная документация в Swagger: <a href="case3/assets/openapi.yaml" target="_blank">скачать .yaml</a></p>
   <div class="modal" id="modal" onclick="closeModal()">
   <img id="modalImg">
