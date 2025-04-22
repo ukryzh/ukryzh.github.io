@@ -191,49 +191,18 @@ function closeModal() {
 
 // === Навигация по слайдам в модальном окне ===
 let slideSources = [];
-let currentSlideIndex = 0;
-
-let slideSources = []; // Массив с источниками всех слайдов
-let currentSlideIndex = -1; // Индекс текущего слайда
+let currentSlideIndex = -1;
 
 function openModalWithSlides(src, allSrcs) {
-  slideSources = allSrcs; // Сохраняем все источники слайдов
-  currentSlideIndex = allSrcs.indexOf(src); // Устанавливаем текущий индекс слайда
+  slideSources = allSrcs;
+  currentSlideIndex = allSrcs.indexOf(src);
 
   const modal = document.getElementById('modal');
   const modalImg = document.getElementById('modalImg');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
 
-  modalImg.src = src; // Показываем текущий слайд в модалке
-  modal.style.display = 'block'; // Показываем модалку
-
-  // Обработчик кнопки "влево"
-  prevBtn.onclick = function() {
-    currentSlideIndex = (currentSlideIndex - 1 + slideSources.length) % slideSources.length;
-    modalImg.src = slideSources[currentSlideIndex];
-  };
-
-  // Обработчик кнопки "вправо"
-  nextBtn.onclick = function() {
-    currentSlideIndex = (currentSlideIndex + 1) % slideSources.length;
-    modalImg.src = slideSources[currentSlideIndex];
-  };
-
-  // Закрытие модалки при клике на фоновую область
-  modal.onclick = function() {
-    modal.style.display = 'none';
-  };
+  modalImg.src = src;
+  modal.style.display = 'block';
 }
-
-// Для каждой картинки в галерее добавляем обработчик для открытия модалки
-const slideImgs = document.querySelectorAll('.zoomable-slide');
-slideImgs.forEach(img => {
-  img.onclick = function() {
-    openModalWithSlides(this.src, [...slideImgs].map(i => i.getAttribute('src')));
-  };
-}
-
 
 function changeSlide(direction) {
   if (slideSources.length === 0) return;
