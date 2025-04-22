@@ -120,18 +120,12 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-function openModal(src, isBig = false) {
+function openModal(src) {
   const modal = document.getElementById('modal');
   const modalImg = document.getElementById('modalImg');
   
   modalImg.src = src;
   modal.style.display = 'flex';
-
-  if (isBig) {
-    modalImg.classList.add('big-zoom-img');
-  } else {
-    modalImg.classList.remove('big-zoom-img');
-  }
 }
 
 
