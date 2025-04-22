@@ -70,7 +70,7 @@ function loadCase(caseFile, clickedBtn = null) {
             modal.style.display = 'flex';
 
             // Добавление слушателей для перелистывания слайдов с помощью клавиш
-            document.onkeydown = (e) => {
+            const handleKeydown = (e) => {
               if (e.key === 'ArrowRight') {
                 currentSlideIndex = (currentSlideIndex + 1) % slideSrcs.length;
                 modalImg.src = slideSrcs[currentSlideIndex];
@@ -79,6 +79,9 @@ function loadCase(caseFile, clickedBtn = null) {
                 modalImg.src = slideSrcs[currentSlideIndex];
               }
             };
+
+            // Сброс слушателя клавиш, если открыта одиночная картинка
+            document.onkeydown = handleKeydown;
           };
 
           // Добавляем обработчики клика для каждого изображения слайдера
