@@ -35,31 +35,44 @@ function loadCase(caseFile, clickedBtn = null) {
         contentContainer.innerHTML = data;
         contentContainer.classList.remove("fade-out");
         contentContainer.classList.add("fade-in");
-      // Навешиваем обработчики на спойлеры
-  const toggleButtons = document.querySelectorAll(".toggle-report");
 
-  toggleButtons.forEach((btn) => {
-    const targetId = btn.dataset.target;
-    const reportContent = document.getElementById(targetId);
+        // === Повторная инициализация спойлеров ===
+        const toggleButtons = document.querySelectorAll(".toggle-report");
+        toggleButtons.forEach((btn) => {
+          const targetId = btn.dataset.target;
+          const reportContent = document.getElementById(targetId);
+          if (reportContent) {
+            btn.addEventListener("click", () => {
+              reportContent.classList.toggle("expanded");
+              btn.classList.toggle("expanded");
+            });
+          }
+        });
 
-    if (reportContent) {
-      btn.addEventListener("click", () => {
-        reportContent.classList.toggle("expanded");
-        btn.classList.toggle("expanded");
-      });
-    }
-  });
-        // После загрузки слайдов — навешиваем обработчики на zoomable-slide
-const slideImgs = document.querySelectorAll('.zoomable-slide');
-if (slideImgs.length > 0) {
-  const allSlideSrcs = [...slideImgs].map(img => img.getAttribute('src'));
+        // === Повторная инициализация модалок со слайдами ===
+        const slideImgs = document.querySelectorAll('.zoomable-slide');
+        if (slideImgs.length > 0) {
+          const slideSrcs = [...slideImgs].map(img => img.getAttribute('src'));
+          slideImgs.forEach(img => {
+            img.onclick = function () {
+              openModalWithSlides(this.src, slideSrcs);
+            };
+          });
+        }
 
-  slideImgs.forEach(img => {
-    img.addEventListener('click', function () {
-      openModalWithSlides(this.src, allSlideSrcs);
-    });
-  });
-}
+        // === Одиночные картинки ===
+        const singleImgs = document.querySelectorAll('.zoomable-img');
+        singleImgs.forEach(img => {
+          img.onclick = function () {
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modalImg');
+            modalImg.src = this.src;
+            modal.style.display = 'flex';
+
+            // очищаем слайды
+            slideSources = [];
+          };
+        });
 
       })
       .catch(() => {
@@ -71,6 +84,7 @@ if (slideImgs.length > 0) {
     history.pushState({ caseFile }, "", `#${caseFile}`);
   }, 150);
 }
+
 
 function goBackToResume() {
   activeCase = null;
