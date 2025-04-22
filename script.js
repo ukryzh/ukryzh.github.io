@@ -55,7 +55,7 @@ if (slideImgs.length > 0) {
   const allSlideSrcs = [...slideImgs].map(img => img.getAttribute('src'));
 
   slideImgs.forEach(img => {
-    img.addEventListener('click', function () {
+    img.onclick = function () {
       openModalWithSlides(this.src, allSlideSrcs);
     });
   });
@@ -175,14 +175,7 @@ function changeSlide(direction) {
 document.getElementById('modalNext')?.addEventListener('click', () => changeSlide(1));
 document.getElementById('modalPrev')?.addEventListener('click', () => changeSlide(-1));
 
-// Перезапишем openModal для поддержки множественных слайдов
-document.addEventListener('click', function (e) {
-  if (e.target.classList.contains('zoomable-slide')) {
-    const src = e.target.getAttribute('src');
-    const slides = [...document.querySelectorAll('.zoomable-slide')].map(img => img.getAttribute('src'));
-    openModalWithSlides(src, slides);
-  }
-});
+
 
 
 // Закрытие модального окна по клавише Esc
