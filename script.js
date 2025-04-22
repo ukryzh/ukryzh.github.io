@@ -66,10 +66,13 @@ function loadCase(caseFile, clickedBtn = null) {
           const openModal = (src, slideSrcs) => {
             const modal = document.getElementById('modal');
             const modalImg = document.getElementById('modalImg');
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            
             modalImg.src = src;
             modal.style.display = 'flex';
 
-            // Добавление слушателей для перелистывания слайдов с помощью клавиш
+            // Добавляем слушателей для перелистывания слайдов с помощью клавиш
             document.onkeydown = (e) => {
               if (e.key === 'ArrowRight') {
                 currentSlideIndex = (currentSlideIndex + 1) % slideSrcs.length;
@@ -78,6 +81,17 @@ function loadCase(caseFile, clickedBtn = null) {
                 currentSlideIndex = (currentSlideIndex - 1 + slideSrcs.length) % slideSrcs.length;
                 modalImg.src = slideSrcs[currentSlideIndex];
               }
+            };
+
+            // Слушатели для кнопок стрелок
+            nextBtn.onclick = () => {
+              currentSlideIndex = (currentSlideIndex + 1) % slideSrcs.length;
+              modalImg.src = slideSrcs[currentSlideIndex];
+            };
+
+            prevBtn.onclick = () => {
+              currentSlideIndex = (currentSlideIndex - 1 + slideSrcs.length) % slideSrcs.length;
+              modalImg.src = slideSrcs[currentSlideIndex];
             };
           };
 
@@ -113,7 +127,6 @@ function loadCase(caseFile, clickedBtn = null) {
     history.pushState({ caseFile }, "", `#${caseFile}`);
   }, 150);
 }
-
 
 
 function goBackToResume() {
