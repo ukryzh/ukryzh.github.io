@@ -81,7 +81,7 @@ function loadCase(caseFile, clickedBtn = null) {
             };
           };
 
-          // Добавляем обработчики клика для каждого изображения
+          // Добавляем обработчики клика для каждого изображения слайдера
           slideImgs.forEach(img => {
             img.onclick = function () {
               openModalWithSlides(this.src, slideSrcs);
@@ -98,8 +98,8 @@ function loadCase(caseFile, clickedBtn = null) {
             modalImg.src = this.src;
             modal.style.display = 'flex';
 
-            // очищаем слайды
-            slideSources = [];
+            // Очищаем слайды и убираем слушатели клавиш для одиночных картинок
+            document.onkeydown = null;
           };
         });
 
@@ -113,6 +113,7 @@ function loadCase(caseFile, clickedBtn = null) {
     history.pushState({ caseFile }, "", `#${caseFile}`);
   }, 150);
 }
+
 
 
 function goBackToResume() {
