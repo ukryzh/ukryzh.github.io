@@ -123,10 +123,11 @@ window.addEventListener('DOMContentLoaded', () => {
 function openModal(src) {
   const modal = document.getElementById('modal');
   const modalImg = document.getElementById('modalImg');
-  
+  slideSources = [];
   modalImg.src = src;
   modal.style.display = 'flex';
 }
+
 
 
 function closeModal() {
@@ -223,13 +224,18 @@ document.addEventListener('keydown', function (event) {
   if (modal.style.display === 'flex') {
     if (event.key === 'Escape') {
       closeModal();
-    } else if (event.key === 'ArrowLeft') {
-      changeSlide(-1);
-    } else if (event.key === 'ArrowRight') {
-      changeSlide(1);
+    } else if (slideSources.length > 0) {
+      if (event.key === 'ArrowLeft') {
+        changeSlide(-1);
+      } else if (event.key === 'ArrowRight') {
+        changeSlide(1);
+      }
     }
   }
 });
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
   const scrollButton = document.querySelector('.scroll-to-top');
 
