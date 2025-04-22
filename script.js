@@ -55,6 +55,7 @@ function loadCase(caseFile, clickedBtn = null) {
         if (slideImgs.length > 0) {
           const slideSrcs = [...slideImgs].map(img => img.getAttribute('src'));
           let currentSlideIndex = 0;
+          let modalOpen = false;
 
           // Функция для открытия модалки с текущим слайдом
           const openModalWithSlides = (src, srcArray) => {
@@ -68,6 +69,7 @@ function loadCase(caseFile, clickedBtn = null) {
             const modalImg = document.getElementById('modalImg');
             modalImg.src = src;
             modal.style.display = 'flex';
+            modalOpen = true;  // Устанавливаем флаг, что модалка открыта
 
             // Добавление слушателей для перелистывания слайдов с помощью клавиш
             const handleKeydown = (e) => {
@@ -80,7 +82,7 @@ function loadCase(caseFile, clickedBtn = null) {
               }
             };
 
-            // Сброс слушателя клавиш, если открыта одиночная картинка
+            // Назначаем обработчик событий только один раз
             document.onkeydown = handleKeydown;
           };
 
