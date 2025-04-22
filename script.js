@@ -55,7 +55,7 @@ if (slideImgs.length > 0) {
   const allSlideSrcs = [...slideImgs].map(img => img.getAttribute('src'));
 
   slideImgs.forEach(img => {
-    img.onclick = function () {
+    img.addEventListener('click', function () {
       openModalWithSlides(this.src, allSlideSrcs);
     });
   });
