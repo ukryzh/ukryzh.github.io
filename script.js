@@ -49,6 +49,18 @@ function loadCase(caseFile, clickedBtn = null) {
       });
     }
   });
+        // После загрузки слайдов — навешиваем обработчики на zoomable-slide
+const slideImgs = document.querySelectorAll('.zoomable-slide');
+if (slideImgs.length > 0) {
+  const allSlideSrcs = [...slideImgs].map(img => img.getAttribute('src'));
+
+  slideImgs.forEach(img => {
+    img.addEventListener('click', function () {
+      openModalWithSlides(this.src, allSlideSrcs);
+    });
+  });
+}
+
       })
       .catch(() => {
         contentContainer.innerHTML = "<p>Ошибка загрузки кейса.</p>";
