@@ -17,7 +17,10 @@
 <p><b>Цель:</b> Создание документации для построения интеграции сервиса денежных переводов</p>
 <p><b>Результат:</b> Задокументированный кейс (ER-диаграммы, документация API в Swagger)</p>
 
-  
+  <button class="toggle-report" data-target="report1">
+   Проект интеграции сервиса денежных переводов <span class="arrow">❯</span>
+</button>
+<div id="report1" class="report-content">
 <p>В рамках данного проекта рассматривается функциональность сервиса денежных переводов (транзакций). Ниже на Use-case-диаграмме показано взаимодействие этого сервиса 
   с другими сервисами для клиента</p>
   <img src="case3/assets/UC-transaction.png" class="zoomable-img" alt="Use Case" width = 100% onclick="openModal(this.src)">
@@ -312,4 +315,5 @@ COMMIT;
   <p>На основе описанных выше эндпоинтов сформирована полная документация в Swagger: <a href="case3/assets/openapi.yaml" target="_blank">скачать .yaml</a></p>
   <div class="modal" id="modal" onclick="closeModal()">
   <img id="modalImg">
+</div>
 </div>
