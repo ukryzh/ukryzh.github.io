@@ -11,6 +11,7 @@ function loadCase(caseFile, clickedBtn = null) {
   activeButton = clickedBtn;
 
   // Снимаем активность с кнопок
+
 document.querySelectorAll('.project-btn').forEach(btn => {
   // Снимаем активность с кнопки и восстанавливаем оригинальный текст
   btn.classList.remove('active-case');
@@ -22,7 +23,7 @@ document.querySelectorAll('.project-btn').forEach(btn => {
     if (span) {
       span.textContent = '❯'; // Восстанавливаем стрелку вправо
     }
-    btn.firstChild.textContent = btn.dataset.originalText + ' ';
+    btn.firstChild.textContent = btn.dataset.originalText + ' '; // Восстанавливаем текст
   }
 });
 
@@ -40,10 +41,9 @@ if (clickedBtn) {
   // Находим стрелку и меняем её
   const span = clickedBtn.querySelector('span');
   if (span) {
-    span.textContent = '❯'; // Стрелка вправо
+    span.textContent = '❮'; // Стрелка влево
   }
 }
-
 
 
 
