@@ -13,31 +13,42 @@ function loadCase(caseFile, clickedBtn = null) {
 
   // Снимаем активность с кнопок
 
-document.querySelectorAll('.project-btn').forEach(btn => {
-  const span = btn.querySelector('span');
+const buttons = document.querySelectorAll('.project-btn');
+let activeButton = null;
 
-  // Если мы уже сохраняли текст — возвращаем его
-  if (btn.dataset.originalText) {
-    btn.firstChild.textContent = btn.dataset.originalText;
-    span.textContent = '❯';
+buttons.forEach(button => {
+  if (!button.dataset.originalText) {
+    // Сохраняем только текст без <span>
+    const textOnly = button.childNodes[0].textContent.trim();
+    button.dataset.originalText = textOnly;
   }
 
-  btn.classList.remove('active-case');
+  button.addEventListener('click', () => {
+    if (activeButton && activeButton !== button) {
+      // Сброс старой активной кнопки
+      activeButton.classList.remove('active-case');
+      activeButton.childNodes[0].textContent = activeButton.dataset.originalText + ' ';
+      activeButton.querySelector('span').textContent = '❯';
+    }
+
+    const isActive = button.classList.contains('active-case');
+
+    if (isActive) {
+      // Назад к списку
+      button.classList.remove('active-case');
+      button.childNodes[0].textContent = button.dataset.originalText + ' ';
+      button.querySelector('span').textContent = '❯';
+      activeButton = null;
+    } else {
+      // Переход в кейс
+      button.classList.add('active-case');
+      button.childNodes[0].textContent = 'Назад к резюме';
+      button.querySelector('span').textContent = '❮';
+      activeButton = button;
+    }
+  });
 });
 
-if (clickedBtn) {
-  const span = clickedBtn.querySelector('span');
-
-  // Сохраняем текст при первом клике
-  if (!clickedBtn.dataset.originalText) {
-    clickedBtn.dataset.originalText = clickedBtn.firstChild.textContent.trim();
-  }
-
-  clickedBtn.firstChild.textContent = 'Назад к резюме';
-  span.textContent = '❮';
-
-  clickedBtn.classList.add('active-case');
-}
 
 
   contentContainer.classList.remove("fade-in");
