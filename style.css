@@ -75,37 +75,41 @@ body {
   margin-top: 25px;
   margin-bottom: 15px;
 }
+
 .project-btn {
+  position: relative;
   background-color: #fff;
-  color: #333; 
-  padding: 12px 20px;
+  color: #333;
+  padding: 12px 40px 12px 20px; /* добавлен правый padding для стрелки */
   margin-bottom: 10px;
   border: none;
-  border-radius: 6px; 
+  border-radius: 6px;
   cursor: pointer;
-  display: flex;
-  justify-content: space-between;
   width: 100%;
-  font-size: 13px; 
-  text-align: left; /* Выравнивание текста по левому краю */
-  transition: all 0.3s ease; /* Плавный переход для эффектов */
+  font-size: 13px;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.project-btn::after {
+  content: '❯';
+  position: absolute;
+  right: 20px; /* позиция стрелки */
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease;
+  color: inherit; /* чтобы стрелка была того же цвета, что и текст */
 }
 
 .project-btn:hover {
-  background-color: #fff; /* Светлый фон при наведении */
-  border-color: #ccc; /* Более темная граница */
-  color: darkblue; /* Цвет текста изменяется на синий */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень при наведении */
+  background-color: #fff;
+  border-color: #ccc;
+  color: darkblue;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.project-btn span {
-  margin-left: 10px; /* Отправить стрелку вправо */
-  margin-bottom: auto;
-  transition: transform 0.3s ease; /* Плавная анимация стрелки */
-}
-
-.project-btn:hover span {
-  transform: translateX(5px); /* Стрелка немного двигается при наведении */
+.project-btn:hover::after {
+  transform: translateY(-50%) translateX(5px); /* анимация стрелки */
 }
 
 
