@@ -66,7 +66,6 @@ function loadCase(caseFile, clickedBtn = null) {
           const openModal = (src, slideSrcs) => {
             const modal = document.getElementById('modal');
             const modalImg = document.getElementById('modalImg');
-            currentSlideIndex = slideSrcs.indexOf(src); 
             modalImg.src = src;
             modal.style.display = 'flex';
 
