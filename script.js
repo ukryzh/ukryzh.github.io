@@ -12,7 +12,7 @@ function loadCase(caseFile, clickedBtn = null) {
 
   // Снимаем активность с кнопок
 document.querySelectorAll('.project-btn').forEach(btn => {
-  btn.classList.remove('active-case');
+  btn.classList.remove('active-case', 'back-mode');
 
   if (btn.dataset.originalText) {
     btn.textContent = btn.dataset.originalText;
@@ -20,7 +20,7 @@ document.querySelectorAll('.project-btn').forEach(btn => {
 });
 
 if (clickedBtn) {
-  clickedBtn.classList.add('active-case');
+  clickedBtn.classList.add('active-case', 'back-mode');
 
   if (!clickedBtn.dataset.originalText) {
     clickedBtn.dataset.originalText = clickedBtn.textContent.trim();
