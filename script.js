@@ -11,24 +11,31 @@ function loadCase(caseFile, clickedBtn = null) {
   activeButton = clickedBtn;
 
   // Снимаем активность с кнопок
-  document.querySelectorAll('.project-btn').forEach(btn => {
-  btn.classList.remove('active-case');
+
+document.querySelectorAll('.project-btn').forEach(btn => {
   const span = btn.querySelector('span');
+
+  // Если мы уже сохраняли текст — возвращаем его
   if (btn.dataset.originalText) {
     btn.firstChild.textContent = btn.dataset.originalText;
+    span.textContent = '❯';
   }
-  span.textContent = '❯';
+
+  btn.classList.remove('active-case');
 });
 
 if (clickedBtn) {
-  clickedBtn.classList.add('active-case');
   const span = clickedBtn.querySelector('span');
+
+  // Сохраняем текст при первом клике
   if (!clickedBtn.dataset.originalText) {
-    // Сохраняем только текст без стрелки
     clickedBtn.dataset.originalText = clickedBtn.firstChild.textContent.trim();
   }
+
   clickedBtn.firstChild.textContent = 'Назад к резюме';
   span.textContent = '❮';
+
+  clickedBtn.classList.add('active-case');
 }
 
 
