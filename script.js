@@ -12,17 +12,28 @@ function loadCase(caseFile, clickedBtn = null) {
 
   // Снимаем активность с кнопок
   document.querySelectorAll('.project-btn').forEach(btn => {
-    btn.classList.remove('active-case');
-    btn.innerHTML = btn.dataset.originalText || btn.textContent;
-  });
+  // Убираем выделение
+  btn.classList.remove('active-case');
 
-  if (clickedBtn) {
-    clickedBtn.classList.add('active-case');
-    if (!clickedBtn.dataset.originalText) {
-      clickedBtn.dataset.originalText = clickedBtn.innerHTML;
-    }
-    clickedBtn.innerHTML = '❮ Назад к резюме';
+  // Восстанавливаем оригинальный текст, если он был сохранён
+  if (btn.dataset.originalText) {
+    btn.firstChild.textContent = btn.dataset.originalText + ' ';
   }
+});
+
+// Активная кнопка
+if (clickedBtn) {
+  clickedBtn.classList.add('active-case');
+
+  // Сохраняем оригинальный текст один раз
+  if (!clickedBtn.dataset.originalText) {
+    clickedBtn.dataset.originalText = clickedBtn.firstChild.textContent.trim();
+  }
+
+  // Меняем текст на "Назад к резюме"
+  clickedBtn.firstChild.textContent = 'Назад к резюме ';
+}
+
 
   contentContainer.classList.remove("fade-in");
   contentContainer.classList.add("fade-out");
