@@ -12,34 +12,33 @@ function loadCase(caseFile, clickedBtn = null) {
 
   // Снимаем активность с кнопок
 document.querySelectorAll('.project-btn').forEach(btn => {
-  // Убираем классы у всех кнопок
-  btn.classList.remove('active-case', 'back-mode');
+  // Проверяем, активная ли кнопка
+  if (btn.classList.contains('active-case')) {
+    // Если сейчас надпись "Назад к резюме", значит нужно вернуть название кейса
+    if (btn.textContent.trim() === 'Назад к резюме') {
+      btn.textContent = btn.dataset.originalText || '';
+      btn.classList.remove('active-case', 'back-mode');
+    }
+  } else {
+    // Сохраняем оригинальный текст, если его ещё нет
+    if (!btn.dataset.originalText) {
+      btn.dataset.originalText = btn.textContent.trim();
+    }
 
-  // Возвращаем оригинальный текст (название кейса)
-  if (btn.dataset.originalText) {
-    btn.textContent = btn.dataset.originalText;
+    // Удаляем классы у всех кнопок
+    document.querySelectorAll('.project-btn').forEach(b => {
+      b.classList.remove('active-case', 'back-mode');
+      if (b.dataset.originalText) {
+        b.textContent = b.dataset.originalText;
+      }
+    });
+
+    // Меняем текст и классы у нажатой кнопки
+    btn.textContent = 'Назад к резюме';
+    btn.classList.add('active-case', 'back-mode');
   }
 });
 
-if (clickedBtn) {
-  clickedBtn.classList.add('active-case');
-
-  // Если это возврат (на кнопке уже "Назад к резюме")
-  if (clickedBtn.textContent.trim() === 'Назад к резюме') {
-    // Возвращаем оригинальный текст и убираем стрелку влево
-    clickedBtn.textContent = clickedBtn.dataset.originalText;
-    clickedBtn.classList.remove('back-mode');
-  } else {
-    // Сохраняем текст кейса, если ещё не сохранён
-    if (!clickedBtn.dataset.originalText) {
-      clickedBtn.dataset.originalText = clickedBtn.textContent.trim();
-    }
-
-    // Меняем текст на "Назад к резюме" и добавляем стрелку влево
-    clickedBtn.textContent = 'Назад к резюме';
-    clickedBtn.classList.add('back-mode');
-  }
-}
 
 
 
