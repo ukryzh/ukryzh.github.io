@@ -13,25 +13,17 @@ function loadCase(caseFile, clickedBtn = null) {
 
   // Снимаем активность с кнопок
   document.querySelectorAll('.project-btn').forEach(btn => {
-  btn.classList.remove('active-case');
-  const span = btn.querySelector('span');
-  if (btn.dataset.originalText) {
-    btn.firstChild.textContent = btn.dataset.originalText;
-  }
-  span.textContent = '❯';
-});
+    btn.classList.remove('active-case');
+    btn.innerHTML = btn.dataset.originalText || btn.textContent;
+  });
 
-if (clickedBtn) {
-  clickedBtn.classList.add('active-case');
-  const span = clickedBtn.querySelector('span');
-  if (!clickedBtn.dataset.originalText) {
-    // Сохраняем только текст без стрелки
-    clickedBtn.dataset.originalText = clickedBtn.firstChild.textContent.trim();
+  if (clickedBtn) {
+    clickedBtn.classList.add('active-case');
+    if (!clickedBtn.dataset.originalText) {
+      clickedBtn.dataset.originalText = clickedBtn.innerHTML;
+    }
+    clickedBtn.innerHTML = '❮ Назад к резюме';
   }
-  clickedBtn.firstChild.textContent = 'Назад к резюме';
-  span.textContent = '❮';
-}
-
 
   contentContainer.classList.remove("fade-in");
   contentContainer.classList.add("fade-out");
