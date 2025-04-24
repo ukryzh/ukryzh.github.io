@@ -12,42 +12,23 @@ function loadCase(caseFile, clickedBtn = null) {
 
   // Снимаем активность с кнопок
 document.querySelectorAll('.project-btn').forEach(btn => {
-  // Снимаем активность с кнопки и восстанавливаем оригинальный текст
   btn.classList.remove('active-case');
-  
-  // Проверяем, если кнопка была изменена
+
   if (btn.dataset.originalText) {
-    // Восстанавливаем оригинальный текст кнопки
-    const span = btn.querySelector('span');
-    if (span) {
-      span.textContent = '❯'; // Восстанавливаем стрелку вправо
-    }
-    // Восстанавливаем оригинальный текст на кнопке
-    const originalText = btn.dataset.originalText;
-    btn.firstChild.textContent = originalText + ' ';
+    btn.textContent = btn.dataset.originalText;
   }
 });
 
 if (clickedBtn) {
   clickedBtn.classList.add('active-case');
 
-  // Сохраняем оригинальный текст, если его ещё нет
   if (!clickedBtn.dataset.originalText) {
-    clickedBtn.dataset.originalText = clickedBtn.firstChild.textContent.trim();
+    clickedBtn.dataset.originalText = clickedBtn.textContent.trim();
   }
 
-  // Меняем текст на "Назад к резюме"
-  clickedBtn.firstChild.textContent = 'Назад к резюме ';
-
-  // Находим стрелку (если она есть) и меняем её
-  let span = clickedBtn.querySelector('span');
-  if (!span) {
-    // Если стрелки нет, создаем новый элемент <span> с стрелкой
-    span = document.createElement('span');
-    clickedBtn.appendChild(span); // Добавляем <span> в кнопку
-  }
-  span.textContent = '❯'; // Стрелка вправо
+  clickedBtn.textContent = 'Назад к резюме';
 }
+
 
 
 
