@@ -11,35 +11,28 @@ function loadCase(caseFile, clickedBtn = null) {
   activeButton = clickedBtn;
 
   // Снимаем активность с кнопок
- document.querySelectorAll('.project-btn').forEach(btn => {
+document.querySelectorAll('.project-btn').forEach(btn => {
+  // Убираем выделение
   btn.classList.remove('active-case');
 
-  // Восстанавливаем исходный текст, если он был сохранён
+  // Восстанавливаем оригинальный текст, если он был сохранён
   if (btn.dataset.originalText) {
-    const span = btn.querySelector('span');
     btn.firstChild.textContent = btn.dataset.originalText + ' ';
-    if (!span) {
-      const newSpan = document.createElement('span');
-      newSpan.textContent = '❯';
-      newSpan.style.marginLeft = '10px';
-      btn.appendChild(newSpan);
-    }
   }
 });
 
+// Активная кнопка
 if (clickedBtn) {
   clickedBtn.classList.add('active-case');
 
-  // Сохраняем оригинальный текст, если ещё не сохранён
+  // Сохраняем оригинальный текст один раз
   if (!clickedBtn.dataset.originalText) {
     clickedBtn.dataset.originalText = clickedBtn.firstChild.textContent.trim();
   }
 
-  // Меняем текст на "Назад к резюме", не трогая <span>
+  // Меняем текст на "Назад к резюме"
   clickedBtn.firstChild.textContent = '❮ Назад к резюме ';
 }
-
-
   contentContainer.classList.remove("fade-in");
   contentContainer.classList.add("fade-out");
 
