@@ -15,8 +15,8 @@ document.querySelectorAll('.project-btn').forEach(btn => {
   // Снимаем активность с кнопки и восстанавливаем оригинальный текст
   btn.classList.remove('active-case');
   
+  // Проверяем, если у кнопки есть оригинальный текст, восстанавливаем его
   if (btn.dataset.originalText) {
-    // Восстанавливаем только текст, стрелка не трогается
     const span = btn.querySelector('span');
     if (span) {
       span.textContent = '❯'; // Восстанавливаем стрелку вправо
@@ -35,13 +35,14 @@ if (clickedBtn) {
 
   // Меняем текст на "Назад к резюме", не трогая стрелку
   clickedBtn.firstChild.textContent = '❮ Назад к резюме ';
-  
-  // Меняем стрелку на обратную
+
+  // Меняем стрелку на обратную (влево)
   const span = clickedBtn.querySelector('span');
   if (span) {
-    span.textContent = '❯'; // Вставляем стрелку вправо, если возвращаемся на кейс
+    span.textContent = '❯'; // Стрелка вправо
   }
 }
+
 
 
 
