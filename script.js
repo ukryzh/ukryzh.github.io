@@ -12,37 +12,39 @@ function loadCase(caseFile, clickedBtn = null) {
 
   // Снимаем активность с кнопок
 document.querySelectorAll('.project-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
-    // Проверяем, если кнопка активна
-    if (btn.classList.contains('active-case')) {
-      // Восстанавливаем оригинальный текст и стрелку вправо
-      const span = btn.querySelector('span');
-      if (span) {
-        span.textContent = '❯'; // Стрелка вправо
-      }
-      btn.firstChild.textContent = btn.dataset.originalText + ' '; // Восстанавливаем текст
-      btn.classList.remove('active-case'); // Снимаем активность
-    } else {
-      // Сохраняем оригинальный текст, если его ещё нет
-      if (!btn.dataset.originalText) {
-        btn.dataset.originalText = btn.firstChild.textContent.trim();
-      }
-
-      // Меняем текст на "Назад к резюме"
-      btn.firstChild.textContent = '❮ Назад к резюме ';
-
-      // Находим или создаем элемент span для стрелки
-      let span = btn.querySelector('span');
-      if (!span) {
-        span = document.createElement('span');
-        btn.appendChild(span);
-      }
-      span.textContent = '❮'; // Стрелка влево
-
-      btn.classList.add('active-case'); // Добавляем активность
+  // Снимаем активность с кнопки и восстанавливаем оригинальный текст
+  btn.classList.remove('active-case');
+  
+  // Проверяем, если кнопка была изменена
+  if (btn.dataset.originalText) {
+    // Восстанавливаем оригинальный текст кнопки
+    const span = btn.querySelector('span');
+    if (span) {
+      span.textContent = '❯'; // Восстанавливаем стрелку вправо
     }
-  });
+    btn.firstChild.textContent = btn.dataset.originalText + ' ';
+  }
 });
+
+if (clickedBtn) {
+  clickedBtn.classList.add('active-case');
+
+  // Сохраняем оригинальный текст, если его ещё нет
+  if (!clickedBtn.dataset.originalText) {
+    clickedBtn.dataset.originalText = clickedBtn.firstChild.textContent.trim();
+  }
+
+  // Меняем текст на "Назад к резюме"
+  clickedBtn.firstChild.textContent = '❮ Назад к резюме ';
+
+  // Находим стрелку и меняем её
+  const span = clickedBtn.querySelector('span');
+  if (span) {
+    span.textContent = '❯'; // Стрелка вправо
+  }
+}
+
+
 
 
 
