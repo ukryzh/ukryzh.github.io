@@ -12,27 +12,43 @@ function loadCase(caseFile, clickedBtn = null) {
 
   // Снимаем активность с кнопок
 document.querySelectorAll('.project-btn').forEach(btn => {
-  // Убираем выделение
+  // Снимаем активность с кнопки и восстанавливаем оригинальный текст
   btn.classList.remove('active-case');
-
-  // Восстанавливаем оригинальный текст, если он был сохранён
+  
   if (btn.dataset.originalText) {
+    // Восстанавливаем только текст, стрелка не трогается
+    const span = btn.querySelector('span');
+    if (span) {
+      span.textContent = '❯'; // Восстанавливаем стрелку вправо
+    }
     btn.firstChild.textContent = btn.dataset.originalText + ' ';
   }
 });
 
-// Активная кнопка
 if (clickedBtn) {
   clickedBtn.classList.add('active-case');
 
-  // Сохраняем оригинальный текст один раз
+  // Если ещё не сохранён оригинальный текст, то сохраняем его
   if (!clickedBtn.dataset.originalText) {
     clickedBtn.dataset.originalText = clickedBtn.firstChild.textContent.trim();
   }
 
-  // Меняем текст на "Назад к резюме"
+  // Меняем текст на "Назад к резюме", не трогая стрелку
   clickedBtn.firstChild.textContent = '❮ Назад к резюме ';
+  
+  // Меняем стрелку на обратную
+  const span = clickedBtn.querySelector('span');
+  if (span) {
+    span.textContent = '❯'; // Вставляем стрелку вправо, если возвращаемся на кейс
+  }
 }
+
+
+
+
+
+
+  
   contentContainer.classList.remove("fade-in");
   contentContainer.classList.add("fade-out");
 
