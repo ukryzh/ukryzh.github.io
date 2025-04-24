@@ -107,6 +107,9 @@ body {
   color: darkblue;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+.project-btn.back-mode::after {
+  content: '❮'; /* стрелка влево для "Назад к резюме" */
+}
 
 .project-btn:hover::after {
   transform: translateY(-50%) translateX(5px); /* анимация стрелки */
