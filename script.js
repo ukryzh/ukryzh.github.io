@@ -1,58 +1,57 @@
 const contentContainer = document.getElementById("mainContent");
+const buttons = document.querySelectorAll('.project-btn');
 let resumeContent = contentContainer.innerHTML;
 
 let activeCase = null;
 let activeButton = null;
 let currentSlideIndex = 0;
 
-function loadCase(caseFile, clickedBtn = null) {
+function loadCase(caseFile) {
   if (!caseFile) return;
 
   activeCase = caseFile;
-  activeButton = clickedBtn;
 
-  // Снимаем активность с кнопок
-
-const buttons = document.querySelectorAll('.project-btn');
-let activeButton = null;
-
+  contentContainer.classList.remove("fade-in");
+  contentContainer.classList.add("fade-out");
+  
+// Вешаем обработчики на кнопки
 buttons.forEach(button => {
+  // Сохраняем оригинальный текст (без span)
   if (!button.dataset.originalText) {
-    // Сохраняем только текст без <span>
     const textOnly = button.childNodes[0].textContent.trim();
     button.dataset.originalText = textOnly;
   }
 
   button.addEventListener('click', () => {
+    const isActive = button.classList.contains('active-case');
+
+    // Убираем предыдущую активную кнопку
     if (activeButton && activeButton !== button) {
-      // Сброс старой активной кнопки
       activeButton.classList.remove('active-case');
       activeButton.childNodes[0].textContent = activeButton.dataset.originalText + ' ';
       activeButton.querySelector('span').textContent = '❯';
     }
 
-    const isActive = button.classList.contains('active-case');
-
     if (isActive) {
-      // Назад к списку
+      // Назад к резюме
       button.classList.remove('active-case');
       button.childNodes[0].textContent = button.dataset.originalText + ' ';
       button.querySelector('span').textContent = '❯';
       activeButton = null;
+
+      contentContainer.innerHTML = resumeContent;
     } else {
-      // Переход в кейс
+      // Открытие кейса
       button.classList.add('active-case');
       button.childNodes[0].textContent = 'Назад к резюме';
       button.querySelector('span').textContent = '❮';
       activeButton = button;
+
+      const caseFile = button.dataset.file;
+      loadCase(caseFile);
     }
   });
 });
-
-
-
-  contentContainer.classList.remove("fade-in");
-  contentContainer.classList.add("fade-out");
 
   setTimeout(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
