@@ -38,12 +38,19 @@ if (clickedBtn) {
   // Меняем текст на "Назад к резюме"
   clickedBtn.firstChild.textContent = '❮ Назад к резюме ';
 
-  // Находим стрелку и меняем её
+  // Находим стрелку и меняем её на "влево"
   const span = clickedBtn.querySelector('span');
   if (span) {
     span.textContent = '❮'; // Стрелка влево
   }
+} else {
+  // Восстановим стрелку вправо, если кнопка не активна
+  const span = clickedBtn.querySelector('span');
+  if (span) {
+    span.textContent = '❯'; // Восстанавливаем стрелку вправо
+  }
 }
+
 
 
 
