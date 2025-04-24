@@ -11,7 +11,6 @@ function loadCase(caseFile, clickedBtn = null) {
   activeButton = clickedBtn;
 
   // Снимаем активность с кнопок
-  document.querySelectorAll('.project-btn').forEach(btn => {
  document.querySelectorAll('.project-btn').forEach(btn => {
   btn.classList.remove('active-case');
 
