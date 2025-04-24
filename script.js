@@ -23,7 +23,8 @@ document.querySelectorAll('.project-btn').forEach(btn => {
       span.textContent = '❯'; // Восстанавливаем стрелку вправо
     }
     // Восстанавливаем оригинальный текст на кнопке
-    btn.firstChild.textContent = btn.dataset.originalText + ' ';
+    const text = btn.firstChild.textContent.trim();
+    btn.firstChild.textContent = btn.dataset.originalText + ' '; // Оставляем оригинальный текст
   }
 });
 
@@ -36,7 +37,7 @@ if (clickedBtn) {
   }
 
   // Меняем текст на "Назад к резюме"
-  clickedBtn.firstChild.textContent = '❮ Назад к резюме ';
+  clickedBtn.firstChild.textContent = 'Назад к резюме ';
 
   // Находим стрелку (если она есть) и меняем её
   const span = clickedBtn.querySelector('span');
@@ -49,6 +50,7 @@ if (clickedBtn) {
     clickedBtn.appendChild(newSpan); // Добавляем стрелку в кнопку
   }
 }
+
 
 
 
