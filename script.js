@@ -52,6 +52,7 @@ document.querySelectorAll('.project-btn').forEach(btn => {
 
 
 
+
   
   contentContainer.classList.remove("fade-in");
   contentContainer.classList.add("fade-out");
