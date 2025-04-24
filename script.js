@@ -22,6 +22,7 @@ document.querySelectorAll('.project-btn').forEach(btn => {
     if (span) {
       span.textContent = '❯'; // Восстанавливаем стрелку вправо
     }
+    // Восстанавливаем оригинальный текст на кнопке
     btn.firstChild.textContent = btn.dataset.originalText + ' ';
   }
 });
@@ -37,10 +38,15 @@ if (clickedBtn) {
   // Меняем текст на "Назад к резюме"
   clickedBtn.firstChild.textContent = '❮ Назад к резюме ';
 
-  // Находим стрелку и меняем её
+  // Находим стрелку (если она есть) и меняем её
   const span = clickedBtn.querySelector('span');
   if (span) {
     span.textContent = '❯'; // Стрелка вправо
+  } else {
+    // Если нет спана, создаем новый
+    const newSpan = document.createElement('span');
+    newSpan.textContent = '❯';
+    clickedBtn.appendChild(newSpan); // Добавляем стрелку в кнопку
   }
 }
 
