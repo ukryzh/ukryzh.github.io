@@ -3,7 +3,6 @@ let resumeContent = contentContainer.innerHTML;
 
 let activeCase = null;
 let activeButton = null;
-let currentSlideIndex = 0;
 
 function loadCase(caseFile, clickedBtn = null) {
   if (!caseFile) return;
