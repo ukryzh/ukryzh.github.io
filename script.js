@@ -11,40 +11,6 @@ function loadCase(caseFile, clickedBtn = null) {
   activeCase = caseFile;
   activeButton = clickedBtn;
 
-  // Инициализация кнопок
-  document.querySelectorAll('.project-btn').forEach(button => {
-    const fileBase = button.dataset.file;
-
-    if (!button.dataset.originalText) {
-      button.dataset.originalText = button.textContent.trim();
-    }
-
-    button.addEventListener('click', (e) => {
-      e.preventDefault();
-
-      const isBack = button.textContent.trim() === (currentLang === 'en' ? 'Back to Resume' : 'Назад к резюме');
-
-      if (isBack) {
-        goBackToResume();
-      } else {
-        const caseFile = currentLang === 'en' ? `${fileBase}_en.html` : `${fileBase}.html`;
-        button.textContent = currentLang === 'en' ? 'Back to Resume' : 'Назад к резюме';
-        button.classList.add('active-case', 'back-mode');
-        loadCase(caseFile, button);
-      }
-
-      // Сброс состояния других кнопок
-      document.querySelectorAll('.project-btn').forEach(btn => {
-        if (btn !== button) {
-          btn.classList.remove('active-case', 'back-mode');
-          if (btn.dataset.originalText) {
-            btn.textContent = btn.dataset.originalText;
-          }
-        }
-      });
-    });
-  });
-
   contentContainer.classList.remove("fade-in");
   contentContainer.classList.add("fade-out");
 
@@ -58,71 +24,7 @@ function loadCase(caseFile, clickedBtn = null) {
         contentContainer.classList.remove("fade-out");
         contentContainer.classList.add("fade-in");
 
-        // === Повторная инициализация спойлеров ===
-        const toggleButtons = document.querySelectorAll(".toggle-report");
-        toggleButtons.forEach((btn) => {
-          const targetId = btn.dataset.target;
-          const reportContent = document.getElementById(targetId);
-          if (reportContent) {
-            btn.addEventListener("click", () => {
-              reportContent.classList.toggle("expanded");
-              btn.classList.toggle("expanded");
-            });
-          }
-        });
-
-        // === Повторная инициализация модалок со слайдами ===
-        const slideImgs = document.querySelectorAll('.zoomable-slide');
-        if (slideImgs.length > 0) {
-          const slideSrcs = [...slideImgs].map(img => img.getAttribute('src'));
-          let currentSlideIndex = 0;
-
-          // Функция для открытия модалки с текущим слайдом
-          const openModalWithSlides = (src, srcArray) => {
-            currentSlideIndex = srcArray.indexOf(src);
-            openModal(src, srcArray);
-          };
-
-          // Открытие модалки с возможностью перелистывания слайдов
-          const openModal = (src, slideSrcs) => {
-            const modal = document.getElementById('modal');
-            const modalImg = document.getElementById('modalImg');
-            modalImg.src = src;
-            modal.style.display = 'flex';
-
-            // Добавление слушателей для перелистывания слайдов с помощью клавиш
-            document.onkeydown = (e) => {
-              if (e.key === 'ArrowRight') {
-                currentSlideIndex = (currentSlideIndex + 1) % slideSrcs.length;
-                modalImg.src = slideSrcs[currentSlideIndex];
-              } else if (e.key === 'ArrowLeft') {
-                currentSlideIndex = (currentSlideIndex - 1 + slideSrcs.length) % slideSrcs.length;
-                modalImg.src = slideSrcs[currentSlideIndex];
-              }
-            };
-          };
-
-          // Добавляем обработчики клика для каждого изображения слайдера
-          slideImgs.forEach(img => {
-            img.onclick = function () {
-              openModalWithSlides(this.src, slideSrcs);
-            };
-          });
-        }
-
-        // === Одиночные картинки ===
-        const singleImgs = document.querySelectorAll('.zoomable-img');
-        singleImgs.forEach(img => {
-          img.onclick = function () {
-            const modal = document.getElementById('modal');
-            const modalImg = document.getElementById('modalImg');
-            modalImg.src = this.src;
-            modal.style.display = 'flex';
-
-            // Очищаем слайды и убираем слушатели клавиш для одиночных картинок
-            document.onkeydown = null;
-          };
-        });
+        reinitializeDynamicContent();
 
       })
       .catch(() => {
@@ -140,7 +42,7 @@ function goBackToResume() {
   activeButton = null;
 
   document.querySelectorAll('.project-btn').forEach(btn => {
-    btn.classList.remove('active-case');
+    btn.classList.remove('active-case', 'back-mode');
     if (btn.dataset.originalText) {
       btn.textContent = btn.dataset.originalText;
     }
@@ -148,54 +50,68 @@ function goBackToResume() {
 
   contentContainer.classList.remove("fade-in");
   contentContainer.classList.add("fade-out");
-  
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  
+
   setTimeout(() => {
     contentContainer.innerHTML = resumeContent;
     contentContainer.classList.remove("fade-out");
     contentContainer.classList.add("fade-in");
+    reinitializeDynamicContent();
   }, 150);
 
-  // Чистим адресную строку и заменяем состояние
   history.replaceState({}, "", location.pathname);
 }
 
-document.querySelectorAll('.project-btn').forEach(button => {
-  const file = button.dataset.file;
-
-  button.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (activeCase === file) {
-      goBackToResume();
-    } else {
-      loadCase(file, button);
+function reinitializeDynamicContent() {
+  // Спойлеры
+  document.querySelectorAll(".toggle-report").forEach(btn => {
+    const targetId = btn.dataset.target;
+    const reportContent = document.getElementById(targetId);
+    if (reportContent) {
+      btn.addEventListener("click", () => {
+        reportContent.classList.toggle("expanded");
+        btn.classList.toggle("expanded");
+      });
     }
   });
-});
 
-window.addEventListener('popstate', (event) => {
-  if (event.state && event.state.caseFile) {
-    const file = event.state.caseFile;
-    const matchingButton = [...document.querySelectorAll('.project-btn')].find(btn => btn.dataset.file === file);
-    loadCase(file, matchingButton);
-  } else {
-    goBackToResume();
-  }
-});
+  // Модальные картинки и слайды
+  const slideImgs = document.querySelectorAll('.zoomable-slide');
+  const singleImgs = document.querySelectorAll('.zoomable-img');
 
-window.addEventListener('DOMContentLoaded', () => {
-  const hash = location.hash.slice(1);
-  if (hash) {
-    const matchingButton = [...document.querySelectorAll('.project-btn')].find(btn => btn.dataset.file === hash);
-    loadCase(hash, matchingButton);
+  let slideSrcs = [...slideImgs].map(img => img.src);
+  let currentSlideIndex = 0;
+
+  function openModalWithSlides(src) {
+    currentSlideIndex = slideSrcs.indexOf(src);
+    openModal(src);
+    document.onkeydown = (e) => {
+      if (e.key === 'ArrowRight') {
+        currentSlideIndex = (currentSlideIndex + 1) % slideSrcs.length;
+        document.getElementById('modalImg').src = slideSrcs[currentSlideIndex];
+      } else if (e.key === 'ArrowLeft') {
+        currentSlideIndex = (currentSlideIndex - 1 + slideSrcs.length) % slideSrcs.length;
+        document.getElementById('modalImg').src = slideSrcs[currentSlideIndex];
+      }
+    };
   }
-});
+
+  slideImgs.forEach(img => {
+    img.addEventListener('click', () => openModalWithSlides(img.src));
+  });
+
+  singleImgs.forEach(img => {
+    img.addEventListener('click', () => {
+      openModal(img.src);
+      document.onkeydown = null;
+    });
+  });
+}
 
 function openModal(src) {
   const modal = document.getElementById('modal');
   const modalImg = document.getElementById('modalImg');
-  slideSources = [];
   modalImg.src = src;
   modal.style.display = 'flex';
 }
@@ -204,69 +120,8 @@ function closeModal() {
   document.getElementById('modal').style.display = 'none';
 }
 
-// === Навигация по слайдам в модальном окне ===
-let slideSources = [];
-let currentSlideIndex = -1;
-
-function openModalWithSlides(src, allSrcs) {
-  slideSources = allSrcs;
-  currentSlideIndex = allSrcs.indexOf(src);
-
-  const modal = document.getElementById('modal');
-  const modalImg = document.getElementById('modalImg');
-
-  modalImg.src = src;
-  modal.style.display = 'block';
-}
-
-function changeSlide(direction) {
-  if (slideSources.length === 0) return;
-
-  currentSlideIndex += direction;
-  if (currentSlideIndex < 0) currentSlideIndex = slideSources.length - 1;
-  if (currentSlideIndex >= slideSources.length) currentSlideIndex = 0;
-
-  document.getElementById('modalImg').src = slideSources[currentSlideIndex];
-}
-
-// Навешиваем кнопки вперед/назад (если они есть в HTML)
-document.getElementById('modalNext')?.addEventListener('click', () => changeSlide(1));
-document.getElementById('modalPrev')?.addEventListener('click', () => changeSlide(-1));
-
-// Закрытие модального окна по клавише Esc
-document.addEventListener('keydown', function (event) {
-  const modal = document.getElementById('modal');
-  if (event.key === 'Escape' && modal.style.display === 'block') {
-    closeModal();
-  }
-});
-
-function scrollGallery(direction) {
-  const gallery = document.getElementById("slideGallery");
-  const slideWidth = gallery.querySelector("img")?.offsetWidth || 200;
-  gallery.scrollBy({ left: direction * (slideWidth + 10), behavior: "smooth" });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const toggleButtons = document.querySelectorAll(".toggle-report");
-
-  toggleButtons.forEach((btn) => {
-    const targetId = btn.dataset.target;
-    const reportContent = document.getElementById(targetId);
-    const arrow = btn.querySelector(".arrow");
-
-    if (reportContent) {
-      btn.addEventListener("click", () => {
-        const isExpanded = reportContent.classList.contains("expanded");
-
-        reportContent.classList.toggle("expanded");
-        btn.classList.toggle("expanded");
-      });
-    }
-  });
-});
-
-document.getElementById('modalImg').addEventListener('click', function (e) {
+// Управление слайдами по стрелкам в модалке
+document.getElementById('modalImg')?.addEventListener('click', function (e) {
   const bounds = this.getBoundingClientRect();
   const clickX = e.clientX;
 
@@ -277,41 +132,88 @@ document.getElementById('modalImg').addEventListener('click', function (e) {
   }
 });
 
+function changeSlide(direction) {
+  if (!window.slideSources || !window.slideSources.length) return;
+  window.currentSlideIndex = (window.currentSlideIndex + direction + window.slideSources.length) % window.slideSources.length;
+  document.getElementById('modalImg').src = window.slideSources[window.currentSlideIndex];
+}
+
 document.addEventListener('keydown', function (event) {
   const modal = document.getElementById('modal');
   if (modal.style.display === 'flex') {
-    if (event.key === 'Escape') {
-      closeModal();
-    } else if (slideSources.length > 0) {
-      if (event.key === 'ArrowLeft') {
-        changeSlide(-1);
-      } else if (event.key === 'ArrowRight') {
-        changeSlide(1);
-      }
-    }
+    if (event.key === 'Escape') closeModal();
   }
 });
 
+// Кнопки прокрутки галереи
+function scrollGallery(direction) {
+  const gallery = document.getElementById("slideGallery");
+  const slideWidth = gallery.querySelector("img")?.offsetWidth || 200;
+  gallery.scrollBy({ left: direction * (slideWidth + 10), behavior: "smooth" });
+}
+
+document.getElementById('modalNext')?.addEventListener('click', () => changeSlide(1));
+document.getElementById('modalPrev')?.addEventListener('click', () => changeSlide(-1));
+
+// Кнопка "вверх"
 document.addEventListener('DOMContentLoaded', function () {
   const scrollButton = document.querySelector('.scroll-to-top');
-
   function toggleScrollButton() {
-    if (window.scrollY > 300) {
-      scrollButton.style.display = 'flex';
-    } else {
-      scrollButton.style.display = 'none';
-    }
+    scrollButton.style.display = window.scrollY > 300 ? 'flex' : 'none';
   }
-
-  // Показать/скрыть при загрузке и скролле
   toggleScrollButton();
   window.addEventListener('scroll', toggleScrollButton);
 
-  // Прокрутка наверх по клику
-  if (scrollButton) {
-    scrollButton.addEventListener('click', function (e) {
+  scrollButton?.addEventListener('click', function (e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Назначение одного обработчика на project-btn
+  document.querySelectorAll('.project-btn').forEach(button => {
+    const fileBase = button.dataset.file;
+    if (!button.dataset.originalText) {
+      button.dataset.originalText = button.textContent.trim();
+    }
+
+    button.addEventListener('click', (e) => {
       e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      const isBack = button.textContent.trim() === (currentLang === 'en' ? 'Back to Resume' : 'Назад к резюме');
+
+      if (isBack || activeCase === fileBase) {
+        goBackToResume();
+      } else {
+        const caseFile = currentLang === 'en' ? `${fileBase}_en.html` : `${fileBase}.html`;
+        button.textContent = currentLang === 'en' ? 'Back to Resume' : 'Назад к резюме';
+        button.classList.add('active-case', 'back-mode');
+        loadCase(caseFile, button);
+      }
+
+      document.querySelectorAll('.project-btn').forEach(btn => {
+        if (btn !== button) {
+          btn.classList.remove('active-case', 'back-mode');
+          btn.textContent = btn.dataset.originalText;
+        }
+      });
     });
+  });
+
+  const hash = location.hash.slice(1);
+  if (hash) {
+    const matchingButton = [...document.querySelectorAll('.project-btn')]
+      .find(btn => btn.dataset.file === hash);
+    loadCase(hash, matchingButton);
+  }
+});
+
+window.addEventListener('popstate', (event) => {
+  if (event.state && event.state.caseFile) {
+    const file = event.state.caseFile;
+    const matchingButton = [...document.querySelectorAll('.project-btn')]
+      .find(btn => btn.dataset.file === file);
+    loadCase(file, matchingButton);
+  } else {
+    goBackToResume();
   }
 });
