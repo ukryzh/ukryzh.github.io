@@ -162,7 +162,7 @@ function goBackToResume() {
   document.querySelectorAll('.project-btn').forEach(btn => {
     btn.classList.remove('active-case');
     if (btn.dataset.originalText) {
-      btn.innerHTML = btn.dataset.originalText;
+      btn.textContent = btn.dataset.originalText;
     }
   });
 
