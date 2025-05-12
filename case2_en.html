@@ -34,7 +34,7 @@
         Business Requirements Document (BRD) <span class="arrow">❯</span>
     </button>
     <div id="report1" class="report-content">
-        <a href="case2/assets/brd.pdf" target="blank">PDF version of BRD</a>
+        <h4><a href="case2/assets/brd.pdf" target="blank">PDF version of BRD</a></h4>
         <p></p>
         <p><b>Summary</b></p>
         <p>Description of a new feature for the Internet banking application: the ability to hide accounts in the user's
@@ -199,7 +199,7 @@
         <a href="case2/assets/srs.pdf" target="blank">PDF version of SRS</a>
         <p></p>
         <p><b>Specification of the new functionality for hiding an account in the Bank's mobile application</b></p>
-        <h4>1. Introduction<h4>
+        <p><b>1. Introduction</b></p>
                 <h4>1.1 Purpose of the document</h4>
                 <p>The purpose of the document is to describe the requirements for developing the functionality of
                     hiding accounts in the mobile and web application of Internet banking.
@@ -238,7 +238,7 @@
                     </tbody>
                 </table>
                 <p></p>
-                <h4>2. General description</h4>
+                <p><b>2. General description</b></p>
                 <h4>2.1 Product perspective</h4>
                 <p>The functionality is part of the bank's mobile and web application. Account data is loaded from the
                     backend service, changes in the status
@@ -257,7 +257,7 @@
                     <li>Mobile applications (iOS / Android)</li>
                 </ul>
 
-                <h4>3. Functional requirements</h4>
+                <p><b>3. Functional requirements</b></p>
                 <h4>3.1 Hiding an account (UC-1)</h4>
                 <p><b>Description:</b> the user can hide the display of the selected account in the general list of
                     accounts, if this account is not the primary or blocked.</p>
@@ -451,14 +451,14 @@
                     </tbody>
                 </table>
                 <p></p>
-                <h4>4. Non-functional requirements</h4>
+                <p><b>4. Non-functional requirements</b></p>
                 <p><b>NFR.1:</b> Performance: Hiding/revealing the account should not take longer than 1 second in the
                     application.</p>
                 <p><b>NFR.2:</b> Security: Hiding the account does not affect access to transactions, there is no data
                     leakage.</p>
                 <p><b>NFR.3:</b> Cross-platform support: works on iOS and Android.</p>
                 <p><b>NFR.4:</b> Reliability: The hiding state is preserved when the application is restarted</p>
-                <h4>5. Behavior options</h4>
+                <p><b>5. Behavior options</b></p>
                 <p><b>Positive scenario:</b></p>
                 <p>1. The user clicks "Hide account"<br>
                     2. A message appears: "After hiding the account, it will be available on the main page in the
@@ -471,7 +471,7 @@
                     3. Server error → message: "Failed to hide the account. Try again later." <br>
                 </p>
 
-                <h4>6. Interfaces</h4>
+                <p><b>6. Interfaces</b></p>
                 <p><b>6.1 User interface</b></p>
                 <ul class="skill-list-small">
                     <li>The "Hide account" button appears on the account screen</li>
@@ -484,7 +484,7 @@
                     <li>PATCH request updates the is_hidden flag</li>
                     <li>GET request for the list of accounts returns only is_hidden = false by default</li>
                 </ul>
-                <h4>7. Additional information</h4>
+                <p><b>7. Additional information</b></p>
                 <p><b>7.1 User documentation:</b></p>
                 <p>FAQ: «How to hide an account»</p>
                 <p><b>7.2 Assumptions:</b></p>
