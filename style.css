@@ -468,6 +468,27 @@ th {
   text-decoration: none !important;
 }
 
-.custom-table1 {
+.custom-table1 table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
   border: none;
 }
+
+.custom-table1 td {
+  padding: 0;
+  vertical-align: middle;
+}
+
+.custom-table1 h2 {
+  font-size: 24px; /* можно отрегулировать */
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.custom-table1 td:last-child {
+  text-align: right;
+}
+
