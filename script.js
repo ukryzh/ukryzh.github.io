@@ -11,53 +11,36 @@ function loadCase(caseFile, clickedBtn = null) {
   activeCase = caseFile;
   activeButton = clickedBtn;
 
-  // Снимаем активность с кнопок
-document.querySelectorAll('.project-btn').forEach(btn => {
-  // Убираем классы у всех кнопок
-  btn.classList.remove('active-case', 'back-mode');
-
-  // Возвращаем оригинальный текст (название кейса)
-  if (btn.dataset.originalText) {
-    btn.textContent = btn.dataset.originalText;
-  }
-});
-
-const currentLang = location.pathname.includes('_en') ? 'en' : 'ru';
-
 document.querySelectorAll('.project-btn').forEach(button => {
   const fileBase = button.dataset.file;
+
+  if (!button.dataset.originalText) {
+    button.dataset.originalText = button.textContent.trim();
+  }
 
   button.addEventListener('click', (e) => {
     e.preventDefault();
 
-    const caseFile = currentLang === 'en' ? `${fileBase}_en.html` : `${fileBase}.html`;
+    const isBack = button.textContent.trim() === (currentLang === 'en' ? 'Back to Resume' : 'Назад к резюме');
 
-    // Убираем активность со всех кнопок
-    document.querySelectorAll('.project-btn').forEach(btn => {
-      btn.classList.remove('active-case', 'back-mode');
-
-      if (btn.dataset.originalText) {
-        btn.textContent = btn.dataset.originalText;
-      }
-    });
-
-    // Переключаем состояние кнопки
-    if (button.textContent.trim() === (currentLang === 'en' ? 'Back to Resume' : 'Назад к резюме')) {
-      // Возврат — вернуть текст и классы
-      button.textContent = button.dataset.originalText;
-      button.classList.remove('back-mode');
+    if (isBack) {
       goBackToResume();
     } else {
-      // Переход к кейсу
-      if (!button.dataset.originalText) {
-        button.dataset.originalText = button.textContent.trim();
-      }
-
+      const caseFile = currentLang === 'en' ? `${fileBase}_en.html` : `${fileBase}.html`;
       button.textContent = currentLang === 'en' ? 'Back to Resume' : 'Назад к резюме';
       button.classList.add('active-case', 'back-mode');
-
       loadCase(caseFile, button);
     }
+
+    // Сброс состояния других кнопок
+    document.querySelectorAll('.project-btn').forEach(btn => {
+      if (btn !== button) {
+        btn.classList.remove('active-case', 'back-mode');
+        if (btn.dataset.originalText) {
+          btn.textContent = btn.dataset.originalText;
+        }
+      }
+    });
   });
 });
 
