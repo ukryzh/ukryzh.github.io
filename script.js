@@ -22,25 +22,45 @@ document.querySelectorAll('.project-btn').forEach(btn => {
   }
 });
 
-if (clickedBtn) {
-  clickedBtn.classList.add('active-case');
+const currentLang = location.pathname.includes('_en') ? 'en' : 'ru';
 
-  // Если это возврат (на кнопке уже "Назад к резюме")
-  if (clickedBtn.textContent.trim() === 'Назад к резюме') {
-    // Возвращаем оригинальный текст и убираем стрелку влево
-    clickedBtn.textContent = clickedBtn.dataset.originalText;
-    clickedBtn.classList.remove('back-mode');
-  } else {
-    // Сохраняем текст кейса, если ещё не сохранён
-    if (!clickedBtn.dataset.originalText) {
-      clickedBtn.dataset.originalText = clickedBtn.textContent.trim();
+document.querySelectorAll('.project-btn').forEach(button => {
+  const fileBase = button.dataset.file;
+
+  button.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    const caseFile = currentLang === 'en' ? `${fileBase}_en.html` : `${fileBase}.html`;
+
+    // Убираем активность со всех кнопок
+    document.querySelectorAll('.project-btn').forEach(btn => {
+      btn.classList.remove('active-case', 'back-mode');
+
+      if (btn.dataset.originalText) {
+        btn.textContent = btn.dataset.originalText;
+      }
+    });
+
+    // Переключаем состояние кнопки
+    if (button.textContent.trim() === (currentLang === 'en' ? 'Back to Resume' : 'Назад к резюме')) {
+      // Возврат — вернуть текст и классы
+      button.textContent = button.dataset.originalText;
+      button.classList.remove('back-mode');
+      goBackToResume();
+    } else {
+      // Переход к кейсу
+      if (!button.dataset.originalText) {
+        button.dataset.originalText = button.textContent.trim();
+      }
+
+      button.textContent = currentLang === 'en' ? 'Back to Resume' : 'Назад к резюме';
+      button.classList.add('active-case', 'back-mode');
+
+      loadCase(caseFile, button);
     }
+  });
+});
 
-    // Меняем текст на "Назад к резюме" и добавляем стрелку влево
-    clickedBtn.textContent = 'Назад к резюме';
-    clickedBtn.classList.add('back-mode');
-  }
-}
 
 
 
