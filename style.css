@@ -468,9 +468,6 @@ th {
   text-decoration: none !important;
 }
 
-.language-switcher {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 0.9rem;
+custom-table1 {
+  border: none;
 }
