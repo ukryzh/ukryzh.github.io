@@ -1,0 +1,37 @@
+<div class="case-content">
+  <h2>Development of a project dashboard</h2>
+  <p></p>
+  <p>As part of the case, a dashboard was developed to track the status of projects for the implementation of AI tools
+    in the Bank's business processes.</p>
+  <p><b>Toolkit:</b></p>
+  <table>
+    <tr>
+      <td>SQL (SQL Server Management Studio)</td>
+      <td>Power BI</td>
+    </tr>
+  </table>
+  <p></p>
+  <p><b>Goal:</b> Creating a tool that allows real-time monitoring of the current status and progress of AI
+    implementation projects.</p>
+  <p><b>Result:</b> An interactive dashboard in Power BI reflecting the status of all projects within the framework of
+    the AI ​​implementation strategy in the Bank.</p>
+
+  <p>Data generated based on the implementation strategy was used for visualization AI tools
+    (data example: <a href="case4/assets/raw_data.csv" target="_blank">raw_data.csv</a>)</p>
+  <p>The data was pre-loaded into the database on the server (SSMS) for easy updating and scaling. Then, a connection to
+    the server was configured in Power BI for automatic loading and processing of information.</p>
+
+  <p><b>Building a dashboard:</b></p>
+  <img src="case4/assets/power_bi_AI.png" class="zoomable-img" alt="Dashboard" width=100% onclick="openModal(this.src)">
+  <div class="modal" id="modal" onclick="closeModal()">
+    <img id="modalImg">
+  </div>
+  <p></p>
+  <p>1. To calculate non-standard visual elements, such as cards displaying the number of projects, measures written in
+    DAX were used.</p>
+  <p>2. The table implemented a conditional formatting system for the "Planned Completion Date" column: cells with
+    approaching deadlines are highlighted in a different color to improve visibility and ease of perception.</p>
+  <p>Download the dashboard in .pdf format: <a href="case4/assets/Dashboard_AI_projects.pdf"
+      target="_blank">Dashboard_AI_projects.pdf</a></p>
+  <p>Download the dashboard in .pbix format: <a href="case4/assets/Dashboard_AI_projects.pbix"
+      target="_blank">Dashboard_AI_projects.pbix</a></p>

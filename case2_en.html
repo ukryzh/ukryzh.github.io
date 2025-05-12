@@ -1,0 +1,499 @@
+<div class="case-content">
+    <h2>Description of a new mobile app feature</h2>
+    <p></p>
+    <p>The case involved collecting and describing requirements for a new feature of the Bank's mobile app - the ability
+        to hide an account in the user's personal account.</p>
+    <p><b>Toolkit:</b></p>
+    <table>
+        <tbody>
+            <tr>
+                <td>Collection and description of requirements (BRD&SRS)</td>
+                <td>Use case/User stories</td>
+            </tr>
+            <tr>
+                <td>UML</td>
+                <td>Figma</td>
+            </tr>
+            <tr>
+                <td>REST API</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <p></p>
+    <p><b>Goal:</b> to increase customer satisfaction (NPS) for those who have used the feature, and reduce the number
+        of support requests regarding account hiding.</p>
+    <p><b>Result:</b> projected NPS increase of +10% within 3 months and a decrease in the number of requests of -15%
+        within 2 months after implementation.</p>
+
+    <div class="modal" id="modal" onclick="closeModal()">
+        <img id="modalImg">
+    </div>
+
+    <button class="toggle-report" data-target="report1">
+        Business Requirements Document (BRD) <span class="arrow">❯</span>
+    </button>
+    <div id="report1" class="report-content">
+        <a href="case2/assets/brd.pdf" target="blank">PDF version of BRD</a>
+        <p></p>
+        <p><b>Summary</b></p>
+        <p>Description of a new feature for the Internet banking application: the ability to hide accounts in the user's
+            personal account. The feature allows the user to customize the interface by hiding irrelevant accounts,
+            improving navigation and perception of the personal account
+            The terms used in this document are provided in the SRS document for this feature.</p>
+        <p><b>Project goals</b></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Goal</th>
+                    <th>Metric</th>
+                    <th>Target value</th>
+                    <th>Deadline</th>
+                    <th>Monitoring</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Increase satisfaction</td>
+                    <td>NPS of users who used hiding</td>
+                    <td>+10% to the current level</td>
+                    <td>3 months after release</td>
+                    <td>Through surveys, in-app reviews, contact center</td>
+                </tr>
+                <tr>
+                    <td>Reduce requests</td>
+                    <td>Number of support tickets for displaying accounts</td>
+                    <td>-15% of the current level</td>
+                    <td>In 2 months</td>
+                    <td>Through the ticket system/td>
+                </tr>
+            </tbody>
+        </table>
+        <p></p>
+        <p><b>Project history</b></p>
+        <p>Clients often open accounts for specific purposes: savings, transfers, purchases. Some become obsolete but
+            are not closed.
+
+            This leads to interface overload and complicates the perception of information.
+
+            A large amount of information can be collected in the personal account in the application. The personal
+            account looks cluttered and inconvenient to use. </p>
+        <p><b>Stakeholders</b></p>
+        <ul class="skill-list-small">
+            <li>Development team</li>
+            <li>Product owner (PO) of the Internet banking application</li>
+            <li>Retail products department (individuals)</li>
+            <li>Customer support</li>
+            <li>UX/UI team</li>
+            <li>Infrastructure / DevOps</li>
+            <li>QA, testing team</li>
+        </ul>
+        <p><b>Time:</b> according to the preliminary estimate of the development team, the implementation period is from
+            2 to 4 weeks at the current workload. The estimate is specified after the requirements are finalized.</p>
+        <p><b>Budget: </b> the cost of the development team's work, testing, implementation within 1 month; cost of new
+            required capacities</p>
+
+        <p><b>Project scope:</b></p>
+        <p>1. Implementation of the function of hiding accounts from the main screen of the Internet bank.<br>
+            2. Ability to return the hidden account to display.<br>
+            3. Displaying the hidden account in a separate list.</p>
+        <p><b>Limitations</b></p>
+        <p>1. The user does not have the ability to hide blocked accounts.<br>
+            2. The user does not have the ability to hide the primary account. <br>
+            3. The hidden account retains all the functionality of the active account, including transfers,
+            replenishment and viewing the history of transactions, hiding does not mean blocking the account.
+        </p>
+        <p><b>User Stories:</b></p>
+        <p>1. As a user with many outdated accounts, I want to hide them from the interface so I don't waste time
+            scrolling through them and don't make a mistake when transferring.<br>
+            2. As a user, I want to be able to view a hidden account so I don't lose access to the information if I need
+            it again.<br>
+            3. As a user, I want to see hidden accounts in a separate section so I can quickly restore the display if
+            needed.</p>
+
+        <p><b>Use cases:</b></p>
+        <p>UC-1: Hiding an account<br>
+            UC-2: Ability to view hidden accounts<br>
+            UC-3: Ability to return a hidden account to the main screen (the account is displayed again in the general
+            "My accounts" list)<br>
+            UC-4: Error when trying to hide a primary / blocked account (When trying to hide a primary or blocked
+            account, a notification appears with the text "Unable to hide the account" and an "OK" button.)</p>
+        <img src="case2/assets/use-case_en.png" class="zoomable-img" alt="Use-case-scheme" width=100%
+            onclick="openModal(this.src)">
+
+        <p>
+            <b>Preliminary prototype of the new functionality:</b>
+        </p>
+        <style>
+            .figma-container {
+                position: relative;
+                width: 100%;
+                padding-bottom: 56.25%;
+                /* Aspect ratio 16:9 */
+                height: 0;
+                overflow: hidden;
+                margin: 2rem 0;
+            }
+
+            .figma-container iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: 1px solid rgba(0, 0, 0, 0.1);
+            }
+        </style>
+
+        <div class="figma-container">
+            <iframe
+                src="https://embed.figma.com/proto/pi5lCSFllXPvk907fFkjfy/Untitled?page-id=0%3A1&node-id=3-3&p=f&viewport=176%2C117%2C0.15&scaling=scale-down&content-scaling=fixed&starting-point-node-id=3%3A3&embed-host=share"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <p><b>Product requirements</b></p>
+        <p><b>Functional requirements:</b></p>
+        <p><b>FR.1:</b> Ability to hide the display of an account (except for the primary and blocked one) in the user's
+            personal account in application</p>
+        <p><b>FR.2:</b> Ability to return the display of a hidden account</p>
+        <p><b>Non-functional requirements</b></p>
+        <p><b>NFR.1:</b> Hiding/returning the display of an account should not take longer than 1 second in the
+            application. The account display (including hiding/returning) should be without noticeable delay with a weak
+            internet connection and under high server load conditions.</p>
+        <p><b>NFR.2:</b> Security: hiding the account does not affect access to transactions, there is no data leakage.
+        </p>
+        <p><b>NFR.3:</b> Cross-platform support: works on iOS and Android.</p>
+        <p><b>NFR.4:</b> Reliability: The hiding state is saved when the application is restarted.</p>
+        <p><b>Acceptance criteria:</b></p>
+        <p><b>CR.1:</b>The user can hide the account by performing no more than 3 actions: 1) click on the account card,
+            2) select "Hide account", 3) confirm.</p>
+        <p><b>CR.2:</b>There is no data loss during the process of hiding the account.</p>
+        <p><b>CR.3: </b>Hiding and restoring an account takes less than 1 second.</p>
+
+        <p><b>Release plan:</b></p>
+        <p>1. Step-by-step release plan</p>
+        <ul class="skill-list-small">
+            <li>Functionality testing: conducting testing, fixing bugs.</li>
+            <li>Release to production: deploying an update to production, checking the functionality of the function.
+            </li>
+            <li>User updates: informing users through notifications about the new function.</li>
+        </ul>
+        <p>2. Post-release monitoring</p>
+        <ul class="skill-list-small">
+            <li>Performance: using analytics to track response and load times.</li>
+            <li>User feedback: analyzing feedback through the help desk and analytical tools.</li>
+        </ul>
+        <p>3. Bug Support</p>
+        <ul class="skill-list-small">
+            <li>Error Handling: Identifying and prioritizing bugs via the bug tracking system. Fixing critical errors.
+            </li>
+            <li>User Support: Answering user questions via the support service, updating FAQ.</li>
+        </ul>
+
+    </div>
+    <button class="toggle-report" data-target="report2">
+        Software Requirements Specification (SRS) <span class="arrow">❯</span>
+    </button>
+    <div id="report2" class="report-content">
+        <a href="case2/assets/srs.pdf" target="blank">PDF version of SRS</a>
+        <p></p>
+        <p><b>Specification of the new functionality for hiding an account in the Bank's mobile application</b></p>
+        <h4>1. Introduction<h4>
+                <h4>1.1 Purpose of the document</h4>
+                <p>The purpose of the document is to describe the requirements for developing the functionality of
+                    hiding accounts in the mobile and web application of Internet banking.
+                    This feature allows the user to customize the display of their accounts in the interface, hiding
+                    irrelevant or temporarily unnecessary ones.
+                </p>
+                <h4>1.2 Terms and Definitions</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Term</th>
+                            <th>Definition</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>User</td>
+                            <td>Individual, bank client, authorized in the application</td>
+                        </tr>
+                        <tr>
+                            <td>Account</td>
+                            <td>User's bank account</td>
+                        </tr>
+                        <tr>
+                            <td>Primary account</td>
+                            <td>Account used by default for deposits</td>
+                        </tr>
+                        <tr>
+                            <td>Blocked account</td>
+                            <td>Account on which a restriction has been imposed (for example, by a court decision)</td>
+                        </tr>
+                        <tr>
+                            <td>Personal account</td>
+                            <td>User interface in Internet banking</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p></p>
+                <h4>2. General description</h4>
+                <h4>2.1 Product perspective</h4>
+                <p>The functionality is part of the bank's mobile and web application. Account data is loaded from the
+                    backend service, changes in the status
+                    "hidden/displayed" are saved in the DB.</p>
+                <h4>2.2 Limitations</h4>
+                <ul class="skill-list-small">
+                    <li>You cannot hide the primary account</li>
+                    <li>You cannot hide a blocked account </li>
+                    <li>Response time for the hide/return operation is no more than 1 sec.</li>
+                </ul>
+                <h4>2.3 Dependencies</h4>
+                <ul class="skill-list-small">
+                    <li>Service authorization and receiving account data</li>
+                    <li>Account database</li>
+                    <li>API for updating account information</li>
+                    <li>Mobile applications (iOS / Android)</li>
+                </ul>
+
+                <h4>3. Functional requirements</h4>
+                <h4>3.1 Hiding an account (UC-1)</h4>
+                <p><b>Description:</b> the user can hide the display of the selected account in the general list of
+                    accounts, if this account is not the primary or blocked.</p>
+                <img src="case2/assets/UC-1_en.png" class="zoomable-img" alt="UC1-scheme" width=100%
+                    onclick="openModal(this.src)">
+                <p><b>Functionality:</b></p>
+                <ul class="skill-list-small">
+                    <li>when you click the "Hide" button, the account disappears from the primary "My accounts" list</li>
+                    <li>the status is saved on the server</li>
+                </ul>
+                <p><b>Exceptions:</b></p>
+                <ul class="skill-list-small">
+                    <li>if the user tries to hide primary/blocked account, error displayed</li>
+                </ul>
+                <p><b>API request: PATCH /accounts/{id}/visibility</b></p>
+                <p>Request: <b>{ "is_hidden": true } </b></p>
+                <p>Response:</p>
+
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>200 OK:</td>
+                            <td>{<br>
+                                "id": "acc_12345",<br>
+                                "is_hidden": true,<br>
+                                "message": "Account successfully hidden"<br>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>400 Bad Request:</td>
+                            <td>{<br>
+                                "error": "Invalid account ID format"<br>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>401 Unauthorized:</td>
+                            <td>{<br>
+                                "error": "Authentication required"<br>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>403 Forbidden:</td>
+                            <td>{<br>
+                                "error": "Cannot hide primary or blocked account"<br>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>404 Not Found:</td>
+                            <td>{<br>
+                                "error": "Account not found"<br>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>500 Internal Server Error:</td>
+                            <td>{<br>
+                                "error": "Unexpected server error. Please try again later."<br>
+                                }
+                            </td>
+                    </tbody>
+                </table>
+                <p></p>
+                <h4>3.2 Viewing hidden accounts (UC-2)</h4>
+                <p><b>Description:</b> the user can open the list of all hidden accounts in the "Account settings"
+                    section or a separate "Hidden accounts" screen.</p>
+                <img src="case2/assets/UC-2.png" class="zoomable-img" alt="UC2-scheme" width=100%
+                    onclick="openModal(this.src)">
+                <p></p>
+                <p><b>API request: GET /accounts?is_hidden=true</b></p>
+                <p>Response:</p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>200 OK:</td>
+                            <td> {<br>
+                                "id": "acc_12345",<br>
+                                "accountNumber": "40817810000001234567",<br>
+                                "currency": "BYN",<br>
+                                "balance": 1000.50,<br>
+                                "isHidden": true<br>
+                                },<br>
+                                {<br>
+                                "id": "acc_67890",<br>
+                                "accountNumber": "40817810000007654321",<br>
+                                "currency": "USD",<br>
+                                "balance": 500.00,<br>
+                                "isHidden": true<br>
+                                }
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>400 Bad Request:</td>
+                            <td>{<br>
+                                "error": "Invalid account ID format"<br>
+                                }
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>401 Unauthorized:</td>
+                            <td>{<br>
+                                "error": "Authentication required"<br>
+                                }
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>403 Forbidden:</td>
+                            <td>{<br>
+                                "error": "Access to account information is forbidden"<br>
+                                }
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>404 Not Found:</td>
+                            <td>{<br>
+                                "error": "Account not found"<br>
+                                }
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>500 Internal Server Error:</td>
+                            <td>{<br>
+                                "error": "Unexpected server error. Please try again later."<br>
+                                }
+                            </td>
+                    </tbody>
+                </table>
+                <p></p>
+                <h4>3.3 Recovering a hidden account (UC-3)</h4>
+                <p><b>Description:</b> the user can return the display of a previously hidden account in the general
+                    list.</p>
+                <img src="case2/assets/UC-3_en.png" class="zoomable-img" alt="UC3-scheme" width=100%
+                    onclick="openModal(this.src)">
+                <p><b>API request: PATCH /accounts/{id}/visibility</b></p>
+                <p>Request: <b>{ "is_hidden": false }</b></p>
+                <p>Response:</p>
+
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>200 OK:</td>
+                            <td>{<br>
+                                "id": "acc_12345",<br>
+                                "is_hidden": false,<br>
+                                "message": "Account is now visible"<br>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>400 Bad Request:</td>
+                            <td>{<br>
+                                "error": "Invalid account ID format"<br>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>401 Unauthorized:</td>
+                            <td>{<br>
+                                "error": "Authentication required"<br>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>403 Forbidden:</td>
+                            <td>{<br>
+                                "error": "Access to account information is forbidden"<br>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>404 Not Found:</td>
+                            <td>{<br>
+                                "error": "Account not found"<br>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>500 Internal Server Error:</td>
+                            <td>{<br>
+                                "error": "Unexpected server error. Please try again later."<br>
+                                }
+                            </td>
+                    </tbody>
+                </table>
+                <p></p>
+                <h4>4. Non-functional requirements</h4>
+                <p><b>NFR.1:</b> Performance: Hiding/revealing the account should not take longer than 1 second in the
+                    application.</p>
+                <p><b>NFR.2:</b> Security: Hiding the account does not affect access to transactions, there is no data
+                    leakage.</p>
+                <p><b>NFR.3:</b> Cross-platform support: works on iOS and Android.</p>
+                <p><b>NFR.4:</b> Reliability: The hiding state is preserved when the application is restarted</p>
+                <h4>5. Behavior options</h4>
+                <p><b>Positive scenario:</b></p>
+                <p>1. The user clicks "Hide account"<br>
+                    2. A message appears: "After hiding the account, it will be available on the main page in the
+                    "Hidden accounts" section."<br>
+                    3. The account is moved to the "Hidden accounts" category
+                </p>
+                <p><b>Negative scenarios:</b></p>
+                <p>1. The user tries to hide the primary account → message: "Unable to hide the primary account."<br>
+                    2. The user tries to hide a blocked account → message: "Unable to hide a blocked account."<br>
+                    3. Server error → message: "Failed to hide the account. Try again later." <br>
+                </p>
+
+                <h4>6. Interfaces</h4>
+                <p><b>6.1 User interface</b></p>
+                <ul class="skill-list-small">
+                    <li>The "Hide account" button appears on the account screen</li>
+                    <li>A new category "Hidden accounts" appears on the main page (if the user has hidden at least one
+                        account)</li>
+                    <li>The "Show account" button appears on the account screen</li>
+                </ul>
+                <p><b>6.2 Interaction with the backend</b></p>
+                <ul class="skill-list-small">
+                    <li>PATCH request updates the is_hidden flag</li>
+                    <li>GET request for the list of accounts returns only is_hidden = false by default</li>
+                </ul>
+                <h4>7. Additional information</h4>
+                <p><b>7.1 User documentation:</b></p>
+                <p>FAQ: «How to hide an account»</p>
+                <p><b>7.2 Assumptions:</b></p>
+                <ul class="skill-list-small">
+                    <li>The user does not expect that hiding the account will affect transactions/statements</li>
+                    <li>Hiding is only a visual filter, does not block work with the account</li>
+                </ul>
+                <p><b>7.3 Scalability:</b></p>
+                <p>The hiding functionality can be extended to other products (cards, deposits) using the general
+                    is_hidden flag mechanism.</p>
+
+    </div>

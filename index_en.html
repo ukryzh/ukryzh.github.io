@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV - Ulyana Kryzh</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <!-- Main resume block -->
+  <div class="resume">
+    <!-- Left panel -->
+    <div class="left-panel">
+      <div class="photo">
+        <img src="assets/photo.jpg" alt="Photo" />
+      </div>
+      <div class="contact-info">
+        <h2>Ulyana Kryzh</h2>
+        <p>tg: <a href="https://t.me/kryzhulyana" target="_blank">@kryzhulyana</a></p>
+        <p>e-mail: kryzhulyana@gmail.com</p>
+        <p>tel: +375 (44) 753-72-41</p>
+        <p><a href="assets/CV_UKryzh.pdf" target="_blank">print version</a></p>
+        <!-- Other contacts -->
+      </div>
+
+      <div class="projects">
+        <h3>Business cases</h3>
+        <button class="project-btn" data-file="case1.html">
+          Business process analysis and optimization
+        </button>
+        <button class="project-btn" data-file="case2.html">
+          Description of the new mobile app feature
+        </button>
+        <button class="project-btn" data-file="case3.html">
+          Development of a money transfer service
+        </button>
+        <button class="project-btn" data-file="case4.html">
+          Development of a project dashboard (Power BI)
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- Right panel -->
+    <div class="right-panel" id="mainContent">
+      <h2>Fullstack analyst</h2>
+      <p></p>
+
+      <section>
+        <h3>Work experience</h3>
+        <p></p>
+        <p><b>2024 - present time - VEBTECH (BelVEB Bank projects) - IT Business Analyst</b></p>
+        <ul class="skill-list-small">
+          <li>Reduced the cost of business processes by implementing RPA: Monitoring - by 3167%, Lending - by 412%</li>
+          <li>Automated the exchange rate formation process by implementing a model for automatic calculation of rates,
+            which reduced the percentage of errors to 0</li>
+          <li>Increased the speed of working with an electronic digital signature by 80% by simplifying document flow
+          </li>
+          <li>Developed a system for assessing the effectiveness of processes based on ITIL, which made it possible to
+            identify inefficient use of key IT services</li>
+          <li>Described 317 end-to-end processes at the Bank level, identifying priority optimization points for
+            business and IT departments</li>
+          <li>Built and visualized the business architecture, ensuring synchronization of IT initiatives with the
+            organization's business goals</li>
+          <li>Developed technical specifications and participated in the implementation of changes to the Core Banking
+            systems as part of the above optimization initiatives</li>
+        </ul>
+        <p><b>2020-2024 - Deloitte/DRT Audit - Business Process Analyst</b></p>
+        <ul class="skill-list-small">
+          <li>Designed and described the Quality Management System (BPMN, Internal Regulatory Documentation, instructions, SIPOC)</li>
+          <li>Standardized and optimized more than 110 business processes, increasing their speed by an average of 12%
+            due to simplification of document flow</li>
+          <li>Developed a system of measures to reduce risks (including audit and corrective actions)</li>
+          <li>Developed and conducted 15+ training sessions on the implementation and use of the QMS for employees
+            companies</li>
+        </ul>
+        <!-- etc. -->
+      </section>
+
+      <section>
+        <h3>Skills and Toolkit</h3>
+        <ul class="skill-list-small">
+          <li><b>Process analysis:</b> Process/Task Mining, AS-IS/TO-BE modeling (BPMN, IDEF0), optimization and
+            automation (including RPA), Camunda, Business Studio, visualization (Power BI)</li>
+          <li><b>Business analysis:</b> Collection and formalization of requirements (BRD, User Stories, Use Cases),
+            prototyping (Figma), communication with stakeholders</li>
+          <li><b>System analysis:</b> SRS, UML, REST API (Swagger), DB design (ER diagrams), SQL</li>
+          <li><b>Solution architecture:</b> Building a business architecture, coordinating IT and business goals</li>
+          <li><b>Approaches and tools:</b> Agile, Scrum, ITIL, TOGAF, BPM, Jira, Confluence, Git, Miro, Draw.io,
+            LucidChart</li>
+          <li><b>Languages:</b> English - C1</li>
+        </ul>
+
+      </section>
+      <section>
+        <h3>Education</h3>
+        <ul class="skill-list-small">
+          <li>2015-2019 - Belarusian State Economic University, Logistics Economist</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Additional courses</h3>
+        <ul class="skill-list-small">
+          <ul>
+            <li><a href="https://coursera.org/share/b54e8aaa3343833358eca825f5892717" target="_blank">2025 - Google
+                Business Intelligence</a></li>
+            <li><a href="https://credentials.uipath.com/f955b72c-d8e5-460b-86a3-80405ba51bb6#acc.7NaMZ2QV"
+                target="_blank">2024 - UiPath Automation Business Analyst</a></li>
+            <li><a href="https://coursera.org/share/e47e82e612cea78dcd37228bdef7d830" target="_blank">2022 - Google
+                Project Management</a></li>
+          </ul>
+      </section>
+      <div id="case-container" style="margin-top: 40px;"></div>
+    </div>
+  </div>
+  <div id="modal" class="modal">
+    <span id="modalPrev" class="modal-nav">&#10094;</span>
+    <img id="modalImg" class="modal-content" alt="Enlarged slide" />
+    <span id="modalNext" class="modal-nav">&#10095;</span>
+    <span class="close" onclick="closeModal()">&times;</span>
+  </div>
+
+  <a href="javascript:void(0)" class="scroll-to-top">
+    <span class="arrow-up">❯</span>
+    <span class="scroll-text">top</span>
+  </a>
+
+</body>
+
+</html>

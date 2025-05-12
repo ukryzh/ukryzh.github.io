@@ -1,0 +1,684 @@
+<div class="case-content">
+  <h2>Analysis and optimization of business processes</h2>
+  <p></p>
+  <p>The case analyzes the process "Verification of client data (individuals) within the lending process"</p>
+  <p><b>Toolkit:</b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>Task&process mining</td>
+        <td>Interviewing stakeholders</td>
+      </tr>
+      <tr>
+        <td>Description of AS-IS - TO-BE</td>
+        <td>Python (data analysis)</td>
+      </tr>
+      <tr>
+        <td>Power BI</td>
+        <td>RACI matrix</td>
+      </tr>
+      <tr>
+        <td>BPMN</td>
+        <td>RPA</td>
+      </tr>
+    </tbody>
+  </table>
+  <p></p>
+  <p><b>Objective:</b> reduce costs and process execution time</p>
+  <p><b>Result:</b> projected cost reduction by 86.8%, time reduction by 5300%</p>
+  <p><b>Note:</b> this analysis did not use real data from processes in the Bank (NDA and Information constituting a
+    banking secret). For this analysis, data close to real processes of lending to individuals were synthesized
+    (using Python)</p>
+
+  <p>Presentation of results</p>
+  <p></p>
+  <h4><a href="case1/assets/pres_en.pdf" target="blank">PDF version of the presentation</a></h4>
+  <p></p>
+  <div class="slider-wrapper">
+    <button class="scroll-btn left" onclick="scrollGallery(-1)">❮</button>
+
+    <div class="slide-gallery" id="slideGallery">
+      <img src="case1/assets/s1_en.PNG" class="zoomable-slide" alt="Slide 1" onclick="openModal(this.src)">
+      <img src="case1/assets/s2_en.PNG" class="zoomable-slide" alt="Slide 2" onclick="openModal(this.src)">
+      <img src="case1/assets/s3_en.PNG" class="zoomable-slide" alt="Slide 3" onclick="openModal(this.src)">
+      <img src="case1/assets/s4_en.PNG" class="zoomable-slide" alt="Slide 4" onclick="openModal(this.src)">
+      <img src="case1/assets/s5_en.PNG" class="zoomable-slide" alt="Slide 5" onclick="openModal(this.src)">
+      <img src="case1/assets/s6_en.PNG" class="zoomable-slide" alt="Slide 6" onclick="openModal(this.src)">
+      <!-- etc. -->
+    </div>
+
+    <button class="scroll-btn right" onclick="scrollGallery(1)">❯</button>
+  </div>
+
+  <div class="modal" id="modal" onclick="closeModal()">
+    <img id="modalImg">
+
+  </div>
+
+  <button class="toggle-report" data-target="report1">
+    Business Analysis Report <span class="arrow">❯</span>
+  </button>
+  <div id="report1" class="report-content">
+
+    <h4><a href="case1/assets/case1_en.pdf">PDF version of the report</a></h4>
+    <p></p>
+    <p>Report on the analysis of the business process "Verification of client data (individuals) within the lending process"</p>
+    <p></p>
+
+    <p><b>1. Introduction</b></p>
+    <p><b>1.1. Purpose of the analysis</b></p>
+    <p>To study the process parameters: execution speed, cost/expenses of the process, process results (quality of the
+      output product).</p>
+    <p>To analyze the possibilities of optimization and automation, improve the process parameters.</p>
+    <p><b>1.2. Description of the analyzed process</b></p>
+    <p>The business process "Verification of client data (individuals) within the lending process" is a
+      component of the lending process block in the Bank. The lending block for individuals is critical for the Bank, since 30% of the profit earned in the Bank comes from
+      this Block.</p>
+    <p>The main purpose of the verification process is to check the client's data for compliance with their
+      legal requirements and the Bank's internal requirements. Based on the verification results, a decision is made to
+      approve/refuse lending.</p>
+    <p><b>1.3. Sources of information</b></p>
+    <p>As part of the preparation for analysis and collection of information stage:</p>
+    <ul class="skill-list-small">
+      <li>interviews are conducted with performers, managers and owners of the process;
+        as part of the interviews, the process execution is monitored in real time;</li>
+      <li>data from information systems in which employees work to execute this process (task & process mining) are
+        collected;</li>
+      <li>local legal acts/internal regulatory documentation (LLA/IRD) are analyzed;</li>
+      <li>regulatory regulations of state actors and other financial institutions are analyzed.</li>
+    </ul>
+    <p><b>2. Description of the current process</b></p>
+    <p><b>2.1. Process participants</b></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Role</th>
+          <th>Department</th>
+          <th>Contact details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Director of the Retail Products Department</td>
+          <td>Process owner</td>
+          <td>Retail Products Department (RPD)</td>
+          <td>rpd_coo@bank.com</td>
+        </tr>
+        <tr>
+          <td>Functional manager</td>
+          <td>Manager</td>
+          <td>Operations office</td>
+          <td>oo_manager@bank.com</td>
+        </tr>
+        <tr>
+          <td>Verifier</td>
+          <td>Executor</td>
+          <td>Operational office</td>
+          <td>oo_verify@bank.com</td>
+        </tr>
+        <tr>
+          <td>Front office employee</td>
+          <td>Executor</td>
+          <td>Front office</td>
+          <td>fo@bank.com</td>
+        </tr>
+        <tr>
+          <td>Underwriting Service Employee</td>
+          <td>Executor</td>
+          <td>Underwriting Service</td>
+          <td>underwriting@bank.com</td>
+        </tr>
+        <tr>
+          <td>Security Service Employee</td>
+          <td>Executor</td>
+          <td>Security Service</td>
+          <td>so@bank.com</td>
+        </tr>
+      </tbody>
+    </table>
+    <p></p>
+    <p><b>Stakeholders:</b></p>
+    <ul class="skill-list-small">
+      <li>Clients - individuals</li>
+      <li>Process performers</li>
+      <li>Front office service, underwriting service, security service</li>
+      <li>Bank employees in a broad sense</li>
+    </ul>
+    <p><b>2.2. Graphical representation</b></p>
+    <img src="case1/assets/bpmn_en.png" class="zoomable-img" alt="BPMN diagram" width=100% onclick="openModal(this.src)">
+    <p></p>
+    <p><b>2.3. Stages of the process</b></p>
+    <p>The process of verification of individuals consists of the following stages:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Stage</th>
+          <th>Description</th>
+          <th>Contractor</th>
+          <th>Deadline</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Checking the completeness of the provided documentation</td>
+          <td>The verifier checks the package of documents: the client must provide a scan of the passport and a scan of
+            the income certificate.
+            Documents are attached to the Automated Information System (AIS), in which the Verifier conducts all
+            activities for the process</td>
+          <td>Verifier</td>
+          <td>Within half an hour after submitting documents</td>
+        </tr>
+        <tr>
+          <td>Request for missing information</td>
+          <td>If the client has provided an incomplete set of documents or the scans of the documents are not of good
+            enough quality to understand the necessary information, the verifier sends a request for missing
+            information:
+            <ul class="skill-list-small">
+              <li>To the front office employee, if the client applied offline</li>
+              <li>To the client via the application, if the client applied online</li>
+            </ul>
+          </td>
+          <td>Verifier</td>
+          <td>After identifying the missing information. The deadline for providing missing information is 3 days.</td>
+        </tr>
+        <tr>
+          <td>Checking documents for compliance with requirements</td>
+          <td>The verifier visually checks the passport and income certificate for non-compliance with the requirements
+            of the Bank and legislation</td>
+          <td>Verifier</td>
+          <td>Within half an hour after submitting the documents</td>
+        </tr>
+        <tr>
+          <td>Request for revision of documentation</td>
+          <td>If errors in the documentation were identified during the verification process for compliance with the
+            requirements, the verifier sends a request for revision:
+            <ul class="skill-list-small">
+              <li>To the front office employee, if the client applied offline</li>
+              <li>To the client via the application, if the client applied online</li>
+            </ul>
+          </td>
+          <td>Verifier</td>
+          <td>After identifying errors in the documentation. Correction period - 1 day.</td>
+        </tr>
+        <tr>
+          <td>Client verification</td>
+          <td>After the verifier confirms that the documentation meets the requirements, the client information is
+            transferred to other Bank departments for verification:
+            <ul class="skill-list-small">
+              <li>The underwriting service compares the client's income data, personal data and data from the Bank's
+                database. Then it forms a conclusion on the possibility of providing a loan</li>
+              <li>The security service checks the client's personal data, the Bank's database and the databases of
+                authorized bodies. Afterwards, it forms a conclusion on the possibility of concluding an agreement with
+                this client</li>
+            </ul>
+          </td>
+          <td>Underwriting Service, Security Service</td>
+          <td>Verification period – 1 day</td>
+        </tr>
+        <tr>
+          <td>Notification of refusal</td>
+          <td>Based on the results of the verification, the verifier sends an automatically generated notification of
+            refusal, if a corresponding decision was made</td>
+          <td>Verifier</td>
+          <td>Immediately after receiving the conclusion from the relevant services</td>
+        </tr>
+        <tr>
+          <td>Entering the approved loan application into the Bank's accounting and operational system</td>
+          <td>If, based on the results of the verification, a decision was made to issue a loan to the client, the
+            verifier
+
+            enters information about the client (personal data, data on his current account, the amount of the approved
+            loan) into the accounting and operational system Bank system</td>
+          <td>Verifier</td>
+          <td>Immediately after receiving a conclusion from the relevant services</td>
+        </tr>
+        <tr>
+          <td>Approval notification</td>
+          <td>The Verifier sends an automatically generated approval notification if the corresponding decision has been
+            made</td>
+          <td>Verifier</td>
+          <td>After entering the information into the Bank's accounting and operational system</td>
+        </tr>
+      </tbody>
+    </table>
+    <p></p>
+    <p><b>Responsibility Assignment Matrix (RACI): </b></p>
+    <table>
+      <thead>
+        <tr>
+          <th>
+            <div>Stage</div>
+          </th>
+          <th class="rotate">
+            <div>Verifier</div>
+          </th>
+          <th class="rotate">
+            <div>Manager</div>
+          </th>
+          <th class="rotate">
+            <div>Director of the RPD</div>
+          </th>
+          <th class="rotate">
+            <div>Front Office Staff</div>
+          </th>
+          <th class="rotate">
+            <div>Underwriting Service</div>
+          </th>
+          <th class="rotate">
+            <div>Security Service</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Checking the completeness of the provided documentation</td>
+          <td>R</td>
+          <td>A</td>
+          <td></td>
+          <td>R</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Request for missing information</td>
+          <td>R</td>
+          <td>A</td>
+          <td></td>
+          <td>R</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Checking documents for compliance with requirements</td>
+          <td>R</td>
+          <td>A</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Request for revision of documentation</td>
+          <td>R</td>
+          <td>A</td>
+          <td></td>
+          <td>R</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Client Verification</td>
+          <td>R</td>
+          <td>A</td>
+          <td></td>
+          <td></td>
+          <td>R</td>
+          <td>R</td>
+        </tr>
+        <tr>
+          <td>Notification of refusal</td>
+          <td>R</td>
+          <td>A</td>
+          <td>CI</td>
+          <td></td>
+          <td>I</td>
+          <td>I</td>
+        </tr>
+        <tr>
+          <td>Entering the approved loan application into the Bank's accounting and operational system</td>
+          <td>R</td>
+          <td>A</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Approval notification</td>
+          <td>R</td>
+          <td>A</td>
+          <td>I</td>
+          <td></td>
+          <td>I</td>
+          <td>I</td>
+        </tr>
+      </tbody>
+    </table>
+    <p></p>
+
+    <p><b>2.4. Process metrics</b></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Standard indicator</th>
+          <th>Actual indicator </th>
+        </tr>
+      </thead>
+      <tr>
+        <td>Time to execute one process instance</td>
+        <td>Verifier: 15 minutes per 1 application (excluding time for documentation revisions)<br>Underwriting service:
+          30 minutes<br>Security service: 60 minutes<br>Total: 105 minutes<br></td>
+        <td>Verifier: 7 minutes per 1 application (excluding time for documentation revisions)<br>Underwriting service:
+          12 minutes<br>Security service: 34 minutes<br>Total: 53 minutes (average value)</td>
+      </tr>
+      <tr>
+        <td>Number of executed process instances per day</td>
+        <td>150 loan applications/day</td>
+        <td>≈ 200 loan applications/day (adjusted for seasonal peaks)</td>
+
+      </tr>
+      <tr>
+        <td>Cost of man-hours for one process instance</td>
+        <td>Total cost of man-hours for one process instance: $10 </td>
+        <td>Verifier – $0.53<br>Underwriting service – $0.91<br>Security service – $3.09</td>
+
+      </tr>
+      <tr>
+        <td>% of approved applications</td>
+        <td>95</td>
+        <td>10 (from the selected data sample)</td>
+      </tr>
+    </table>
+    <p></p>
+    <p>The logs of the Automated Information System, in which the data verification process is carried out, were
+      analyzed.
+      Below is the conversion of the process stages (200 copies)</p>
+    <img src="case1/assets/conversion_en.png" class="zoomable-img" alt="Process Conversion" width=100%
+      onclick="openModal(this.src)">
+    <p></p>
+    <p>A diagram of the distribution of reasons for refusals to clients in lending is also presented</p>
+    <img src="case1/assets/rejection_reasons_en.png" class="zoomable-img" alt="Reasons for refusals" width=100%
+      onclick="openModal(this.src)">
+    <p></p>
+    <p><b>3. Identified problems and bottlenecks</b></p>
+    <p><b>3.1. Description of problem areas</b></p>
+    <p>1. Lack of performance monitoring systems. Lack of a system for recording employee errors</p>
+    <p>2. Lack of a system for transmitting information when an employee is absent from the site (the employee is on
+      vacation/sick leave/quit)</p>
+    <p>3. Process bottlenecks:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Bottleneck</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tr>
+        <td>Request for missing information</td>
+        <td>17.5% of all requests are rejected due to the fact that the client does not provide the missing information
+        </td>
+      </tr>
+      <tr>
+        <td>Request for revision of documentation</td>
+        <td>41% of all requests are sent for revision of the documentation provided by the client. Of these
+          applications, 35% are rejected because the client did not provide the information required for completion</td>
+      </tr>
+    </table>
+    <p></p>
+    <p>4. Main reasons for loan refusal:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Reason for refusal</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tr>
+        <td>The client did not provide the necessary information</td>
+        <td>31.46% of all rejected applications</td>
+      </tr>
+      <tr>
+        <td>Security service failure</td>
+        <td>28.09% of all rejected applications</td>
+      </tr>
+      <tr>
+        <td>Low scoring score</td>
+        <td>18.26% of all rejected applications</td>
+      </tr>
+    </table>
+    <p></p>
+    <p><b>3.2. Causes of problems</b></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Problem</th>
+          <th>Reasons</th>
+        </tr>
+      </thead>
+      <tr>
+        <td>Lack of execution monitoring systems. Lack of a system for recording employee errors</td>
+        <td>Heavy workload of managers who do not have time for additional checks at the verification stage.<br>Lack of
+          strict regulation of the verification process by regulators, so the Bank establishes the order of the process
+          and control procedures independently. In this case, control procedures were excluded. </td>
+      </tr>
+      <tr>
+        <td>Lack of a system for transmitting information when an employee is absent from the site (the employee is on
+          vacation/sick leave/quit)</td>
+        <td>Existing banking communication and electronic document management tools do not allow (are not convenient to
+          use) to transmit current information on the process. </td>
+      </tr>
+      <tr>
+        <td>17.5% of all applications are rejected due to the fact that the client does not provide the missing
+          information</td>
+        <td>Presumably, this may be due to the complexity of the information submission procedure, or the inefficiency
+          of the client managers. <br>Additional analysis is required. It may be necessary to change the UI/UX of the
+          web application.</td>
+      </tr>
+      <tr>
+        <td>41% of all applications are sent for revision of the documentation provided by the client. Of these
+          applications, 35% are rejected due to the fact that the client did not provide the information necessary for
+          revision.</td>
+        <td>Presumably, this may be due to the complexity of the procedure for submitting information and processing the
+          loan application, or the inefficiency of the client managers. <br>Additional analysis is required.</td>
+      </tr>
+      <tr>
+        <td>High percentage of security service refusals and due to a low scoring score.</td>
+        <td>Additional analysis is required to compare possible lost profits and inherent risks.<br>Additional analysis
+          of the client base and the offered lending products is required.</td>
+      </tr>
+    </table>
+    <p></p>
+    <p><b>4. Recommendations for process improvement</b></p>
+    <p><b>4.1. Possible solutions</b></p>
+    <p>1. Automation of routine tasks using artificial intelligence tools.</p>
+    <p>To automate the verifier's tasks, it is possible to propose implementing RPA.
+      Since the main advantage of RPA is interaction with the GUI, using this technology seems to be the best option.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Stage</th>
+          <th>Description</th>
+          <th>Contractor</th>
+        </tr>
+      </thead>
+      <tr>
+        <td>Checking the completeness of the provided documentation</td>
+        <td>The robot is triggered when a request appears. The robot checks the application for the required documents.
+        </td>
+        <td>RPA</td>
+      </tr>
+      <tr>
+        <td>Request for missing information</td>
+        <td>If the documentation is insufficient, the robot sends an automatically generated letter (a pre-defined
+          template) to the client.<br>When information is provided, the robot makes a second check</td>
+        <td>RPA</td>
+      </tr>
+      <tr>
+        <td>Checking documents for compliance with requirements</td>
+        <td>The robot (using OCR and ML technologies) determines whether the provided documents comply with the
+          requirements of the Bank and regulators.</td>
+        <td>RPA</td>
+      </tr>
+      <tr>
+        <td>Request for revision of documentation</td>
+        <td>If necessary, the robot sends an automatically generated letter (a pre-defined template) to the
+          client.<br>When information is provided, the robot makes a second check verification.</td>
+        <td>RPA</td>
+      </tr>
+      <tr>
+        <td>Client verification</td>
+        <td>Without RPA implementation</td>
+        <td>Underwriting service, Security service</td>
+      </tr>
+      <tr>
+        <td>Notification of refusal</td>
+        <td>In case of refusal, the robot sends an automatically generated letter (pre-defined template) to the client.
+        </td>
+        <td>RPA</td>
+      </tr>
+      <tr>
+        <td>Entering the approved loan application into the Bank's accounting and operational system</td>
+        <td>If the application is approved, the robot transfers the necessary data from the client documentation,
+          conclusions of the security and underwriting services, and other banking sources to the Bank's accounting and
+          operational system.</td>
+        <td>RPA</td>
+      </tr>
+      <tr>
+        <td>Approval Notification</td>
+        <td>If the loan is approved, the robot sends an automatically generated letter (pre-defined template) to the
+          client.</td>
+        <td>RPA</td>
+      </tr>
+    </table>
+    <p></p>
+    <p>This will free up verifiers from the process completely. </p>
+    <p>Below is an example of automation of three stages (Checking the completeness of the provided documentation →
+      Requesting missing information → Checking documents for compliance with requirements) using RPA (UiPath).</p>
+    <p>A new approach to process management may look like this:</p>
+    <ul class="skill-list-small">
+      <li>RPA is orchestrated using Camunda or another BPM system (PEGA, Business Studio)</li>
+      <li>Information on completed operations is logged for subsequent analysis and building predictive models</li>
+      <li>If changes occur in the process, they are entered into the BPM system and the RPA behavior algorithm</li>
+      <li>The effectiveness of the process and its changes are assessed in the BPM system</li>
+    </ul>
+    <img src="case1/assets/uipath1_en.png" class="zoomable-img" alt="UiPath" width=100% onclick="openModal(this.src)">
+    <img src="case1/assets/uipath2_en.png" class="zoomable-img" alt="UiPath" width=100% onclick="openModal(this.src)">
+    <img src="case1/assets/uipath3_en.png" class="zoomable-img" alt="UiPath" width=100% onclick="openModal(this.src)">
+
+    <p>2. Additional optimization activities (e.g., security service and underwriting service) require additional
+      analysis. </p>
+    <p><b>4.2. Expected results</b></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Expected result</th>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tr>
+        <td>Reduction in time to process 1 request</td>
+        <td>On average, a verifier spends 7 minutes to process 1 request. With the implementation of RPA, the execution
+          of 1 request (depending on the provided capacities) will be on average 10 seconds. Thus, the time savings will
+          be 5300%.</td>
+      </tr>
+      <tr>
+        <td>Costs for processing 1 request</td>
+        <td>On average, the cost of one instance of the process is $4.53. The cost of one day of work (200 requests/day)
+          is $906.
+          <br><br>To automate this process (using UiPath, without involving internal specialists), the Bank will need (cost
+          data is the average for the market):
+          <ul class="skill-list-small">
+            <li>RPA solution development: $15,000 (one-time)</li>
+            <li>RPA licenses (1 unattended bot + Studio): $12,000 per year</li>
+            <li>Technical support: $3,000 per year → Total for the first year: $30,000; for subsequent years — $15,000
+              per year</li>
+            <li>The efficiency of the process and its changes are assessed in the BPM system</li>
+          </ul>
+          <br>Thus, the cost of one day of RPA operation (for the first year) will be - $120.<br>This does not take into
+          account the additional benefits of increased productivity and scaling the use of RPA solutions in other Bank
+          processes. <br>Savings after automation of this process will be: $786 per day. Costs will decrease by 86.8%.
+        </td>
+      </tr>
+      <tr>
+        <td>Logging of all robot actions</td>
+        <td>Since all robot actions are recorded in the log, this data can be used for further analysis, establishing
+          process efficiency metrics and process improvement, which is impossible to do now without a monitoring system.
+        </td>
+      </tr>
+    </table>
+    <p></p>
+    <p><b>4.3. Potential implementation risks</b></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Possible risk</th>
+          <th>Risk mitigation measures</th>
+        </tr>
+      </thead>
+      <tr>
+        <td>Integration issues (risk of RPA conflict with other Bank systems)</td>
+        <td>
+          1. Determine which systems and databases RPA will interact with, what data to use <br>
+          2. Determine integration capabilities (API, interaction via GUI) <br>
+          3. Determine work scenarios in case of RPA failures <br>
+        </td>
+      </tr>
+      <tr>
+        <td>Employee resistance</td>
+        <td>
+          1. Determine which staff may be cut<br>
+          2. Determine the possibilities of transferring employees to new tasks, retraining or upgrading their skills
+        </td>
+      </tr>
+      <tr>
+        <td>Insufficient control after RPA implementation</td>
+        <td>
+          1. Create a monitoring system for the new process. Implement KPI<br>
+          2. At the first stages of implementation, use the human-in-the-loop model, when the robot's actions are
+          approved by an expert employee.
+          Within a few months of monitoring, most of the exception situations that need to be included in the RPA
+          algorithm will be processed
+        </td>
+      </tr>
+      <tr>
+        <td>Legal restrictions when using RPA technology</td>
+        <td>
+          1. Check the algorithm's compliance with the requirements of personal data legislation<br>
+          2. Include RPA in the register of personal data processing tools in the Bank<br>
+          3. Update internal documents (LLA, IRD)<br>
+          4. Conduct a security audit after implementation<br>
+          5. Train employees to interact with RPA
+        </td>
+      </tr>
+    </table>
+    <p></p>
+    <p><b>4.4. Implementation plan</b></p>
+
+    <p>In this case, the Bank already has a Process Optimization Office, which is engaged in, among other things, the
+      implementation of AI tools to improve process efficiency.
+      Thus, the Process Optimization Office acts as the executor in this implementation project. </p>
+    <p>Proposed stages:</p>
+    <p>1. Identification of stakeholders (process owner, process managers, verifiers and other Bank employees)
+      <br>2. Calculation of Cost-Benefit analysis/ROI based on the results of the process analysis.
+      <br>3. Description of the TO-BE process using RPA technology. Collection and formalization of requirements for the
+      RPA scenario.
+      <br>4. Designing a test instance of the process using RPA technology.
+      <br>5. Testing on a pilot group (a limited number of loan applications) and improving the process instance.
+      <br>6. Assessing the transformation of the personnel and preparing new roles for employees. Training/transferring
+      employees involved in the process.
+      <br>7. Full-scale implementation of RPA in the process with a complete replacement of employee functionality.
+      Creation of documentation (regulations/procedures/instructions).
+      <br>8. Assessing the effectiveness of the implementation within 2-4 weeks after implementation, recording the
+      first results.
+    </p>
+
+    <p>This implementation project can take from 2 weeks to 1 month. The process owner and the Process Optimization
+      Office are appointed as those responsible for the project. </p>
+  </div>
+
+  <button class="toggle-report" data-target="report2">
+    Data<span class="arrow">❯</span>
+  </button>
+  <div id="report2" class="report-content">
+    <p>For the business case, generated data close to real data of the banking process were used:<br><br>
+      1. At the beginning, data on applications (200 pcs) and their status were randomly generated (automated using
+      Python: <a href="case1/assets/generate_data.py" target="_blank">generate_data.py</a>)<br>
+      2. Then, for each application, stages and the time of their passage by the application were generated (process
+      log, automated using Python: <a href="case1/assets/generate_statistics.py"
+        target="_blank">generate_statistics.py</a>)</p>
+    <p>The obtained data was used to build a BPMN diagram in Camunda (<a href="case1/assets/AS-IS.bpmn"
+        target="_blank">as-is.bpmn</a>), as well as for analytics in Power BI (<a href="case1/assets/analytics.pbix"
+        target="_blank">analytics.pbix</a>)</p>
+  </div>

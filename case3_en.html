@@ -1,0 +1,369 @@
+<div class="case-content">
+  <h2>Development of a money transfer service integration</h2>
+  <p></p>
+  <p>The case demonstrates the process of building an integration for a money transfer service</p>
+  <p><b>Toolkit:</b></p>
+  <table>
+    <tr>
+      <td>UML</td>
+      <td>SQL</td>
+    </tr>
+    <tr>
+      <td>ER diagrams</td>
+      <td>API (Swagger)</td>
+    </tr>
+  </table>
+  <p></p>
+  <p><b>Goal:</b> Creating documentation for building a money transfer service integration</p>
+  <p><b>Result:</b> Documented case (ER diagrams, API documentation in Swagger)</p>
+
+  <button class="toggle-report" data-target="report1">
+    Money transfer service integration project <span class="arrow">❯</span>
+  </button>
+  <div id="report1" class="report-content">
+    <a href="case3/assets/API.pdf" target="blank">PDF version of the project</a>
+    <p></p>
+    <h4>Business requirements for new functionality</h4>
+    <p></p>
+    <p>This project examines the functionality of the money transfer (transaction) service. The Use-case diagram below
+      shows how this service interacts with other services for the client</p>
+    <img src="case3/assets/UC-transaction_en.png" class="zoomable-img" alt="Use Case" width=100%
+      onclick="openModal(this.src)">
+    <p></p>
+    <p>There are three main classes interacting within this service:<br>
+      1. Users<br>
+      2. Accounts<br>
+      3. Transactions</p>
+    <p>The class diagram below shows their attributes, methods, and relationships:</p>
+    <img src="case3/assets/class_transaction.png" class="zoomable-img" alt="Class diagram" width=100%
+      onclick="openModal(this.src)">
+    <p></p>
+    <p>Based on this diagram an ER diagram has been built and tables have been created in the database for further
+      interaction with the service interface.</p>
+    <img src="case3/assets/ERD.png" class="zoomable-img" alt="ERD" width=100% onclick="openModal(this.src)">
+    <p>The LucidChart toolkit allows you to immediately export an ER diagram in the format of SQL queries for generating
+      tables. The following SQL queries are required to create the required tables:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Table</th>
+          <th>SQL query</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>USERS</td>
+          <td>CREATE TABLE users (<br>
+            ID INT AUTO_INCREMENT,<br>
+            Name VARCHAR(100),<br>
+            Email VARCHAR(255) UNIQUE,<br>
+            password_hashed VARCHAR(255),<br>
+            PRIMARY KEY (ID)<br>
+            );
+          </td>
+        </tr>
+        <tr>
+          <td>ACCOUNTS</td>
+          <td>CREATE TABLE accounts (<br>
+            account_id INT AUTO_INCREMENT,<br>
+            user_id INT,<br>
+            balance DECIMAL(15, 2) DEFAULT 0.00,<br>
+            PRIMARY KEY (account_id),<br>
+            FOREIGN KEY (user_id) REFERENCES Users(ID)<br>
+            );
+          </td>
+        </tr>
+        <tr>
+          <td>TRANSACTIONS</td>
+          <td>CREATE TABLE transactions (<br>
+            transaction_id INT AUTO_INCREMENT,<br>
+            sender_account_id INT,<br>
+            recipient_account_id INT,<br>
+            amount DECIMAL(15, 2),<br>
+            date DATETIME DEFAULT CURRENT_TIMESTAMP,<br>
+            status ENUM('PENDING', 'COMPLETED', 'FAILED'),<br>
+            PRIMARY KEY (transaction_id),<br>
+            FOREIGN KEY (sender_account_id) REFERENCES Accounts(account_id),<br>
+            FOREIGN KEY (recipient_account_id) REFERENCES Accounts(account_id)<br>
+            );
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p></p>
+    <p>After describing the classes and databases involved in the money transfer process, it is necessary to describe
+      the interaction of these components. Below is a sequence diagram
+      showing the main steps in the money transfer process.</p>
+    <img src="case3/assets/sequence.png" class="zoomable-img " alt="Sequence-diagram" width=100%
+      onclick="openModal(this.src, true)">
+    <p></p>
+    <p>Detailed description of the money transfer process:</p>
+    <table>
+      <tbody>
+        <tr>
+          <td><b>Title</b></td>
+          <td>UC: Make a money transfer</td>
+        </tr>
+        <tr>
+          <td><b>Priority</b></td>
+          <td>Must</td>
+        </tr>
+        <tr>
+          <td><b>Scope</b></td>
+          <td>Mobile app</td>
+        </tr>
+        <tr>
+          <td><b>Context</b></td>
+          <td>Make a money transfer from one account to another</td>
+        </tr>
+        <tr>
+          <td><b>Actor</b></td>
+          <td>User, recipient, sender</td>
+        </tr>
+        <tr>
+          <td><b>Goal</b></td>
+          <td>Transfer money from one account to another</td>
+        </tr>
+        <tr>
+          <td><b>Precondition</b></td>
+          <td>User must be authorized</td>
+        </tr>
+        <tr>
+          <td><b>Trigger</b></td>
+          <td>User clicks the "Make Transfer" button</td>
+        </tr>
+        <tr>
+          <td><b>Postcondition</b></td>
+          <td>Funds are transferred from one selected account to another selected account</td>
+        </tr>
+        <tr>
+          <td>
+            <b>Basic behavior scenario</b>
+          </td>
+          <td>
+            1.1 User enters the amount and recipient<br>
+            1.2 Frontend sends API request: POST /api/v1/transaction<br>
+            2.1 API Gateway checks for token availability (alternative explicit options for this stage are outside the
+            scope of this case)<br>
+            2.2 API Gateway sends a request to check the sender and recipient<br>
+            2.3 SQL query<br>
+            2.4 DB processes the request<br>
+            2.4.1 DB returns a response: Accounts exist<br>
+            3.1 Checking whether the balance is sufficient to complete the transaction: check_balance();<br>
+            3.1.1 There are enough funds to complete the transaction<br>
+            4.1 API Gateway sends a request to create a transaction<br>
+            4.2 SQL query<br>
+            4.3 DB processes the request<br>
+            4.3.1 DB returns a response: Transaction created<br>
+            5.1 After completing the transaction, balances need to be updated, SQL query<br>
+            5.2 DB processes the request<br>
+            5.2.1 DB returns a response: Balances updated<br>
+            5.2.2 - 5.2.4 - Returning a “200 OK” response - Transaction completed
+          </td>
+        </tr>
+        <tr>
+          <td><b>Alternative scenario: Accounts for the transaction not found</b></td>
+          <td>2.4.2 DB returns a response: Accounts not found<br>
+            2.4.3 An entry is made in the log: Accounts not found<br>
+            2.4.4 - 2.4.6 - Returning a “404 Not Found” response - Accounts not found
+          </td>
+        </tr>
+        <tr>
+          <td><b>Alternative scenario: Error updating balance</b></td>
+          <td>5.2.5 DB returns a response: Error updating balance<br>
+            5.2.6 An entry is made in the log: Error updating balance<br>
+            5.2.7 - 5.2.8 Deleting a transaction from the database (SQL query)<br>
+            5.2.9 - 5.2.10 The database returns a response: Transaction deleted<br>
+            5.2.11 - 5.2.13 Returning a response “500 Internal Error” - Error: Transaction aborted
+          </td>
+        </tr>
+        <tr>
+          <td><b>Alternative scenario: Error writing transaction</b></td>
+          <td>4.3.2 The database returns a response: Error writing transaction<br>
+            4.3.3 An entry is made in the log: Error writing transaction<br>
+            4.3.4 - 4.3.6 Returning a response “500 Internal Error” - Error: Transaction not created
+          </td>
+        </tr>
+        <tr>
+          <td><b>Alternative scenario: Not enough funds to complete transactions</b></td>
+          <td>3.1.2 An entry is made in the log: Insufficient funds<br>
+            3.1.3 - 3.1.5 Returning a “409 Conflict” response - Error: insufficient funds
+          </td>
+        </tr>
+        <tr>
+          <td rowspan=4><b>SQL queries</b></td>
+          <td>2.3 Checking the recipient and sender accounts:<br>SELECT COUNT(*) AS total FROM accounts WHERE user_id IN
+            (:sender_account_id, :recipient_account_id);</td>
+        </tr>
+        <tr>
+          <td>4.2 Creating a transaction:<br>INSERT INTO transactions (sender_account_id, recipient_account_id, amount,
+            status) VALUES (:sender_account_id, :recipient_account_id, :amount, :status)</td>
+        </tr>
+        <tr>
+          <td>5.1 Updating balances:<br> BEGIN;<br><br>
+
+            UPDATE accounts<br>
+            SET balance = balance - :amount <br>
+            WHERE account_id = :sender_account_id;<br><br>
+
+            UPDATE accounts <br>
+            SET balance = balance + :amount <br>
+            WHERE account_id = :recipient_account_id;<br><br>
+
+            COMMIT;
+          </td>
+        </tr>
+        <tr>
+          <td>5.2.7 Deleting a transaction: <br> DELETE FROM transactions WHERE transaction_id = :transaction_id;</td>
+        </tr>
+      </tbody>
+    </table>
+    <p></p>
+    <p>Once the money transfer process sequence has been defined, the API requests can be designed:</p>
+    <table>
+      <tbody>
+        <tr>
+          <td colspan=2 style="background-color: lightblue;">User requests</td>
+        </tr>
+        <tr>
+          <td colspan=2><b>POST /auth/login</b></td>
+        </tr>
+        <tr>
+          <td>Description</td>
+          <td>User login</td>
+        </tr>
+        <tr>
+          <td>Required fields</td>
+          <td>username, password</td>
+        </tr>
+        <tr>
+          <td>Request example</td>
+          <td>{<br> "username": "john", <br> "password": "1234"<br> }</td>
+        </tr>
+        <tr>
+          <td>Response example</td>
+          <td>{<br> "token": "jwt-token"<br> }</td>
+        </tr>
+        <tr>
+          <td>Response codes</td>
+          <td>200, 400, 401, 500</td>
+        </tr>
+        <tr>
+          <td colspan=2><b>GET /user/{id}</b></td>
+        </tr>
+        <tr>
+          <td>Description</td>
+          <td>Get profile</td>
+        </tr>
+        <tr>
+          <td>Response example</td>
+          <td>{<br> "id": "u1", <br>"username": "john" <br>}</td>
+        </tr>
+        <tr>
+          <td>Response codes</td>
+          <td>200, 401, 500</td>
+        </tr>
+        <tr>
+          <td colspan=2 style="background-color: lightblue;">Accounts requests</td>
+        </tr>
+        <tr>
+          <td colspan=2><b>GET /accounts</b></td>
+        </tr>
+        <tr>
+          <td>Description</td>
+          <td>List of accounts</td>
+        </tr>
+
+        <tr>
+          <td>Response example</td>
+          <td>[{<br>"id":"a1",<br>"account_id":"123"<br>}]</td>
+        </tr>
+        <tr>
+          <td>Response codes</td>
+          <td>200, 401, 500</td>
+        </tr>
+        <tr>
+          <td colspan=2><b>GET /accounts/{id}/balance</b></td>
+        </tr>
+        <tr>
+          <td>Description</td>
+          <td>Account balance</td>
+        </tr>
+        <tr>
+          <td>Required fields</td>
+          <td>id</td>
+        </tr>
+
+        <tr>
+          <td>Response example</td>
+          <td>{<br>"balance":"200.0" <br>}</td>
+        </tr>
+        <tr>
+          <td>Response codes</td>
+          <td>200, 401, 404, 500</td>
+        </tr>
+        <tr>
+          <td colspan=2 style="background-color: lightblue;">Transactions requests</td>
+        </tr>
+        <tr>
+          <td colspan=2><b>POST /transactions</b></td>
+        </tr>
+        <tr>
+          <td>Description</td>
+          <td>Creating a transaction</td>
+        </tr>
+        <tr>
+          <td>Required fields</td>
+          <td>sender_account_id, recipient_account_id, amount</td>
+        </tr>
+        <tr>
+          <td>Request example</td>
+          <td>{<br> "sender_account_id": "a1",<br> "recipient_account_id": "a2", <br>"amount": 50.0 <br>}</td>
+        </tr>
+        <tr>
+          <td>Response example</td>
+          <td>{<br> "transactionId": "t1" <br>}</td>
+        </tr>
+        <tr>
+          <td>Response codes</td>
+          <td>200, 400, 404, 409, 500</td>
+        </tr>
+        <tr>
+          <td colspan=2><b>GET /transactions/list</b></td>
+        </tr>
+        <tr>
+          <td>Description</td>
+          <td>All transactions</td>
+        </tr>
+        <tr>
+          <td>Response example</td>
+          <td>[{<br>"id":"t1",<br>"amount":50.0<br>}]</td>
+        </tr>
+        <tr>
+          <td>Response codes</td>
+          <td>200, 401, 500</td>
+        </tr>
+        <tr>
+          <td colspan=2><b>GET /transactions/{id}</b></td>
+        </tr>
+        <tr>
+          <td>Description</td>
+          <td>Transaction details</td>
+        </tr>
+        <tr>
+          <td>Response example</td>
+          <td>{ "id":"t1","amount":50.0,"description":"Payment" }</td>
+        </tr>
+        <tr>
+          <td>Response codes</td>
+          <td>200, 401, 404, 500</td>
+        </tr>
+      </tbody>
+    </table>
+    <p></p>
+    <p>Based on the endpoints described above, full documentation in Swagger has been generated: <a
+        href="case3/assets/openapi.yaml" target="_blank">download .yaml</a></p>
+    <div class="modal" id="modal" onclick="closeModal()">
+      <img id="modalImg">
+    </div>
+  </div>
