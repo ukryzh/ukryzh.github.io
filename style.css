@@ -479,6 +479,7 @@ th {
 .custom-table1 td {
   padding: 0;
   vertical-align: middle;
+  border: none;
 }
 
 .custom-table1 h2 {
@@ -486,9 +487,11 @@ th {
   margin: 0;
   padding: 0;
   text-align: left;
+  border: none;
 }
 
 .custom-table1 td:last-child {
   text-align: right;
+  border: none;
 }
 
