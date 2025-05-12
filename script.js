@@ -1,3 +1,4 @@
+const currentLang = location.pathname.includes('_en') ? 'en' : 'ru';
 const contentContainer = document.getElementById("mainContent");
 let resumeContent = contentContainer.innerHTML;
 
