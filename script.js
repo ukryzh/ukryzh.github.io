@@ -11,57 +11,40 @@ function loadCase(caseFile, clickedBtn = null) {
   activeCase = caseFile;
   activeButton = clickedBtn;
 
-document.querySelectorAll('.project-btn').forEach(button => {
-  const fileBase = button.dataset.file;
+  // Инициализация кнопок
+  document.querySelectorAll('.project-btn').forEach(button => {
+    const fileBase = button.dataset.file;
 
-  if (!button.dataset.originalText) {
-    button.dataset.originalText = button.textContent.trim();
-  }
-
-  button.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    const isBack = button.textContent.trim() === (currentLang === 'en' ? 'Back to Resume' : 'Назад к резюме');
-
-    if (isBack) {
-      goBackToResume();
-    } else {
-      const caseFile = currentLang === 'en' ? `${fileBase}_en.html` : `${fileBase}.html`;
-      button.textContent = currentLang === 'en' ? 'Back to Resume' : 'Назад к резюме';
-      button.classList.add('active-case', 'back-mode');
-      loadCase(caseFile, button);
+    if (!button.dataset.originalText) {
+      button.dataset.originalText = button.textContent.trim();
     }
 
-    // Сброс состояния других кнопок
-    document.querySelectorAll('.project-btn').forEach(btn => {
-      if (btn !== button) {
-        btn.classList.remove('active-case', 'back-mode');
-        if (btn.dataset.originalText) {
-          btn.textContent = btn.dataset.originalText;
-        }
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const isBack = button.textContent.trim() === (currentLang === 'en' ? 'Back to Resume' : 'Назад к резюме');
+
+      if (isBack) {
+        goBackToResume();
+      } else {
+        const caseFile = currentLang === 'en' ? `${fileBase}_en.html` : `${fileBase}.html`;
+        button.textContent = currentLang === 'en' ? 'Back to Resume' : 'Назад к резюме';
+        button.classList.add('active-case', 'back-mode');
+        loadCase(caseFile, button);
       }
+
+      // Сброс состояния других кнопок
+      document.querySelectorAll('.project-btn').forEach(btn => {
+        if (btn !== button) {
+          btn.classList.remove('active-case', 'back-mode');
+          if (btn.dataset.originalText) {
+            btn.textContent = btn.dataset.originalText;
+          }
+        }
+      });
     });
   });
-});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
   contentContainer.classList.remove("fade-in");
   contentContainer.classList.add("fade-out");
 
@@ -152,9 +135,6 @@ document.querySelectorAll('.project-btn').forEach(button => {
   }, 150);
 }
 
-
-
-
 function goBackToResume() {
   activeCase = null;
   activeButton = null;
@@ -181,7 +161,6 @@ function goBackToResume() {
   history.replaceState({}, "", location.pathname);
 }
 
-
 document.querySelectorAll('.project-btn').forEach(button => {
   const file = button.dataset.file;
 
@@ -198,8 +177,7 @@ document.querySelectorAll('.project-btn').forEach(button => {
 window.addEventListener('popstate', (event) => {
   if (event.state && event.state.caseFile) {
     const file = event.state.caseFile;
-    const matchingButton = [...document.querySelectorAll('.project-btn')]
-      .find(btn => btn.dataset.file === file);
+    const matchingButton = [...document.querySelectorAll('.project-btn')].find(btn => btn.dataset.file === file);
     loadCase(file, matchingButton);
   } else {
     goBackToResume();
@@ -209,8 +187,7 @@ window.addEventListener('popstate', (event) => {
 window.addEventListener('DOMContentLoaded', () => {
   const hash = location.hash.slice(1);
   if (hash) {
-    const matchingButton = [...document.querySelectorAll('.project-btn')]
-      .find(btn => btn.dataset.file === hash);
+    const matchingButton = [...document.querySelectorAll('.project-btn')].find(btn => btn.dataset.file === hash);
     loadCase(hash, matchingButton);
   }
 });
@@ -222,8 +199,6 @@ function openModal(src) {
   modalImg.src = src;
   modal.style.display = 'flex';
 }
-
-
 
 function closeModal() {
   document.getElementById('modal').style.display = 'none';
@@ -258,9 +233,6 @@ function changeSlide(direction) {
 document.getElementById('modalNext')?.addEventListener('click', () => changeSlide(1));
 document.getElementById('modalPrev')?.addEventListener('click', () => changeSlide(-1));
 
-
-
-
 // Закрытие модального окна по клавише Esc
 document.addEventListener('keydown', function (event) {
   const modal = document.getElementById('modal');
@@ -294,9 +266,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-
-
-
 document.getElementById('modalImg').addEventListener('click', function (e) {
   const bounds = this.getBoundingClientRect();
   const clickX = e.clientX;
@@ -307,6 +276,7 @@ document.getElementById('modalImg').addEventListener('click', function (e) {
     changeSlide(1);
   }
 });
+
 document.addEventListener('keydown', function (event) {
   const modal = document.getElementById('modal');
   if (modal.style.display === 'flex') {
@@ -321,8 +291,6 @@ document.addEventListener('keydown', function (event) {
     }
   }
 });
-
-
 
 document.addEventListener('DOMContentLoaded', function () {
   const scrollButton = document.querySelector('.scroll-to-top');
@@ -347,5 +315,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
-
-
