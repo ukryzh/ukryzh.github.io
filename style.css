@@ -468,6 +468,6 @@ th {
   text-decoration: none !important;
 }
 
-custom-table1 table, th, td {
+.custom-table1 {
   border: none;
 }
