@@ -34,7 +34,7 @@
         Business Requirements Document (BRD) <span class="arrow">❯</span>
     </button>
     <div id="report1" class="report-content">
-        <h4><a href="case2/assets/brd_en.pdf" target="blank">PDF version of BRD</a></h4>
+        <h4><a href="../case2/assets/brd_en.pdf" target="blank">PDF version of BRD</a></h4>
         <p></p>
         <p><b>Summary</b></p>
         <p>Description of a new feature for the Internet banking application: the ability to hide accounts in the user's
@@ -118,7 +118,7 @@
             "My accounts" list)<br>
             UC-4: Error when trying to hide a primary / blocked account (When trying to hide a primary or blocked
             account, a notification appears with the text "Unable to hide the account" and an "OK" button.)</p>
-        <img src="case2/assets/use-case_en.png" class="zoomable-img" alt="Use-case-scheme" width=100%
+        <img src="../case2/assets/use-case_en.png" class="zoomable-img" alt="Use-case-scheme" width=100%
             onclick="openModal(this.src)">
 
         <p>
@@ -196,7 +196,7 @@
         Software Requirements Specification (SRS) <span class="arrow">❯</span>
     </button>
     <div id="report2" class="report-content">
-        <h4><a href="case2/assets/srs_en.pdf" target="blank">PDF version of SRS</a></h4>
+        <h4><a href="../case2/assets/srs_en.pdf" target="blank">PDF version of SRS</a></h4>
         <p></p>
         <p><b>Specification of the new functionality for hiding an account in the Bank's mobile application</b></p>
         <p><b>1. Introduction</b></p>
@@ -261,7 +261,7 @@
                 <h4>3.1 Hiding an account (UC-1)</h4>
                 <p><b>Description:</b> the user can hide the display of the selected account in the general list of
                     accounts, if this account is not the primary or blocked.</p>
-                <img src="case2/assets/UC-1_en.png" class="zoomable-img" alt="UC1-scheme" width=100%
+                <img src="../case2/assets/UC-1_en.png" class="zoomable-img" alt="UC1-scheme" width=100%
                     onclick="openModal(this.src)">
                 <p><b>Functionality:</b></p>
                 <ul class="skill-list-small">
@@ -327,7 +327,7 @@
                 <h4>3.2 Viewing hidden accounts (UC-2)</h4>
                 <p><b>Description:</b> the user can open the list of all hidden accounts in the "Account settings"
                     section or a separate "Hidden accounts" screen.</p>
-                <img src="case2/assets/UC-2_en.png" class="zoomable-img" alt="UC2-scheme" width=100%
+                <img src="../case2/assets/UC-2_en.png" class="zoomable-img" alt="UC2-scheme" width=100%
                     onclick="openModal(this.src)">
                 <p></p>
                 <p><b>API request: GET /accounts?is_hidden=true</b></p>
@@ -397,7 +397,7 @@
                 <h4>3.3 Recovering a hidden account (UC-3)</h4>
                 <p><b>Description:</b> the user can return the display of a previously hidden account in the general
                     list.</p>
-                <img src="case2/assets/UC-3_en.png" class="zoomable-img" alt="UC3-scheme" width=100%
+                <img src="../case2/assets/UC-3_en.png" class="zoomable-img" alt="UC3-scheme" width=100%
                     onclick="openModal(this.src)">
                 <p><b>API request: PATCH /accounts/{id}/visibility</b></p>
                 <p>Request: <b>{ "is_hidden": false }</b></p>
