@@ -32,18 +32,18 @@
 
   <p>Presentation of results</p>
   <p></p>
-  <h4><a href="case1/assets/pres_en.pdf" target="blank">PDF version of the presentation</a></h4>
+  <h4><a href="../case1/assets/pres_en.pdf" target="blank">PDF version of the presentation</a></h4>
   <p></p>
   <div class="slider-wrapper">
     <button class="scroll-btn left" onclick="scrollGallery(-1)">❮</button>
 
     <div class="slide-gallery" id="slideGallery">
-      <img src="case1/assets/s1_en.PNG" class="zoomable-slide" alt="Slide 1" onclick="openModal(this.src)">
-      <img src="case1/assets/s2_en.PNG" class="zoomable-slide" alt="Slide 2" onclick="openModal(this.src)">
-      <img src="case1/assets/s3_en.PNG" class="zoomable-slide" alt="Slide 3" onclick="openModal(this.src)">
-      <img src="case1/assets/s4_en.PNG" class="zoomable-slide" alt="Slide 4" onclick="openModal(this.src)">
-      <img src="case1/assets/s5_en.PNG" class="zoomable-slide" alt="Slide 5" onclick="openModal(this.src)">
-      <img src="case1/assets/s6_en.PNG" class="zoomable-slide" alt="Slide 6" onclick="openModal(this.src)">
+      <img src="../case1/assets/s1_en.PNG" class="zoomable-slide" alt="Slide 1" onclick="openModal(this.src)">
+      <img src="../case1/assets/s2_en.PNG" class="zoomable-slide" alt="Slide 2" onclick="openModal(this.src)">
+      <img src="../case1/assets/s3_en.PNG" class="zoomable-slide" alt="Slide 3" onclick="openModal(this.src)">
+      <img src="../case1/assets/s4_en.PNG" class="zoomable-slide" alt="Slide 4" onclick="openModal(this.src)">
+      <img src="../case1/assets/s5_en.PNG" class="zoomable-slide" alt="Slide 5" onclick="openModal(this.src)">
+      <img src="../case1/assets/s6_en.PNG" class="zoomable-slide" alt="Slide 6" onclick="openModal(this.src)">
       <!-- etc. -->
     </div>
 
@@ -60,7 +60,7 @@
   </button>
   <div id="report1" class="report-content">
 
-    <h4><a href="case1/assets/pdf_en.pdf" target="blank">PDF version of the report</a></h4>
+    <h4><a href="../case1/assets/pdf_en.pdf" target="blank">PDF version of the report</a></h4>
     <p></p>
     <p>Report on the analysis of the business process "Verification of client data (individuals) within the lending process"</p>
     <p></p>
@@ -146,7 +146,7 @@
       <li>Bank employees in a broad sense</li>
     </ul>
     <p><b>2.2. Graphical representation</b></p>
-    <img src="case1/assets/as_is_en.png" class="zoomable-img" alt="BPMN diagram" width=100% onclick="openModal(this.src)">
+    <img src="../case1/assets/as_is_en.png" class="zoomable-img" alt="BPMN diagram" width=100% onclick="openModal(this.src)">
     <p></p>
     <p><b>2.3. Stages of the process</b></p>
     <p>The process of verification of individuals consists of the following stages:</p>
@@ -384,11 +384,11 @@
     <p>The logs of the Automated Information System, in which the data verification process is carried out, were
       analyzed.
       Below is the conversion of the process stages (200 copies)</p>
-    <img src="case1/assets/conversion_en.png" class="zoomable-img" alt="Process Conversion" width=100%
+    <img src="../case1/assets/conversion_en.png" class="zoomable-img" alt="Process Conversion" width=100%
       onclick="openModal(this.src)">
     <p></p>
     <p>A diagram of the distribution of reasons for refusals to clients in lending is also presented</p>
-    <img src="case1/assets/rejection_reasons_en.png" class="zoomable-img" alt="Reasons for refusals" width=100%
+    <img src="../case1/assets/rejection_reasons_en.png" class="zoomable-img" alt="Reasons for refusals" width=100%
       onclick="openModal(this.src)">
     <p></p>
     <p><b>3. Identified problems and bottlenecks</b></p>
@@ -553,9 +553,9 @@
       <li>If changes occur in the process, they are entered into the BPM system and the RPA behavior algorithm</li>
       <li>The effectiveness of the process and its changes are assessed in the BPM system</li>
     </ul>
-    <img src="case1/assets/uipath1_en.png" class="zoomable-img" alt="UiPath" width=100% onclick="openModal(this.src)">
-    <img src="case1/assets/uipath2_en.png" class="zoomable-img" alt="UiPath" width=100% onclick="openModal(this.src)">
-    <img src="case1/assets/uipath3_en.png" class="zoomable-img" alt="UiPath" width=100% onclick="openModal(this.src)">
+    <img src="../case1/assets/uipath1_en.png" class="zoomable-img" alt="UiPath" width=100% onclick="openModal(this.src)">
+    <img src="../case1/assets/uipath2_en.png" class="zoomable-img" alt="UiPath" width=100% onclick="openModal(this.src)">
+    <img src="../case1/assets/uipath3_en.png" class="zoomable-img" alt="UiPath" width=100% onclick="openModal(this.src)">
 
     <p>2. Additional optimization activities (e.g., security service and underwriting service) require additional
       analysis. </p>
@@ -674,11 +674,11 @@
   <div id="report2" class="report-content">
     <p>For the business case, generated data close to real data of the banking process were used:<br><br>
       1. At the beginning, data on applications (200 pcs) and their status were randomly generated (automated using
-      Python: <a href="case1/assets/generate_data_en.py" target="_blank">generate_data.py</a>)<br>
+      Python: <a href="../case1/assets/generate_data_en.py" target="_blank">generate_data.py</a>)<br>
       2. Then, for each application, stages and the time of their passage by the application were generated (process
-      log, automated using Python: <a href="case1/assets/generate_statistics_en.py"
+      log, automated using Python: <a href="../case1/assets/generate_statistics_en.py"
         target="_blank">generate_statistics.py</a>)</p>
-    <p>The obtained data was used to build a BPMN diagram in Camunda (<a href="case1/assets/AS-IS_en.bpmn"
-        target="_blank">as-is.bpmn</a>), as well as for analytics in Power BI (<a href="case1/assets/analytics_en.pbix"
+    <p>The obtained data was used to build a BPMN diagram in Camunda (<a href="../case1/assets/AS-IS_en.bpmn"
+        target="_blank">as-is.bpmn</a>), as well as for analytics in Power BI (<a href="../case1/assets/analytics_en.pbix"
         target="_blank">analytics.pbix</a>)</p>
   </div>
