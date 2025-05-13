@@ -21,13 +21,13 @@
     Money transfer service integration project <span class="arrow">❯</span>
   </button>
   <div id="report1" class="report-content">
-    <h4><a href="case3/assets/pdf_en.pdf" target="blank">PDF version of the project</a></h4>
+    <h4><a href="../case3/assets/pdf_en.pdf" target="blank">PDF version of the project</a></h4>
     <p></p>
     <p><b>Business requirements for new functionality</b></p>
     <p></p>
     <p>This project examines the functionality of the money transfer (transaction) service. The Use-case diagram below
       shows how this service interacts with other services for the client</p>
-    <img src="case3/assets/UC-transaction_en.png" class="zoomable-img" alt="Use Case" width=100%
+    <img src="../case3/assets/UC-transaction_en.png" class="zoomable-img" alt="Use Case" width=100%
       onclick="openModal(this.src)">
     <p></p>
     <p>There are three main classes interacting within this service:<br>
@@ -35,12 +35,12 @@
       2. Accounts<br>
       3. Transactions</p>
     <p>The class diagram below shows their attributes, methods, and relationships:</p>
-    <img src="case3/assets/class_transaction.png" class="zoomable-img" alt="Class diagram" width=100%
+    <img src="../case3/assets/class_transaction.png" class="zoomable-img" alt="Class diagram" width=100%
       onclick="openModal(this.src)">
     <p></p>
     <p>Based on this diagram an ER diagram has been built and tables have been created in the database for further
       interaction with the service interface.</p>
-    <img src="case3/assets/ERD.png" class="zoomable-img" alt="ERD" width=100% onclick="openModal(this.src)">
+    <img src="../case3/assets/ERD.png" class="zoomable-img" alt="ERD" width=100% onclick="openModal(this.src)">
     <p>The LucidChart toolkit allows you to immediately export an ER diagram in the format of SQL queries for generating
       tables. The following SQL queries are required to create the required tables:</p>
     <table>
@@ -94,7 +94,7 @@
     <p>After describing the classes and databases involved in the money transfer process, it is necessary to describe
       the interaction of these components. Below is a sequence diagram
       showing the main steps in the money transfer process.</p>
-    <img src="case3/assets/sequence_en.png" class="zoomable-img " alt="Sequence-diagram" width=100%
+    <img src="../case3/assets/sequence_en.png" class="zoomable-img " alt="Sequence-diagram" width=100%
       onclick="openModal(this.src, true)">
     <p></p>
     <p>Detailed description of the money transfer process:</p>
@@ -362,7 +362,7 @@
     </table>
     <p></p>
     <p>Based on the endpoints described above, full documentation in Swagger has been generated: <a
-        href="case3/assets/openapi.yaml" target="_blank">download .yaml</a></p>
+        href="../case3/assets/openapi.yaml" target="_blank">download .yaml</a></p>
     <div class="modal" id="modal" onclick="closeModal()">
       <img id="modalImg">
     </div>
