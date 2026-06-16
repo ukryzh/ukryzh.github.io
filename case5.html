@@ -1,4 +1,63 @@
 <div class="case-content">
-  <h2>Проект 5 – Аналитика в банке</h2>
-  <p>Описание проекта, чем занималась, какие результаты, какой стек.</p>
+  <h2>ИИ-проекты</h2>
+  <p>Пет-проекты, реализованные самостоятельно с помощью AI-assisted разработки. Позволяют проверять продуктовые гипотезы и отрабатывать полный цикл — от идеи и требований до рабочего продукта.</p>
+
+  <button class="toggle-report" data-target="choice-report">
+    choice — трекер цикла (Android) <span class="arrow">❯</span>
+  </button>
+  <div id="choice-report" class="report-content">
+    <p><b>Стек:</b> Flutter / Dart, Android · AES-256 шифрование · Firebase (encrypted blobs) · Hive/Isar</p>
+    <p><b>Идея:</b> большинство трекеров цикла монетизируются за счёт продажи интимных данных пользователей. Choice строится на одном принципе — разработчик не должен иметь доступа к данным пользователя никогда.</p>
+    <p><b>Что реализовано:</b></p>
+    <ul class="skill-list-small">
+      <li>Трекинг цикла и симптомов, история и прогнозы</li>
+      <li>Шифрование AES-256 на устройстве до отправки в облако (per-record ключи)</li>
+      <li>Опциональный зашифрованный бэкап и восстановление на новом устройстве</li>
+      <li>Полное удаление данных (локально и в облаке)</li>
+      <li>Работает без регистрации</li>
+    </ul>
+    <p><b>BA-документация (вся — до строчки кода):</b></p>
+    <ul class="skill-list-small">
+      <li>Исследование рынка — анализ конкурентов и пробела в privacy-first сегменте</li>
+      <li>BRD — бизнес-требования и цели проекта</li>
+      <li>PRD — пользовательские сценарии и user journeys</li>
+      <li>SRS — архитектура, модель безопасности, нефункциональные требования</li>
+      <li>Regulatory compliance — GDPR, HIPAA, требования Google Play</li>
+      <li>ERD — модель данных</li>
+    </ul>
+    <p><b>Статус:</b> MVP pre-release. APK и Google Play-релиз в работе.</p>
+    <p>
+      <a href="https://github.com/ukryzh/choice" target="_blank">GitHub →</a>
+      &nbsp;&nbsp;
+      <a href="https://ukryzh.github.io/choice/" target="_blank">Лендинг →</a>
+    </p>
+  </div>
+
+  <button class="toggle-report" data-target="recorder-report">
+    MeetRecorder — транскрибатор встреч <span class="arrow">❯</span>
+  </button>
+  <div id="recorder-report" class="report-content">
+    <p><b>Стек:</b> Python · OpenAI Whisper · ffmpeg · VB-Cable</p>
+    <p><b>Идея:</b> автоматически записывать Google Meet и другие видеозвонки и получать текстовый транскрипт без подписок и облаков — всё на локальной машине.</p>
+    <p><b>Что делает:</b></p>
+    <ul class="skill-list-small">
+      <li>Записывает экран + аудио встречи через виртуальный аудиокабель</li>
+      <li>Автоматически транскрибирует через Whisper после остановки записи</li>
+      <li>Сохраняет mp4, mp3 и transcript.txt в папку встречи</li>
+      <li>Простой GUI — нажал «Начать», нажал «Стоп», получил файлы</li>
+    </ul>
+    <p><b>Инструменты:</b> Python (tkinter, subprocess), Whisper (локально), ffmpeg для конвертации аудио, VB-Cable для захвата системного звука</p>
+  </div>
+
+  <button class="toggle-report" data-target="signs-report">
+    Cyprus Road Signs — квиз по дорожным знакам <span class="arrow">❯</span>
+  </button>
+  <div id="signs-report" class="report-content">
+    <p>Веб-приложение для изучения дорожных знаков Кипра в формате карточек-флэшкард. Написано на HTML/JS, задеплоено на Vercel.</p>
+    <p>
+      <a href="https://github.com/ukryzh/cyprus_road_signs" target="_blank">GitHub →</a>
+      &nbsp;&nbsp;
+      <a href="https://project-pwl5t.vercel.app" target="_blank">Открыть приложение →</a>
+    </p>
+  </div>
 </div>
