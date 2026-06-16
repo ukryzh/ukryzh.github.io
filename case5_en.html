@@ -1,0 +1,71 @@
+<div class="case-content">
+  <h2>AI Projects</h2>
+  <br>
+  <p>Pet projects built independently using AI-assisted development. Used to test product hypotheses and work through the full cycle — from idea and requirements to a working product.</p>
+
+  <button class="toggle-report" data-target="choice-report">
+    Choice - cycle tracker (Android) <span class="arrow">❯</span>
+  </button>
+  <div id="choice-report" class="report-content">
+    <p>
+      <a href="https://github.com/ukryzh/choice" target="_blank">GitHub</a>
+      &nbsp;&nbsp;
+      <a href="https://ukryzh.github.io/choice/" target="_blank">Project landing page</a>
+    </p>
+    <p><b>Stack:</b> Flutter / Dart, Android · AES-256 encryption · Firebase (encrypted blobs) · Hive/Isar</p>
+    <p><b>Idea:</b> most cycle trackers monetize by selling users' intimate data. Choice is built on one principle — the developer should never have access to user data.</p>
+    <p><b>What's implemented:</b></p>
+    <ul class="skill-list-small">
+      <li>Cycle and symptom tracking, history and predictions</li>
+      <li>AES-256 on-device encryption before cloud upload (per-record keys)</li>
+      <li>Optional encrypted backup and restore on a new device</li>
+      <li>Full data deletion (local and cloud)</li>
+      <li>Works without registration</li>
+    </ul>
+    <p><b>BA documentation:</b></p>
+    <ul class="skill-list-small">
+      <li>Market research — competitor analysis and privacy-first segment gap analysis</li>
+      <li>BRD — business requirements and project objectives</li>
+      <li>PRD — user scenarios and user journeys</li>
+      <li>SRS — architecture, security model, non-functional requirements</li>
+      <li>Regulatory compliance — GDPR, HIPAA, Google Play requirements</li>
+      <li>ERD — data model</li>
+    </ul>
+    <p><b>Status:</b> MVP pre-release. APK published on GitHub.</p>
+    <img src="case5/choice.jpg" alt="choice_demo_screenshot" style="max-width: 100%; border-radius: 6px; margin: 10px 0;">
+
+  </div>
+
+  <button class="toggle-report" data-target="recorder-report">
+    MeetRecorder - meeting transcriber <span class="arrow">❯</span>
+  </button>
+  <div id="recorder-report" class="report-content">
+    <p>
+      <a href="https://github.com/ukryzh/meet_recorder" target="_blank">GitHub</a>
+    </p>
+    <p><b>Stack:</b> Python · OpenAI Whisper · ffmpeg · VB-Cable</p>
+    <p><b>Idea:</b> a tool for recording screen and meetings and getting a text transcript locally, without third-party services.</p>
+    <p><b>What it does:</b></p>
+    <ul class="skill-list-small">
+      <li>Records screen + audio via virtual audio cable</li>
+      <li>Automatically transcribes via Whisper after recording stops</li>
+      <li>Saves mp4, mp3, and transcript.txt to a meeting folder</li>
+      <li>Supports transcription of existing audio and video recordings</li>
+    </ul>
+    <p><b>Tools:</b> Python (tkinter, subprocess), Whisper (local), ffmpeg for audio conversion, VB-Cable for system audio capture</p>
+    <img src="case5/meetrecorder.png" alt="meetrecorder demo screenshot" style="max-width: 100%; border-radius: 6px; margin: 10px 0;">
+  </div>
+
+  <button class="toggle-report" data-target="signs-report">
+    Cyprus Road Signs - flashcard app for learning road signs <span class="arrow">❯</span>
+  </button>
+  <div id="signs-report" class="report-content">
+    <p>
+      <a href="https://github.com/ukryzh/cyprus_road_signs" target="_blank">GitHub</a>
+      &nbsp;&nbsp;
+      <a href="https://project-pwl5t.vercel.app" target="_blank">Open app</a>
+    </p>
+    <p>A web app for learning Cyprus road signs in flashcard format. Built with HTML/JS, deployed on Vercel.</p>
+    <img src="case5/cyprus_road_signs.jpg" alt="app demo screenshot" style="max-width: 100%; border-radius: 6px; margin: 10px 0;">
+  </div>
+</div>
